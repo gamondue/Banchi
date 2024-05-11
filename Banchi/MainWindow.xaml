@@ -28,7 +28,7 @@
         <StackPanel x:Name="BarraComboBox" Orientation="Horizontal">
             <!-- barra dei combo box -->
             <Label Content="Aule" />
-            <ComboBox x:Name="cmbClassi" IsEditable="True"/>
+            <ComboBox x:Name="cmbAule" IsEditable="True"/>
         </StackPanel>
         <StackPanel x:Name="BarraIcone" />
         <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" 

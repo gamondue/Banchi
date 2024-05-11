@@ -1,4 +1,4 @@
-#Banchi 
+# Banchi 
 "Banchi" è un programma per la localizzazione degli studenti fra i banchi di un'aula scolastica.
 
 È scritto in C# con tecnologia WPF e mira a fornire un'interfaccia utente semplice per tenere traccia delle posizioni dei banchi, degli allievi e dei computer nelle aule di una scuola.  
