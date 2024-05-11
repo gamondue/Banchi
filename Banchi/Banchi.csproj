@@ -17,9 +17,4 @@
     <None Remove="Model\**" />
     <Page Remove="Model\**" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="BusinessLayer\" />
-    <Folder Include="DataLayer\" />
-  </ItemGroup>
 </Project>

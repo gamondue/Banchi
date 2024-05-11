@@ -1,13 +1,13 @@
 ﻿
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Banchi
 {
     internal class Banco
     {
+        // proprietà 
         public Point Position { get; set; }
         public Size Size { get; set; }
         Label GraficaBanco { get; set; }
@@ -15,7 +15,7 @@ namespace Banchi
         public int CodiceBanco { get; set; }
         public string NomeClasse { get; set; }
         public string CognomeNomeStudente { get; set; }
-
+        // costruttore 
         public Banco(Label GraficaBanco, bool IsCattedra)
         {
             this.IsCattedra = IsCattedra;
