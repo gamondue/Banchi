@@ -1,8 +1,8 @@
-﻿namespace Banchi.DataLayer
+﻿namespace Banchi
 {
     internal static partial class DataLayer
     {
-        internal static List<Aula> ListLeggiTutteLeAule()
+        internal static List<Aula> LeggiTutteLeAule()
         {
             List<Aula> lista = new List<Aula>();
             Aula a = new Aula("L13", 10.2, 5.1);
@@ -14,7 +14,7 @@
 
             return lista;
         }
-        internal static List<Classe> ListLeggiTutteLeClassi()
+        internal static List<Classe> LeggiTutteLeClassi()
         {
             throw new NotImplementedException();
         }

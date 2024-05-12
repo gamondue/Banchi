@@ -1,14 +1,14 @@
-﻿namespace Banchi.DataLayer
+﻿namespace Banchi
 {
     internal static partial class BusinessLayer
     {
-        internal static List<Classe> ListLeggiTutteLeClassi()
+        internal static List<Classe> LeggiTutteLeClassi()
         {
-            return DataLayer.ListLeggiTutteLeClassi();
+            return DataLayer.LeggiTutteLeClassi();
         }
-        internal static List<Aula> ListLeggiTutteLeAule()
+        internal static List<Aula> LeggiTutteLeAule()
         {
-            return DataLayer.ListLeggiTutteLeAule();
+            return DataLayer.LeggiTutteLeAule();
         }
     }
 }

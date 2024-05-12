@@ -13,19 +13,34 @@ namespace Banchi
     {
         bool isDragging = false;
         private Point startPosition;
-
-        Banco b; 
+        Banco banco; 
         public MainWindow()
         {
             InitializeComponent();
+            // legge tutte le aule dal "database" e le mette in una lista
+            List<Aula> listaAule = BusinessLayer.LeggiTutteLeAule();
+            // riempimento del ComboBox con le aule appena lette
+            foreach (Aula a in listaAule)
+            {
+                // un combo può contenere oggetti di qualsiasi tipo, però per vederci qualcosa dentro
+                // devo implementare il metodo ToString() dentro listaAule classe Aule
+                cmbAule.Items.Add(a);
+            }
+            // esempi di inizializzazione di un ComboBox
+            cmbAule.SelectedIndex = 1; // seleziona listaAule seconda aula
+            cmbAule.SelectedItem = cmbAule.Items[1]; // seleziona listaAule seconda aula
+            // recupera il nome dell'aula selezionata 
+            string aulaSelezionata = ((Aula)cmbAule.SelectedItem).NomeAula;
+            // recupera l'altezza dell'aula selezionata
+            double altezzaAula = ((Aula)cmbAule.SelectedItem).AltezzaInMetri;
 
-            // operazioni di inizializzazione da farsi per ogni banco
+            // operazioni di inizializzazione da farsi per ogni banco che voglio creare
             // creazione dell'oggetto grafico che rappresenta il banco
             Label grafica = new Label();
             // creazione del banco, passando l'oggetto grafico
-            // la classe Banco definirà l'aspetto e il comportamento del banco
-            // il tavolo assume la sua posizione e dimensione di default
-            b = new Banco(grafica, false);
+            // listaAule classe Banco definirà l'aspetto e il comportamento del banco
+            // il tavolo assume listaAule sua posizione e dimensione di default
+            banco = new Banco(grafica, false);
             // aggiunta del banco all'area di disegno (Canvas)
             AreaDisegno.Children.Add(grafica);
             // metodi delegati per gestione drag and drop
@@ -74,13 +89,11 @@ namespace Banchi
                 label.ReleaseMouseCapture();
             }
         }
-
         private void MenuAula_Click(object sender, RoutedEventArgs e)
         {
             AulaWindow wnd = new AulaWindow();
             wnd.Show();
         }
-
         // commentati, gli stessi metodi delegati, ma che funzionano nel Canvas
         ////
         ////Evento per iniziare il drag and drop
