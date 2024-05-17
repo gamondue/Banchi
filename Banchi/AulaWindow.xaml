@@ -7,6 +7,38 @@
         mc:Ignorable="d"
         Title="Aula" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,342" x:Name="NomeAula">
+            <Label Width="100"/>
+            
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,342" x:Name="DimensioniAula">
+            <Label Content="Dimensione Aula" Width="127" Height="30" Margin="30"/>
+            <Label Content="Altezza" Width="50" Height="30" Margin="5"/>
+            <TextBox x:Name="txtBase" Width="100" Height="30"/>
+            <Label Width="40"/>
+            <Label Content="Base" Width="38" Height="30"/>
+            <TextBox x:Name="txtAltezza" Width="100" Margin="5" Height="30"/>
+            <Label Width="80"/>
+            <Button x:Name="btn_ConfermaDim" Click="btnClick_ConfermaDim" Width="150" Height="20" Content="Conferma Dimensioni"/>
+
+        </StackPanel>
+        <StackPanel Margin="0,92,608,0" x:Name="FinestrePorte">
+            <Label Height="15"/>
+            <RadioButton GroupName="radioBtnFinestre" x:Name="radioBtnFinestre" Content="Finestre" Margin="3"/>
+            <RadioButton GroupName="radioBtnFinestre" x:Name="radioBtnPorte" Content="Porte" Margin="3"/>
+            <RadioButton GroupName="radioBtnFinestre" x:Name="radioBtnNiente" Content="Niente" IsChecked="True" Margin="3"/>
+            <Button x:Name="btn_ConfermaFinestra" Content="Conferma Finestra o Porta" Margin="10"/>
+            <Label Height="20"/>
+            <RadioButton GroupName="radioBtnBanco" x:Name="radioBtnBanco" Content="Banco" Margin="3"/>
+            <RadioButton GroupName="radioBtnBanco" x:Name="radioBtnCattedra" Content="Cattedra" Margin="3"/>
+            <RadioButton GroupName="radioBtnBanco" x:Name="radioBtnNessuno" Content="Niente" IsChecked="True" Margin="3"/>
+            <Button x:Name="btn_ConfermaBanco" Content="Conferma Banco o Cattedra" Margin="10"/>
+            
+        </StackPanel>
+        <StackPanel Margin="192,92,0,0" x:Name="Canvas">
+            <Canvas x:Name="canvasC">
+
+            </Canvas>
+        </StackPanel>
     </Grid>
 </Window>

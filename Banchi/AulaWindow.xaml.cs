@@ -22,7 +22,24 @@ namespace Banchi
         public AulaWindow()
         {
             InitializeComponent();
-            //mi piace la ciola
+            FinestrePorte.Visibility = Visibility.Hidden;
+            Canvas.Visibility = Visibility.Hidden;
+            
+        }
+
+        private void btnClick_ConfermaDim(object sender, RoutedEventArgs e)
+        {
+            if (Convert.ToDouble(txtBase.Text) > 0.0 && Convert.ToDouble(txtAltezza.Text) > 0.0)
+            {
+                DimensioniAula.Visibility = Visibility.Hidden;
+                FinestrePorte.Visibility = Visibility.Visible;
+                Canvas.Visibility = Visibility.Visible;
+                double base2 = Convert.ToDouble(txtBase.Text);
+                double altezza2 = Convert.ToDouble(txtAltezza.Text);
+                Aula aula1 = new(txtNome, altezza2, base2);
+                
+            }
+
         }
     }
 }
