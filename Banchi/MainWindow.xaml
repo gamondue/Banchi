@@ -23,18 +23,33 @@
         <StackPanel x:Name="BarraCheckbox" Orientation="Horizontal">
             <!--barra delle icone e dei pulsanti -->
             <CheckBox Content="Posizionare i banchi"/>
-            <TextBox x:Name="txtNome"/>
+            <Label>larghezza</Label>
+            <TextBox x:Name="txt_Larghezza" Width="94"/>
+            <Label>lunghezza</Label>
+            <TextBox x:Name="txt_Lunghezza" Width="94"/>
+            <Button x:Name="btn_NuovoBanco" Content="Nuovo banco" Click="btn_NuovoBanco_Click"/>
+            <CheckBox x:Name="chk_VisualizzazioneGrigliaModificaBanchi" Content="Sistemazione banchi"/>
         </StackPanel>
         <StackPanel x:Name="BarraComboBox" Orientation="Horizontal">
             <!-- barra dei combo box -->
             <Label Content="Aule" />
             <ComboBox x:Name="cmbAule" IsEditable="False"/>
+            <ComboBox x:Name="cmb_Classe" IsEditable="False"/>
+
+
         </StackPanel>
         <StackPanel x:Name="BarraIcone" />
-        <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" 
-                Background="White">
-            <!-- canvas dove disegnamo l'aula ed i banchi. I banchi vengono creati dal programma -->
-            <!-- Prova -->
-        </Canvas>
+        <StackPanel x:Name="stack_ListaNomiAlunni" Orientation="Horizontal" HorizontalAlignment="Left">
+            
+            <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" 
+                Background="White" Width="600" Height="364">
+                <!-- canvas dove disegnamo l'aula ed i banchi. I banchi vengono creati dal programma -->
+                <!-- Prova -->
+
+            </Canvas>
+            <ListBox x:Name="lst_NomiAlunni" Width="200" Height="365" />
+        </StackPanel>
+
     </StackPanel>
+
 </Window>
