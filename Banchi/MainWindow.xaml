@@ -19,6 +19,9 @@
                 <MenuItem Header="Nuova _aula" x:Name="MenuAula" Click="MenuAula_Click"/>
                 <MenuItem Header="_Posizionare i banchi" IsCheckable="True" IsChecked="True"/>
             </MenuItem>
+            <MenuItem x:Name="MenuHelp" Header="_Help">
+                <MenuItem Header="About" x:Name="MenuAbout" Click="MenuAbout_Click"/>
+            </MenuItem>
         </Menu>
         <StackPanel x:Name="BarraCheckbox" Orientation="Horizontal">
             <!--barra delle icone e dei pulsanti -->
@@ -35,17 +38,12 @@
             <Label Content="Aule" />
             <ComboBox x:Name="cmbAule" IsEditable="False"/>
             <ComboBox x:Name="cmb_Classe" IsEditable="False"/>
-
-
         </StackPanel>
         <StackPanel x:Name="BarraIcone" />
         <StackPanel x:Name="stack_ListaNomiAlunni" Orientation="Horizontal" HorizontalAlignment="Left">
-            
             <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" 
                 Background="White" Width="600" Height="364">
                 <!-- canvas dove disegnamo l'aula ed i banchi. I banchi vengono creati dal programma -->
-                <!-- Prova -->
-
             </Canvas>
             <ListBox x:Name="lst_NomiAlunni" Width="200" Height="365" />
         </StackPanel>

@@ -40,9 +40,7 @@ namespace Banchi
             //    cmb_Classe.Items.Add(a);
             //}
             //cmb_Classe.SelectedIndex = 1;
-            //cmb_Classe.SelectedItem = cmb_Classe.Items[1];
-
-            
+            //cmb_Classe.SelectedItem = cmb_Classe.Items[1];           
         }
         // implementazione dei metodi delegati per gestione drag and drop
         // evento per iniziare il drag and drop, quando l'utente clicca sul banco
@@ -90,7 +88,6 @@ namespace Banchi
             AulaWindow wnd = new AulaWindow();
             wnd.Show();
         }
-
         private void btn_NuovoBanco_Click(object sender, RoutedEventArgs e)
         {
             // operazioni di inizializzazione da farsi per ogni banco che voglio creare
@@ -109,6 +106,12 @@ namespace Banchi
             grafica.MouseDown += ClickSuBanco;
             grafica.MouseMove += MovimentoSuBanco;
             grafica.MouseUp += MouseUpSuBanco;
+        }
+
+        private void MenuAbout_Click(object sender, RoutedEventArgs e)
+        {
+            AboutWindow wnd = new AboutWindow();
+            wnd.Show();
         }
         // commentati, gli stessi metodi delegati, ma che funzionano nel Canvas
         ////
