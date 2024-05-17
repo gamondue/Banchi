@@ -8,40 +8,45 @@ namespace Banchi
         static List<Classe> listaClassi = new List<Classe>();
         static List<Studente> listaStudenti = new List<Studente>();
         static string[] arraySupporto= new string[100];
-        internal static List<Aula> LeggiTutteLeAule() //da fare tutti i leggi (abbiamo fatto dei fake)
-        {
-            Aula a = new Aula("L13", 10.2, 5.1);
-            listaAule.Add(a);
-            a = new Aula("P12", 10.2, 5.1);
-            listaAule.Add(a);
-            a = new Aula("L10", 10.2, 5.1);
-            listaAule.Add(a);
 
+        internal static List<Aula> LeggiTutteLeAule()
+        {
+            string[] stringheLette = File.ReadAllLines("Aule.tsv");
+            string[] split = new string[3];
+            for (int i = 1; i < stringheLette.Length; i++)
+            {
+                split = stringheLette[i].Split("\t");
+                Aula a = new Aula(split[0], Convert.ToDouble(split[1]), Convert.ToDouble(split[2]));
+                listaAule.Add(a);
+            }
             return listaAule;
         }
 
-        internal static void ScriviTutteLeAule()
+        internal static void ScriviTutteLeAule(List<Aula> listaAule)
         {
             for(int i = 0; i< listaAule.Count; i++)
             {
                 arraySupporto[i] = listaAule[i].NomeAula.ToString() + "\t" + listaAule[i].BaseInMetri.ToString() + "\t" + listaAule[i].AltezzaInMetri.ToString();
             }
-            File.AppendAllLines("Aule.tsv", arraySupporto);
+            File.AppendAllLines("Aule.tsv", arraySupporto);  
         }
           
-        internal static List<Classe> LeggiTutteLeClassi() //da fare tutti i leggi (abbiamo fatto dei fake)
+        internal static List<Classe> LeggiTutteLeClassi()
         {
-            Classe c = new Classe("3N", "23-24");
-            listaClassi.Add(c);
-            c = new Classe("3B", "23-24");
-            listaClassi.Add(c);
-            c = new Classe("3H", "23-24");
-            listaClassi.Add(c);
 
+            string[] stringheLette = File.ReadAllLines("Classi.tsv");
+            string[] split = new string[2];
+            for (int i = 1; i < stringheLette.Length; i++)
+            {
+                split = stringheLette[i].Split("\t");
+                Classe a = new Classe(split[0], split[1]);
+                listaClassi.Add(a);
+            }
+           
             return listaClassi;
         }
 
-        internal static void ScriviTutteLeClassi()
+        internal static void ScriviTutteLeClassi(List<Classe> listaClassi)
         {
             for (int i = 0; i < listaClassi.Count; i++)
             {
@@ -50,18 +55,19 @@ namespace Banchi
             File.AppendAllLines("Classi.tsv", arraySupporto);
         }
 
-        internal static List<Studente> LeggiTuttiGliStudenti() //da fare tutti i leggi (abbiamo fatto dei fake)
+        internal static List<Studente> LeggiTuttiGliStudenti()
         {
-            Studente s = new Studente("Michele", "Impagnatiello", "3N");
-            listaStudenti.Add(s);
-            s = new Studente("Michele", "Impagnatiello", "3N");
-            listaStudenti.Add(s);
-            s = new Studente("Michele", "Impagnatiello", "3N");
-            listaStudenti.Add(s);
-
+            string[] stringheLette = File.ReadAllLines("Studenti.tsv");
+            string[] split = new string[3];
+            for (int i = 1; i < stringheLette.Length; i++)
+            {
+                split = stringheLette[i].Split("\t");
+                Studente s = new Studente(split[0], split[1], split[2]);
+                listaStudenti.Add(s);
+            }
             return listaStudenti;
         }
-        internal static void ScriviTuttiStudenti()
+        internal static void ScriviTuttiGliStudenti(List<Studente> listaStudenti)
         {
             for (int i = 0; i < listaStudenti.Count; i++)
             {
@@ -69,5 +75,6 @@ namespace Banchi
             }
             File.AppendAllLines("Studenti.tsv", arraySupporto);
         }
+
     }
 }

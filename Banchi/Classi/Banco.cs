@@ -1,4 +1,4 @@
-﻿\
+﻿
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -16,7 +16,7 @@ namespace Banchi
         public string NomeClasse { get; set; }
         public string CognomeNomeStudente { get; set; }
         // costruttore 
-        public Banco(Label GraficaBanco, bool IsCattedra)
+        public Banco(Label GraficaBanco, bool IsCattedra, Size Size)
         {
             this.IsCattedra = IsCattedra;
             // la label viene passata dalla Window, dove verrà disegnata

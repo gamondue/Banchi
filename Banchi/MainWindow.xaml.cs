@@ -40,7 +40,7 @@ namespace Banchi
             // creazione del banco, passando l'oggetto grafico
             // listaAule classe Banco definirà l'aspetto e il comportamento del banco
             // il tavolo assume listaAule sua posizione e dimensione di default
-            banco = new Banco(grafica, false);
+            banco = new Banco(grafica, false, new Size(250, 120));
             // aggiunta del banco all'area di disegno (Canvas)
             AreaDisegno.Children.Add(grafica);
             // metodi delegati per gestione drag and drop

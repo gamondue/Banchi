@@ -24,7 +24,6 @@
             this.NomeAula = NomeAula;
             Banchi = new List<Banco>();
             Computer = new List<Computer>();
-            //Studenti = new List<Studente>();
         }
         public override string ToString()
         {
