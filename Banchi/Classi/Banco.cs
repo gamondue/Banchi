@@ -16,7 +16,7 @@ namespace Banchi
         public string NomeClasse { get; set; }
         public string CognomeNomeStudente { get; set; }
         // costruttore 
-        public Banco(Label GraficaBanco, bool IsCattedra, double base1, double altezza)
+        public Banco(Label GraficaBanco, bool IsCattedra, Size misure)
         {
             this.IsCattedra = IsCattedra;
             // la label viene passata dalla Window, dove verrà disegnata
@@ -42,7 +42,7 @@ namespace Banchi
             Canvas.SetLeft(GraficaBanco, this.Position.X);
             Canvas.SetTop(GraficaBanco, this.Position.Y);
             // impostazione della dimensione della grafica del banco
-            this.Size = new Size(base1, altezza); // dimensione di default
+            this.Size = misure; // dimensione di default
             GraficaBanco.Width = this.Size.Width;
             GraficaBanco.Height = this.Size.Height;
         }
