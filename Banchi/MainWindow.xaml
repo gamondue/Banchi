@@ -24,9 +24,9 @@
             <!--barra delle icone e dei pulsanti -->
             <CheckBox Content="Posizionare i banchi"/>
             <Label>larghezza</Label>
-            <TextBox x:Name="txt_Larghezza" Width="94"/>
+            <TextBox x:Name="txt_Larghezza" Text="100" Width="94"/>
             <Label>lunghezza</Label>
-            <TextBox x:Name="txt_Lunghezza" Width="94"/>
+            <TextBox x:Name="txt_Lunghezza" Text="100" Width="94"/>
             <Button x:Name="btn_NuovoBanco" Content="Nuovo banco" Click="btn_NuovoBanco_Click"/>
             <CheckBox x:Name="chk_VisualizzazioneGrigliaModificaBanchi" Content="Sistemazione banchi"/>
         </StackPanel>
