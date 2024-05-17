@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
+        MouseDoubleClick="Window_MouseDoubleClick"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel Orientation="Vertical">
         <Menu x:Name="BarraMenu" DockPanel.Dock="Top">
@@ -20,6 +21,7 @@
                 <MenuItem Header="_Posizionare i banchi" IsCheckable="True" IsChecked="True"/>
             </MenuItem>
         </Menu>
+        
         <StackPanel x:Name="BarraCheckbox" Orientation="Horizontal">
             <!--barra delle icone e dei pulsanti -->
             <CheckBox Content="Posizionare i banchi"/>

@@ -13,7 +13,8 @@ namespace Banchi
     {
         bool isDragging = false;
         private Point startPosition;
-        Banco banco; 
+        List<Banco> banchi=new List<Banco>(0);
+        Banco banco;
         public MainWindow()
         {
             InitializeComponent();
@@ -33,14 +34,13 @@ namespace Banchi
             string aulaSelezionata = ((Aula)cmbAule.SelectedItem).NomeAula;
             // recupera l'altezza dell'aula selezionata
             double altezzaAula = ((Aula)cmbAule.SelectedItem).AltezzaInMetri;
-
+            nuovoBanco();
             // operazioni di inizializzazione da farsi per ogni banco che voglio creare
             // creazione dell'oggetto grafico che rappresenta il banco
             Label grafica = new Label();
             // creazione del banco, passando l'oggetto grafico
             // listaAule classe Banco definirà l'aspetto e il comportamento del banco
             // il tavolo assume listaAule sua posizione e dimensione di default
-            banco = new Banco(grafica, false);
             // aggiunta del banco all'area di disegno (Canvas)
             AreaDisegno.Children.Add(grafica);
             // metodi delegati per gestione drag and drop
@@ -53,6 +53,17 @@ namespace Banchi
         // è necesssario scrivere questi metodi qui, e non nella classe Banco,
         // perchè il drag and drop è un'operazione che coinvolge l'interfaccia grafica
         // e fare in modo che lo possa fare Banco è complicaato
+        internal void nuovoBanco()
+        {
+            Label grafica = new Label();
+            AreaDisegno.Children.Add(grafica);
+            grafica.MouseDown += ClickSuBanco;
+            grafica.MouseMove += MovimentoSuBanco;
+            grafica.MouseUp += MouseUpSuBanco;
+            Banco banchetto = new Banco(grafica, false);
+            banchi = new List<Banco>(0);
+            banchi.Add(banchetto);
+        }
         internal void ClickSuBanco(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -93,6 +104,11 @@ namespace Banchi
         {
             AulaWindow wnd = new AulaWindow();
             wnd.Show();
+        }
+        private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            InfoComputer finestra = new InfoComputer();
+            finestra.Show();
         }
         // commentati, gli stessi metodi delegati, ma che funzionano nel Canvas
         ////
