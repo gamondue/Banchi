@@ -5,3 +5,5 @@
 Nasce come progetto di classe della 3N 2023-24 dell'ITT Pascal Comandini di Cesena - Italia, con contributo di ciascuno degli allievi, ma è aperto al contributo della comunità, essendo rilasciato in versione con licenza GPL.
 
 Attualmente il programma è alle primissime fasi della sua progettazione e realizzazione. Ciò che viene pubblicato sul Github è allo stadio di larvale prototipo e viene usato come strumento per lo sviluppo del programma da parte dei gruppi di allievi.
+
+beccanti è stato qui
