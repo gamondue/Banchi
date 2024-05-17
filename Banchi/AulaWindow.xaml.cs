@@ -22,6 +22,7 @@ namespace Banchi
         public AulaWindow()
         {
             InitializeComponent();
+            //mi piace la ciola
         }
     }
 }
