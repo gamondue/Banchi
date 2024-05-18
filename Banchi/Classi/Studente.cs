@@ -2,10 +2,10 @@
 {
     internal class Studente
     {
-        public string Nome { get; set; }
+        public int CodiceStudente { get; set; }
         public string Cognome { get; set; }
+        public string Nome { get; set; }
         public string CodiceClasse { get; set; }
-        public List<Studente> Studenti { get; set; }
 
         public Studente(string Nome, string Cognome, string CodiceClasse)
         {

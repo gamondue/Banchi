@@ -11,6 +11,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -21,5 +22,6 @@
         <Label Grid.Row="2" Content="Banchi" HorizontalAlignment="Center" Height="60" Background="White" FontSize="36" FontFamily="Arial Unicode MS" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
         <Label Grid.Row="3" Content="Ho perso lo studente" HorizontalAlignment="Center" FontSize="16" HorizontalContentAlignment="Center"/>
+        <Label Grid.Row="4" Content="ITT Blaise Pascal - Cesena" HorizontalAlignment="Center" FontSize="16" HorizontalContentAlignment="Center"/>
     </Grid>
 </Window>

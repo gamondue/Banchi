@@ -9,9 +9,58 @@ namespace Banchi
         static List<Studente> listaStudenti = new List<Studente>();
         static string[] arraySupporto= new string[100];
 
+        public static string PathDatiUtente;
+        public static string PathDatiCondivisa;
+        public static string PathDatiModelli;
+
+        public static string FileAule;
+        public static string FileClassi;
+        public static string FileStudenti;
+
+        internal static void Inizializzazioni()
+        {
+            PathDatiUtente = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "Banchi"); 
+            // path da aggiungere in seguito
+            PathDatiCondivisa = PathDatiUtente;
+            // path da aggiungere in seguito
+            PathDatiModelli = PathDatiUtente;
+            CreaCartelleSeNonEsistono();
+            FileAule = Path.Combine(PathDatiUtente, "Aule.tsv");
+            FileClassi = Path.Combine(PathDatiUtente, "Classi.tsv");
+            FileStudenti = Path.Combine(PathDatiUtente, "Studenti.tsv");
+            CreaFileSeNonEsiste(FileAule);
+            CreaFileSeNonEsiste(FileClassi);
+            CreaFileSeNonEsiste(FileStudenti);
+        }
+
+        private static void CreaCartelleSeNonEsistono()
+        {
+            if (!Directory.Exists(PathDatiUtente))
+            {
+                Directory.CreateDirectory(PathDatiUtente);
+            }
+            if (!Directory.Exists(PathDatiCondivisa))
+            {
+                Directory.CreateDirectory(PathDatiCondivisa);
+            }
+            if (!Directory.Exists(PathDatiModelli))
+            {
+                Directory.CreateDirectory(PathDatiModelli);
+            }
+        }
+
+        private static void CreaFileSeNonEsiste(string nomeFile)
+        {
+            if (!File.Exists(nomeFile))
+            {
+                File.Create(nomeFile);
+            }
+        }
+
         internal static List<Aula> LeggiTutteLeAule()
         {
-            string[] stringheLette = File.ReadAllLines("Aule.tsv");
+            string[] stringheLette = File.ReadAllLines(FileAule);
             string[] split = new string[3];
             for (int i = 1; i < stringheLette.Length; i++)
             {
@@ -24,17 +73,22 @@ namespace Banchi
 
         internal static void ScriviTutteLeAule(List<Aula> listaAule)
         {
-            for(int i = 0; i< listaAule.Count; i++)
+            // salva prima riga di intestazione
+            arraySupporto[0] = "NomeAula\tBase\tAltezza";
+            // salva nelle righe successive le aule che sono nella lista
+            // passata come parametro
+            for (int i = 0; i< listaAule.Count; i++)
             {
-                arraySupporto[i] = listaAule[i].NomeAula.ToString() + "\t" + listaAule[i].BaseInMetri.ToString() + "\t" + listaAule[i].AltezzaInMetri.ToString();
+                arraySupporto[i + 1] = listaAule[i].NomeAula.ToString() + "\t" + 
+                    listaAule[i].BaseInCentimetri.ToString() + "\t" + listaAule[i].AltezzaInCentimetri.ToString();
             }
-            File.AppendAllLines("Aule.tsv", arraySupporto);  
+            File.AppendAllLines(FileAule, arraySupporto);  
         }
           
         internal static List<Classe> LeggiTutteLeClassi()
         {
 
-            string[] stringheLette = File.ReadAllLines("Classi.tsv");
+            string[] stringheLette = File.ReadAllLines(FileClassi);
             string[] split = new string[2];
             for (int i = 1; i < stringheLette.Length; i++)
             {
@@ -52,12 +106,12 @@ namespace Banchi
             {
                 arraySupporto[i] = listaClassi[i].CodiceClasse.ToString() + "\t" + listaClassi[i].AnnoScolastico.ToString();
             }
-            File.AppendAllLines("Classi.tsv", arraySupporto);
+            File.AppendAllLines(FileClassi, arraySupporto);
         }
 
         internal static List<Studente> LeggiTuttiGliStudenti()
         {
-            string[] stringheLette = File.ReadAllLines("Studenti.tsv");
+            string[] stringheLette = File.ReadAllLines(FileStudenti);
             string[] split = new string[3];
             for (int i = 1; i < stringheLette.Length; i++)
             {
@@ -73,8 +127,14 @@ namespace Banchi
             {
                 arraySupporto[i] = listaStudenti[i].Nome.ToString() + "\t" + listaStudenti[i].Cognome.ToString() + "\t" + listaStudenti[i].CodiceClasse.ToString();
             }
-            File.AppendAllLines("Studenti.tsv", arraySupporto);
+            File.AppendAllLines(FileStudenti, arraySupporto);
         }
 
+        internal static void LeggiStudentiClasse(Classe classe)
+        {
+            // legge dal file Studenti.tsv tutti gli studenti della classe passata come parametro
+            // e li mette nella lista che è inclusa dentro il tipo Classe
+            throw new NotImplementedException();
+        }
     }
 }

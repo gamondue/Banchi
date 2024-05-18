@@ -1,29 +1,31 @@
-﻿namespace Banchi
+﻿using Banchi.Classi;
+
+namespace Banchi
 {
     internal class Aula
     {
         public string NomeAula { get; set; }
         // dimensioni dell'aula. 
-        public double BaseInMetri { get; set; }
-        public double AltezzaInMetri { get; set; }
+        public double AltezzaInCentimetri { get; set; }
+        public double BaseInCentimetri { get; set; }
         // ci serve la lista dei banchi che stanno in questa aula
         public List<Banco> Banchi { get; set; }
-        // ci serve la lista dei computer che stanno in questa aula
-        public List<Computer> Computer { get; set; }
+        // NON serve la lista dei computer che stanno in questa aula
+        // perchè ogni banco può avere il suo computer
 
-        // vogliamo disegnare le porte e le finestre dell'aula
-        // !!!! qui metteremo le strutture dati che serviranno per disegnare le porte e le finestre !!!!
+        // per disegnare le porte e le finestre dell'aula
+        // definiano la struttura dati dei serramnti
+        public List<Serramento> Serramenti { get; set; }
 
         // forse ci servirà la lista degli studenti che stanno in questa aula
         //public List<Studente> Studenti { get; set; } // eliminarla se poi non serve
-        public Aula(string NomeAula, double AltezzaInMetri, double BaseInMetri)
+        public Aula(string NomeAula, double AltezzaInCentimetri, double BaseInCentimetri)
         {
             // inizializzazione delle proprietà
-            this.AltezzaInMetri = AltezzaInMetri;
-            this.BaseInMetri = BaseInMetri;
+            this.AltezzaInCentimetri = AltezzaInCentimetri;
+            this.BaseInCentimetri = BaseInCentimetri;
             this.NomeAula = NomeAula;
             Banchi = new List<Banco>();
-            Computer = new List<Computer>();
         }
         public override string ToString()
         {

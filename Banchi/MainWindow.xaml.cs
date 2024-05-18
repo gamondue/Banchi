@@ -17,6 +17,7 @@ namespace Banchi
         public MainWindow()
         {
             InitializeComponent();
+            BusinessLayer.Inizializzazioni();
             // legge tutte le aule dal "database" e le mette in una lista
             List<Aula> listaAule = BusinessLayer.LeggiTutteLeAule();
             // riempimento del ComboBox con le aule appena lette
@@ -32,15 +33,15 @@ namespace Banchi
             // recupera il nome dell'aula selezionata 
             //string aulaSelezionata = ((Aula)cmbAule.SelectedItem).NomeAula;
             // recupera l'altezza dell'aula selezionata
-            //double altezzaAula = ((Aula)cmbAule.SelectedItem).AltezzaInMetri;
-            //List<Classe> listaClassi=BusinessLayer.LeggiTutteLeClassi();
-           
-            //foreach(Classe a in listaClassi)
-            //{
-            //    cmb_Classe.Items.Add(a);
-            //}
-            //cmb_Classe.SelectedIndex = 1;
-            //cmb_Classe.SelectedItem = cmb_Classe.Items[1];           
+            //double altezzaAula = ((Aula)cmbAule.SelectedItem).AltezzaInCentimetri;
+            
+            List<Classe> listaClassi=BusinessLayer.LeggiTutteLeClassi();
+            foreach(Classe a in listaClassi)
+            {
+                cmb_Classe.Items.Add(a);
+            }
+            cmb_Classe.SelectedIndex = 1;
+            cmb_Classe.SelectedItem = cmb_Classe.Items[1];           
         }
         // implementazione dei metodi delegati per gestione drag and drop
         // evento per iniziare il drag and drop, quando l'utente clicca sul banco

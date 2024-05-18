@@ -15,6 +15,8 @@ namespace Banchi
         public int CodiceBanco { get; set; }
         public string NomeClasse { get; set; }
         public string CognomeNomeStudente { get; set; }
+        // il computer che (eventualmente) sta nel banco
+        public Computer Computer { get; set; }
         // costruttore 
         public Banco(Label GraficaBanco, bool IsCattedra, Size misure)
         {

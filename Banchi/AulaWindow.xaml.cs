@@ -36,7 +36,7 @@ namespace Banchi
                 Canvas.Visibility = Visibility.Visible;
                 double base2 = Convert.ToDouble(txtBase.Text);
                 double altezza2 = Convert.ToDouble(txtAltezza.Text);
-                Aula aula1 = new(txtNome, altezza2, base2);
+                Aula aula1 = new("L13", altezza2, base2);
                 
             }
 

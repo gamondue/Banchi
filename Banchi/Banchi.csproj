@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Immagini\" />
+    <None Remove="Immagini\baldi104.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Immagini\baldi104.jpg" />
   </ItemGroup>
 </Project>

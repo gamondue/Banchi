@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel Orientation="Vertical">
-        <Menu x:Name="BarraMenu" DockPanel.Dock="Top">
+        Title="Programma Banchi" Height="450" Width="800">
+        <StackPanel Orientation="Vertical">
+            <Menu x:Name="BarraMenu" DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_Nuova aula"/>
                 <MenuItem Header="Nuova _classe in aula"/>
@@ -37,6 +37,7 @@
             <!-- barra dei combo box -->
             <Label Content="Aule" />
             <ComboBox x:Name="cmbAule" IsEditable="False"/>
+            <Label Content="Classi" />
             <ComboBox x:Name="cmb_Classe" IsEditable="False"/>
         </StackPanel>
         <StackPanel x:Name="BarraIcone" />
