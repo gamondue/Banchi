@@ -30,23 +30,17 @@ namespace Banchi
             cmbAule.SelectedIndex = 1; // seleziona listaAule seconda aula
             cmbAule.SelectedItem = cmbAule.Items[1]; // seleziona listaAule seconda aula
             // recupera il nome dell'aula selezionata 
-            string aulaSelezionata = ((Aula)cmbAule.SelectedItem).NomeAula;
+            //string aulaSelezionata = ((Aula)cmbAule.SelectedItem).NomeAula;
             // recupera l'altezza dell'aula selezionata
-            double altezzaAula = ((Aula)cmbAule.SelectedItem).AltezzaInMetri;
-
-            // operazioni di inizializzazione da farsi per ogni banco che voglio creare
-            // creazione dell'oggetto grafico che rappresenta il banco
-            Label grafica = new Label();
-            // creazione del banco, passando l'oggetto grafico
-            // listaAule classe Banco definirà l'aspetto e il comportamento del banco
-            // il tavolo assume listaAule sua posizione e dimensione di default
-            banco = new Banco(grafica, false, new Size(250, 120));
-            // aggiunta del banco all'area di disegno (Canvas)
-            AreaDisegno.Children.Add(grafica);
-            // metodi delegati per gestione drag and drop
-            grafica.MouseDown += ClickSuBanco;
-            grafica.MouseMove += MovimentoSuBanco;
-            grafica.MouseUp += MouseUpSuBanco;
+            //double altezzaAula = ((Aula)cmbAule.SelectedItem).AltezzaInMetri;
+            //List<Classe> listaClassi=BusinessLayer.LeggiTutteLeClassi();
+           
+            //foreach(Classe a in listaClassi)
+            //{
+            //    cmb_Classe.Items.Add(a);
+            //}
+            //cmb_Classe.SelectedIndex = 1;
+            //cmb_Classe.SelectedItem = cmb_Classe.Items[1];           
         }
         // implementazione dei metodi delegati per gestione drag and drop
         // evento per iniziare il drag and drop, quando l'utente clicca sul banco
@@ -92,6 +86,31 @@ namespace Banchi
         private void MenuAula_Click(object sender, RoutedEventArgs e)
         {
             AulaWindow wnd = new AulaWindow();
+            wnd.Show();
+        }
+        private void btn_NuovoBanco_Click(object sender, RoutedEventArgs e)
+        {
+            // operazioni di inizializzazione da farsi per ogni banco che voglio creare
+            // creazione dell'oggetto grafico che rappresenta il banco
+            Label grafica = new Label();
+            // creazione del banco, passando l'oggetto grafico
+            // listaAule classe Banco definirà l'aspetto e il comportamento del banco
+            // il tavolo assume listaAule sua posizione e dimensione di default
+            double larghezza = Convert.ToDouble(txt_Larghezza.Text);
+            double lunghezza = Convert.ToDouble(txt_Lunghezza.Text);
+            Size misure = new Size(larghezza, lunghezza);
+            banco = new Banco(grafica, false, misure);
+            // aggiunta del banco all'area di disegno (Canvas)
+            AreaDisegno.Children.Add(grafica);
+            // metodi delegati per gestione drag and drop
+            grafica.MouseDown += ClickSuBanco;
+            grafica.MouseMove += MovimentoSuBanco;
+            grafica.MouseUp += MouseUpSuBanco;
+        }
+
+        private void MenuAbout_Click(object sender, RoutedEventArgs e)
+        {
+            AboutWindow wnd = new AboutWindow();
             wnd.Show();
         }
         // commentati, gli stessi metodi delegati, ma che funzionano nel Canvas

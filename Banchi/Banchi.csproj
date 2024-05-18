@@ -17,4 +17,8 @@
     <None Remove="Model\**" />
     <Page Remove="Model\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Immagini\" />
+  </ItemGroup>
 </Project>
