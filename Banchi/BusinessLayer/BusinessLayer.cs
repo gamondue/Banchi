@@ -10,5 +10,9 @@
         {
             return DataLayer.LeggiTutteLeAule();
         }
+        internal static List<Studente> LeggiTuttiGliStudenti()
+        {
+            return DataLayer.LeggiTuttiGliStudenti();
+        }
     }
 }

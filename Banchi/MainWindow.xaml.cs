@@ -34,7 +34,7 @@ namespace Banchi
             // recupera l'altezza dell'aula selezionata
             //double altezzaAula = ((Aula)cmbAule.SelectedItem).AltezzaInMetri;
             //List<Classe> listaClassi=BusinessLayer.LeggiTutteLeClassi();
-
+           
             //foreach(Classe a in listaClassi)
             //{
             //    cmb_Classe.Items.Add(a);
