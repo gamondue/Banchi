@@ -11,143 +11,103 @@ namespace Banchi
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool isDragging = false;
-        private Point startPosition;
-        Banco banco; 
         public MainWindow()
         {
             InitializeComponent();
             BusinessLayer.Inizializzazioni();
             // legge tutte le aule dal "database" e le mette in una lista
-            List<Aula> listaAule = BusinessLayer.LeggiTutteLeAule();
+            List<Aula> listaAuleUtente = BusinessLayer.LeggiTutteLeAuleUtente();
             // riempimento del ComboBox con le aule appena lette
-            foreach (Aula a in listaAule)
+            if (listaAuleUtente != null)
+                foreach (Aula a in listaAuleUtente)
+                {
+                    // un combo può contenere oggetti di qualsiasi tipo, però per vederci qualcosa dentro
+                    // devo implementare il metodo ToString() dentro listaAuleUtente classe Aule
+                    cmbAuleUtente.Items.Add(a);
+                }
+            
+            List<Classe> listaClassiUtente=BusinessLayer.LeggiTutteLeClassiUtente();
+            if (listaAuleUtente != null)
+                foreach (Classe a in listaClassiUtente)
+                {
+                    cmbClasseUtente.Items.Add(a);
+                }
+
+            // riempio i combobox dei modelli
+            List<Aula> listaAuleModello = BusinessLayer.LeggiTutteLeAule();
+            // riempimento del ComboBox con le aule appena lette
+            foreach (Aula a in listaAuleModello)
             {
                 // un combo può contenere oggetti di qualsiasi tipo, però per vederci qualcosa dentro
-                // devo implementare il metodo ToString() dentro listaAule classe Aule
-                cmbAule.Items.Add(a);
+                // devo implementare il metodo ToString() dentro listaAuleUtente classe Aule
+                cmbModelliAule.Items.Add(a);
             }
             // esempi di inizializzazione di un ComboBox
-            cmbAule.SelectedIndex = 1; // seleziona listaAule seconda aula
-            cmbAule.SelectedItem = cmbAule.Items[1]; // seleziona listaAule seconda aula
+            //cmbModelliAule.SelectedIndex = 1; // seleziona listaAuleUtente seconda aula
+            //cmbModelliAule.SelectedItem = cmbAuleUtente.Items[1]; // seleziona listaAuleUtente seconda aula
             // recupera il nome dell'aula selezionata 
             //string aulaSelezionata = ((Aula)cmbAule.SelectedItem).NomeAula;
             // recupera l'altezza dell'aula selezionata
             //double altezzaAula = ((Aula)cmbAule.SelectedItem).AltezzaInCentimetri;
-            
-            List<Classe> listaClassi=BusinessLayer.LeggiTutteLeClassi();
-            foreach(Classe a in listaClassi)
+            List<Classe> listaClassiModello = BusinessLayer.LeggiTutteLeClassi();
+            // riempimento del ComboBox con le aule appena lette
+            foreach (Classe a in listaClassiModello)
             {
-                cmb_Classe.Items.Add(a);
+                // un combo può contenere oggetti di qualsiasi tipo, però per vederci qualcosa dentro
+                // devo implementare il metodo ToString() dentro listaAuleUtente classe Aule
+                cmbModelliClasse.Items.Add(a);
             }
-            cmb_Classe.SelectedIndex = 1;
-            cmb_Classe.SelectedItem = cmb_Classe.Items[1];           
-        }
-        // implementazione dei metodi delegati per gestione drag and drop
-        // evento per iniziare il drag and drop, quando l'utente clicca sul banco
-        // è necesssario scrivere questi metodi qui, e non nella classe Banco,
-        // perchè il drag and drop è un'operazione che coinvolge l'interfaccia grafica
-        // e fare in modo che lo possa fare Banco è complicaato
-        internal void ClickSuBanco(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                Label daPrendere = (Label)sender;
-                isDragging = true;
-                startPosition = e.GetPosition((IInputElement)this);
-                daPrendere.CaptureMouse();
-            }
-        }
-        // evento per continuare il drag and drop, quando il mouse si muove con il tasto premuto
-        internal void MovimentoSuBanco(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            Label label = (Label)sender;
-            if (isDragging)
-            {
-                Point currentPosition = e.GetPosition((IInputElement)this);
-                double offsetX = currentPosition.X - startPosition.X;
-                double offsetY = currentPosition.Y - startPosition.Y;
-
-                Canvas.SetLeft(label, Canvas.GetLeft(label) + offsetX);
-                Canvas.SetTop(label, Canvas.GetTop(label) + offsetY);
-
-                startPosition = currentPosition;
-            }
-        }
-        // evento per terminare il drag and drop, quando il tasto del mouse viene rilasciato
-        internal void MouseUpSuBanco(object sender, MouseButtonEventArgs e)
-        {
-            Label label = (Label)sender;
-            if (isDragging)
-            {
-                isDragging = false;
-                label.ReleaseMouseCapture();
-            }
+            //cmbModelliClasse.SelectedIndex = 1;
+            //cmbModelliClasse.SelectedItem = cmbClasseUtente.Items[1];
         }
         private void MenuAula_Click(object sender, RoutedEventArgs e)
         {
-            AulaWindow wnd = new AulaWindow();
-            wnd.Show();
+            ApriFinestraAula(); 
         }
-        private void btn_NuovoBanco_Click(object sender, RoutedEventArgs e)
-        {
-            // operazioni di inizializzazione da farsi per ogni banco che voglio creare
-            // creazione dell'oggetto grafico che rappresenta il banco
-            Label grafica = new Label();
-            // creazione del banco, passando l'oggetto grafico
-            // listaAule classe Banco definirà l'aspetto e il comportamento del banco
-            // il tavolo assume listaAule sua posizione e dimensione di default
-            double larghezza = Convert.ToDouble(txt_Larghezza.Text);
-            double lunghezza = Convert.ToDouble(txt_Lunghezza.Text);
-            Size misure = new Size(larghezza, lunghezza);
-            banco = new Banco(grafica, false, misure);
-            // aggiunta del banco all'area di disegno (Canvas)
-            AreaDisegno.Children.Add(grafica);
-            // metodi delegati per gestione drag and drop
-            grafica.MouseDown += ClickSuBanco;
-            grafica.MouseMove += MovimentoSuBanco;
-            grafica.MouseUp += MouseUpSuBanco;
-        }
-
         private void MenuAbout_Click(object sender, RoutedEventArgs e)
         {
             AboutWindow wnd = new AboutWindow();
             wnd.Show();
         }
-        // commentati, gli stessi metodi delegati, ma che funzionano nel Canvas
-        ////
-        ////Evento per iniziare il drag and drop
-        //private void AreaDisegno_MouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (e.LeftButton == MouseButtonState.Pressed)
-        //    {
-        //        StackPanel stck = (StackPanel)sender;
-        //        isDragging = true;
-        //        startPosition = e.GetPosition(this);
-        //        stck.CaptureMouse();
-        //    }
-        //}
-        //// evento per continuare il drag and drop, quando il mouse si muove con il tasto premuto
-        //private void Banco_MouseMove(object sender, MouseEventArgs e)
-        //{
-        //    Point currentPosition = e.GetPosition(this);
-        //    double offsetX = currentPosition.X - startPosition.X;
-        //    double offsetY = currentPosition.Y - startPosition.Y;
-
-        //    Canvas.SetLeft(Banco, Canvas.GetLeft(Banco) + offsetX);
-        //    Canvas.SetTop(Banco, Canvas.GetTop(Banco) + offsetY);
-
-        //    startPosition = currentPosition;
-        //}
-        //// evento per terminare il drag and drop, quando il tasto del mouse viene rilasciato
-        //private void AreaDisegno_MouseUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (isDragging)
-        //    {
-        //        StackPanel stck = (StackPanel)sender;
-        //        isDragging = false;
-        //        stck.ReleaseMouseCapture();
-        //    }
-        //}
+        private void btn_Banchi_Click(object sender, RoutedEventArgs e)
+        {
+            ApriFinestraBanchi();
+        }
+        private void ApriFinestraBanchi()
+        {
+            if (cmbModelliAule.SelectedItem == null)
+            {
+                MessageBox.Show("Selezionare un'aula fra i modelli", "Errore",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (cmbModelliClasse.SelectedItem == null)
+            {
+                MessageBox.Show("Selezionare una classe fra i modelli", "Errore",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            BanchiWindow wnd = new BanchiWindow();
+            wnd.Show();
+        }
+        private void btn_Aula_Click(object sender, RoutedEventArgs e)
+        {
+            ApriFinestraAula(); 
+        }
+        private void ApriFinestraAula()
+        {
+            if (cmbModelliAule.SelectedItem == null)
+            {
+                MessageBox.Show("Selezionare un'aula fra i modelli", "Errore", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            AulaWindow wnd = new AulaWindow((Aula)cmbModelliAule.SelectedItem);
+            wnd.Show();
+        }
+        private void btn_Salva_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

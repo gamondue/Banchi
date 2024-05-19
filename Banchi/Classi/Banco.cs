@@ -5,15 +5,15 @@ using System.Windows.Media;
 
 namespace Banchi
 {
-    internal class Banco
+    public class Banco
     {
         // proprietà 
+        public int CodiceBanco { get; set; }
+        public string NomeClasse { get; set; }
         public Point Position { get; set; }
         public Size Size { get; set; }
         Label GraficaBanco { get; set; }
         public bool IsCattedra { get; } = false;
-        public int CodiceBanco { get; set; }
-        public string NomeClasse { get; set; }
         public string CognomeNomeStudente { get; set; }
         // il computer che (eventualmente) sta nel banco
         public Computer Computer { get; set; }

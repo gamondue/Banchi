@@ -2,7 +2,7 @@
 
 namespace Banchi
 {
-    internal class Aula
+    public class Aula
     {
         public string NomeAula { get; set; }
         // dimensioni dell'aula. 

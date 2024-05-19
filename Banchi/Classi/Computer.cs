@@ -1,6 +1,6 @@
 ﻿namespace Banchi
 {
-    internal class Computer
+    public class Computer
     {
 
     }

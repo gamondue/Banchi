@@ -1,6 +1,6 @@
 ﻿namespace Banchi
 {
-    internal class Studente
+    public class Studente
     {
         public int CodiceStudente { get; set; }
         public string Cognome { get; set; }

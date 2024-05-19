@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
-        Title="Programma Banchi" Height="450" Width="800">
-        <StackPanel Orientation="Vertical">
-            <Menu x:Name="BarraMenu" DockPanel.Dock="Top">
+        Title="Banchi: ho perso lo studente" Height="450" Width="800">
+    <StackPanel Orientation="Vertical">
+        <Menu x:Name="BarraMenu" DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_Nuova aula"/>
                 <MenuItem Header="Nuova _classe in aula"/>
@@ -25,20 +25,23 @@
         </Menu>
         <StackPanel x:Name="BarraCheckbox" Orientation="Horizontal">
             <!--barra delle icone e dei pulsanti -->
-            <CheckBox Content="Posizionare i banchi"/>
-            <Label>larghezza</Label>
-            <TextBox x:Name="txt_Larghezza" Text="100" Width="94"/>
-            <Label>lunghezza</Label>
-            <TextBox x:Name="txt_Lunghezza" Text="100" Width="94"/>
-            <Button x:Name="btn_NuovoBanco" Content="Nuovo banco" Click="btn_NuovoBanco_Click"/>
-            <CheckBox x:Name="chk_VisualizzazioneGrigliaModificaBanchi" Content="Sistemazione banchi"/>
+            <Button x:Name="btn_Banchi" Content="Posizioni banchi" Click="btn_Banchi_Click"/>
+            <Button x:Name="btn_Aula" Content="Modifica aula" Click="btn_Aula_Click"/>
+            <Button x:Name="btn_Salva" Content="Salva studenti in aula" Click="btn_Salva_Click"/>
         </StackPanel>
         <StackPanel x:Name="BarraComboBox" Orientation="Horizontal">
             <!-- barra dei combo box -->
+            <Label Content="Dati dell'utente"/>
             <Label Content="Aule" />
-            <ComboBox x:Name="cmbAule" IsEditable="False"/>
+            <ComboBox x:Name="cmbAuleUtente" IsEditable="False"/>
             <Label Content="Classi" />
-            <ComboBox x:Name="cmb_Classe" IsEditable="False"/>
+            <ComboBox x:Name="cmbClasseUtente" IsEditable="False"/>
+
+            <Label Content="Modelli condivisi"/>
+            <Label Content="Aule" />
+            <ComboBox x:Name="cmbModelliAule" IsEditable="False"/>
+            <Label Content="Classi" />
+            <ComboBox x:Name="cmbModelliClasse" IsEditable="False"/>
         </StackPanel>
         <StackPanel x:Name="BarraIcone" />
         <StackPanel x:Name="stack_ListaNomiAlunni" Orientation="Horizontal" HorizontalAlignment="Left">
@@ -48,7 +51,5 @@
             </Canvas>
             <ListBox x:Name="lst_NomiAlunni" Width="200" Height="365" />
         </StackPanel>
-
     </StackPanel>
-
 </Window>

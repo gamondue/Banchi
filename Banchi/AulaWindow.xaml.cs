@@ -19,14 +19,12 @@ namespace Banchi
     /// </summary>
     public partial class AulaWindow : Window
     {
-        public AulaWindow()
+        public AulaWindow(Aula selectedItem)
         {
             InitializeComponent();
             FinestrePorte.Visibility = Visibility.Hidden;
-            Canvas.Visibility = Visibility.Hidden;
-            
+            Canvas.Visibility = Visibility.Hidden;           
         }
-
         private void btnClick_ConfermaDim(object sender, RoutedEventArgs e)
         {
             if (Convert.ToDouble(txtBase.Text) > 0.0 && Convert.ToDouble(txtAltezza.Text) > 0.0)
@@ -36,10 +34,8 @@ namespace Banchi
                 Canvas.Visibility = Visibility.Visible;
                 double base2 = Convert.ToDouble(txtBase.Text);
                 double altezza2 = Convert.ToDouble(txtAltezza.Text);
-                Aula aula1 = new("L13", altezza2, base2);
-                
+                Aula aula1 = new("L13", altezza2, base2);              
             }
-
         }
     }
 }

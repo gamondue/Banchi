@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Banchi.Classi
 {
-    internal class Serramento
+    public class Serramento
     {
         public Size SizeDimesioni { get; set; }
         public  bool IsPorta { get; set; }

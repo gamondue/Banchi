@@ -2,7 +2,7 @@
 
 namespace Banchi
 {
-    internal static partial class DataLayer
+    public static partial class DataLayer
     {
         static List<Aula> listaAule = new List<Aula>();
         static List<Classe> listaClassi = new List<Classe>();
@@ -17,14 +17,15 @@ namespace Banchi
         public static string FileClassi;
         public static string FileStudenti;
 
-        internal static void Inizializzazioni()
+        public static void Inizializzazioni()
         {
             PathDatiUtente = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 "Banchi"); 
             // path da aggiungere in seguito
             PathDatiCondivisa = PathDatiUtente;
             // path da aggiungere in seguito
-            PathDatiModelli = PathDatiUtente;
+            //PathDatiModelli = PathDatiUtente;
+            PathDatiModelli = "non esiste";
             CreaCartelleSeNonEsistono();
             FileAule = Path.Combine(PathDatiUtente, "Aule.tsv");
             FileClassi = Path.Combine(PathDatiUtente, "Classi.tsv");
@@ -49,7 +50,6 @@ namespace Banchi
                 Directory.CreateDirectory(PathDatiModelli);
             }
         }
-
         private static void CreaFileSeNonEsiste(string nomeFile)
         {
             if (!File.Exists(nomeFile))
@@ -57,8 +57,7 @@ namespace Banchi
                 File.Create(nomeFile);
             }
         }
-
-        internal static List<Aula> LeggiTutteLeAule()
+        public static List<Aula> LeggiTutteLeAule()
         {
             string[] stringheLette = File.ReadAllLines(FileAule);
             string[] split = new string[3];
@@ -70,8 +69,7 @@ namespace Banchi
             }
             return listaAule;
         }
-
-        internal static void ScriviTutteLeAule(List<Aula> listaAule)
+        public static void ScriviTutteLeAule(List<Aula> listaAule)
         {
             // salva prima riga di intestazione
             arraySupporto[0] = "NomeAula\tBase\tAltezza";
@@ -84,8 +82,7 @@ namespace Banchi
             }
             File.AppendAllLines(FileAule, arraySupporto);  
         }
-          
-        internal static List<Classe> LeggiTutteLeClassi()
+        public static List<Classe> LeggiTutteLeClassi()
         {
 
             string[] stringheLette = File.ReadAllLines(FileClassi);
@@ -99,8 +96,7 @@ namespace Banchi
            
             return listaClassi;
         }
-
-        internal static void ScriviTutteLeClassi(List<Classe> listaClassi)
+        public static void ScriviTutteLeClassi(List<Classe> listaClassi)
         {
             for (int i = 0; i < listaClassi.Count; i++)
             {
@@ -108,8 +104,7 @@ namespace Banchi
             }
             File.AppendAllLines(FileClassi, arraySupporto);
         }
-
-        internal static List<Studente> LeggiTuttiGliStudenti()
+        public static List<Studente> LeggiTuttiGliStudenti()
         {
             string[] stringheLette = File.ReadAllLines(FileStudenti);
             string[] split = new string[3];
@@ -121,7 +116,7 @@ namespace Banchi
             }
             return listaStudenti;
         }
-        internal static void ScriviTuttiGliStudenti(List<Studente> listaStudenti)
+        public static void ScriviTuttiGliStudenti(List<Studente> listaStudenti)
         {
             for (int i = 0; i < listaStudenti.Count; i++)
             {
@@ -129,12 +124,21 @@ namespace Banchi
             }
             File.AppendAllLines(FileStudenti, arraySupporto);
         }
-
-        internal static void LeggiStudentiClasse(Classe classe)
+        public static void LeggiStudentiClasse(Classe classe)
         {
             // legge dal file Studenti.tsv tutti gli studenti della classe passata come parametro
             // e li mette nella lista che è inclusa dentro il tipo Classe
             throw new NotImplementedException();
+        }
+
+        internal static List<Aula> LeggiTutteLeAuleUtente()
+        {
+            return null;
+        }
+
+        internal static List<Classe> LeggiTutteLeClassiUtente()
+        {
+            return null;
         }
     }
 }

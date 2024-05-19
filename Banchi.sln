@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banchi", "Banchi\Banchi.csproj", "{B1B07964-2451-4684-86D7-474D41D6F43C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgettoTestNUnit", "ProgettoTestNUnit\ProgettoTestNUnit.csproj", "{B0C418B7-494D-478E-885E-28EC1E2BFB8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B1B07964-2451-4684-86D7-474D41D6F43C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1B07964-2451-4684-86D7-474D41D6F43C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1B07964-2451-4684-86D7-474D41D6F43C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0C418B7-494D-478E-885E-28EC1E2BFB8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0C418B7-494D-478E-885E-28EC1E2BFB8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0C418B7-494D-478E-885E-28EC1E2BFB8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0C418B7-494D-478E-885E-28EC1E2BFB8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
