@@ -81,12 +81,6 @@ namespace Banchi
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (cmbModelliClasse.SelectedItem == null)
-            {
-                MessageBox.Show("Selezionare una classe fra i modelli", "Errore",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
             BanchiWindow wnd = new BanchiWindow();
             wnd.Show();
         }

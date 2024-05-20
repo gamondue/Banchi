@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Banchi.Classi;
+using System.IO;
 
 namespace Banchi
 {
@@ -45,7 +46,8 @@ namespace Banchi
             {
                 Directory.CreateDirectory(PathDatiCondivisa);
             }
-            if (!Directory.Exists(PathDatiModelli))
+            if (!Directory.Exists(PathDatiModelli) || 
+                Utente.Accesso != Utente.RuoloUtente.ModificheAiModelli)
             {
                 Directory.CreateDirectory(PathDatiModelli);
             }
@@ -80,11 +82,10 @@ namespace Banchi
                 arraySupporto[i + 1] = listaAule[i].NomeAula.ToString() + "\t" + 
                     listaAule[i].BaseInCentimetri.ToString() + "\t" + listaAule[i].AltezzaInCentimetri.ToString();
             }
-            File.AppendAllLines(FileAule, arraySupporto);  
+            File.WriteAllLines(FileAule, arraySupporto);  
         }
         public static List<Classe> LeggiTutteLeClassi()
         {
-
             string[] stringheLette = File.ReadAllLines(FileClassi);
             string[] split = new string[2];
             for (int i = 1; i < stringheLette.Length; i++)
@@ -92,8 +93,7 @@ namespace Banchi
                 split = stringheLette[i].Split("\t");
                 Classe a = new Classe(split[0], split[1]);
                 listaClassi.Add(a);
-            }
-           
+            }           
             return listaClassi;
         }
         public static void ScriviTutteLeClassi(List<Classe> listaClassi)

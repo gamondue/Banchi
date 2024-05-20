@@ -16,9 +16,17 @@ namespace ProgettoTestNUnit
         }
 
         [Test]
-        public void Test1()
+        public void TestDatiAule()
         {
-            Assert.Pass();
+            List<Aula> aule = new();
+            Aula aula = new("L13", 500.0, 1000.0);
+            aule.Add(aula);
+            aula = new("P12", 600.0, 800.0);
+            aule.Add(aula);
+            aula = new("L10", 700.0, 700.0);
+            aule.Add(aula);
+            DataLayer.ScriviTutteLeAule(aule);
+            Assert.That(aule, Is.EqualTo(DataLayer.LeggiTutteLeAule()));
         }
     }
 }
