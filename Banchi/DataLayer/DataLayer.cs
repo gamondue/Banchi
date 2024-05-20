@@ -8,7 +8,6 @@ namespace Banchi
         static List<Aula> listaAule = new List<Aula>();
         static List<Classe> listaClassi = new List<Classe>();
         static List<Studente> listaStudenti = new List<Studente>();
-        static string[] arraySupporto= new string[100];
 
         public static string PathDatiUtente;
         public static string PathDatiCondivisa;
@@ -73,6 +72,8 @@ namespace Banchi
         }
         public static void ScriviTutteLeAule(List<Aula> listaAule)
         {
+            // array di appoggio della dimesione giusta
+            string[] arraySupporto= new string[listaAule.Count + 1];
             // salva prima riga di intestazione
             arraySupporto[0] = "NomeAula\tBase\tAltezza";
             // salva nelle righe successive le aule che sono nella lista
@@ -98,6 +99,8 @@ namespace Banchi
         }
         public static void ScriviTutteLeClassi(List<Classe> listaClassi)
         {
+            // array di appoggio della dimesione giusta
+            string[] arraySupporto = new string[listaClassi.Count + 1];
             for (int i = 0; i < listaClassi.Count; i++)
             {
                 arraySupporto[i] = listaClassi[i].CodiceClasse.ToString() + "\t" + listaClassi[i].AnnoScolastico.ToString();
@@ -118,6 +121,8 @@ namespace Banchi
         }
         public static void ScriviTuttiGliStudenti(List<Studente> listaStudenti)
         {
+            // array di appoggio della dimesione giusta
+            string[] arraySupporto = new string[listaStudenti.Count + 1];
             for (int i = 0; i < listaStudenti.Count; i++)
             {
                 arraySupporto[i] = listaStudenti[i].Nome.ToString() + "\t" + listaStudenti[i].Cognome.ToString() + "\t" + listaStudenti[i].CodiceClasse.ToString();

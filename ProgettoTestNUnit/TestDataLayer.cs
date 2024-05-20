@@ -26,6 +26,10 @@ namespace ProgettoTestNUnit
             aula = new("L10", 700.0, 700.0);
             aule.Add(aula);
             DataLayer.ScriviTutteLeAule(aule);
+            // la seguante asserzi0ne non funziona: aule è un oggetto diverso da 
+            // ciò che viene restituito da LeggiTutteLeAule(), per cui anche se
+            // tutti gli elementi sono uguali, non possono che apparire diverse alla That !!!!
+            // !!!! TODO aggiustare !!!!
             Assert.That(aule, Is.EqualTo(DataLayer.LeggiTutteLeAule()));
         }
     }
