@@ -26,11 +26,19 @@ namespace ProgettoTestNUnit
             aula = new("L10", 700.0, 700.0);
             aule.Add(aula);
             DataLayer.ScriviTutteLeAule(aule);
-            // la seguante asserzi0ne non funziona: aule è un oggetto diverso da 
-            // ciò che viene restituito da LeggiTutteLeAule(), per cui anche se
-            // tutti gli elementi sono uguali, non possono che apparire diverse alla That !!!!
-            // !!!! TODO aggiustare !!!!
-            Assert.That(aule, Is.EqualTo(DataLayer.LeggiTutteLeAule()));
+            // la seguente asserzione non funziona: i due sono oggetti diversi, per cui non sono mai uguali
+            //Assert.That(aule, Is.EqualTo(DataLayer.LeggiTutteLeAule()));
+
+            // per verificare che tutti gli elementi delle due liste siano uguali, 
+            // bisogna percorrerli con un foreach()
+            int i = 0; 
+            foreach (Aula a in DataLayer.LeggiTutteLeAule())
+            {
+                Assert.That(a.BaseInCentimetri, Is.EqualTo(aule[i].BaseInCentimetri));
+                Assert.That(a.AltezzaInCentimetri, Is.EqualTo(aule[i].AltezzaInCentimetri));
+                Assert.That(a.NomeAula, Is.EqualTo(aule[i].NomeAula));
+                i++;
+            }
         }
     }
 }

@@ -9,7 +9,10 @@ namespace Banchi.Classi
 {
     public class Serramento
     {
-        public Size SizeDimesioni { get; set; }
+        // numero del lato su cui sta questo serrramento
+        public int NLato { get; set; }
+        public double DistanzaDaPrecedenteInCm { get; set; }
+        public double LarghezzaSerramentoinCm { get; set; }
         public  bool IsPorta { get; set; }
     }
 }

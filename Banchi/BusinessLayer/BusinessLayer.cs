@@ -59,9 +59,9 @@ namespace Banchi
         {
             return DataLayer.LeggiTuttiGliStudenti();
         }
-        public static void LeggiStudentiClasse(Classe classe)
+        public static List<Studente> LeggiStudentiClasse(Classe classe)
         {
-            DataLayer.LeggiStudentiClasse(classe);
+            return DataLayer.LeggiStudentiClasse(classe);
         }
         public static void ScriviTutteLeAule(List<Aula> listaAule)
         {

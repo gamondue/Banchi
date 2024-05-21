@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
-        Title="Banchi: ho perso lo studente" Height="450" Width="800">
+        Title="Banchi: ho perso lo studente" Height="450" Width="800"
+        Padding="3">
     <StackPanel Orientation="Vertical">
         <Menu x:Name="BarraMenu" DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -23,10 +24,11 @@
                 <MenuItem Header="About" x:Name="MenuAbout" Click="MenuAbout_Click"/>
             </MenuItem>
         </Menu>
-        <StackPanel x:Name="BarraCheckbox" Orientation="Horizontal">
+        <StackPanel x:Name="BarraBottoni" Orientation="Horizontal">
             <!--barra delle icone e dei pulsanti -->
-            <Button x:Name="btn_Banchi" Content="Posizioni banchi" Click="btn_Banchi_Click"/>
-            <Button x:Name="btn_Aula" Content="Modifica aula" Click="btn_Aula_Click"/>
+            <Button x:Name="btn_Banchi" Content="Gestione banchi" Click="btn_Banchi_Click"/>
+            <Button x:Name="btn_Aula" Content="Gestione aula" Click="btn_Aula_Click"/>
+            <Button x:Name="btn_Computer" Content="Gestione computer" Click="btn_Computer_Click"/>
             <Button x:Name="btn_Salva" Content="Salva studenti in aula" Click="btn_Salva_Click"/>
         </StackPanel>
         <StackPanel x:Name="BarraComboBox" Orientation="Horizontal">
@@ -39,17 +41,34 @@
 
             <Label Content="Modelli condivisi"/>
             <Label Content="Aule" />
-            <ComboBox x:Name="cmbModelliAule" IsEditable="False"/>
+            <ComboBox x:Name="cmbModelliAule" IsEditable="False" SelectionChanged="cmbModelliAule_SelectionChanged"/>
             <Label Content="Classi" />
-            <ComboBox x:Name="cmbModelliClasse" IsEditable="False"/>
+            <ComboBox x:Name="cmbModelliClasse" IsEditable="False" SelectionChanged="cmbModelliClasse_SelectionChanged"/>
         </StackPanel>
-        <StackPanel x:Name="BarraIcone" />
-        <StackPanel x:Name="stack_ListaNomiAlunni" Orientation="Horizontal" HorizontalAlignment="Left">
+        <StackPanel x:Name="BarraCheckBox" Orientation="Horizontal">
+            <CheckBox x:Name="chkStudenti" Content="Studenti" Checked="chkStudenti_Checked" Unchecked="chkStudenti_Unchecked"/>
+            <CheckBox x:Name="chkComputer" Content="Computer" Checked="chkComputer_Checked" Unchecked="chkComputer_Unchecked"/>
+        </StackPanel>
+        <DockPanel x:Name="AreaPrincipale">
+            <ListBox DockPanel.Dock="Left" Width="160" x:Name="lstStudenti" BorderBrush="Transparent"/>
             <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" 
-                Background="White" Width="600" Height="364">
+                Background="White">
                 <!-- canvas dove disegnamo l'aula ed i banchi. I banchi vengono creati dal programma -->
+                <!--disegno di un banco per prova. Da cancellare quando si disegnerà tutta l'aula-->
+                <Label x:Name="bancoDiProva" Background="Aquamarine" 
+                       Canvas.Left="100" Canvas.Top="100" Width="100" Height="80"
+                       BorderThickness="4" BorderBrush="LightCoral">
+                    <!--All'interno della Label: scritta che va a capo con due righe separate dal linea-->
+                    <TextBlock TextAlignment="Center">
+                        PC0112
+                        <LineBreak/>
+                        _____________
+                        <LineBreak/>
+                        Gabriele Monti
+                    </TextBlock>
+                </Label>
             </Canvas>
-            <ListBox x:Name="lst_NomiAlunni" Width="200" Height="365" />
-        </StackPanel>
+            <ListBox DockPanel.Dock="Right" Width="160" x:Name="lstComputer" BorderBrush="Transparent"/>
+        </DockPanel>
     </StackPanel>
 </Window>

@@ -7,7 +7,6 @@ namespace Banchi
     {
         static List<Aula> listaAule = new List<Aula>();
         static List<Classe> listaClassi = new List<Classe>();
-        static List<Studente> listaStudenti = new List<Studente>();
 
         public static string PathDatiUtente;
         public static string PathDatiCondivisa;
@@ -65,7 +64,7 @@ namespace Banchi
             for (int i = 1; i < stringheLette.Length; i++)
             {
                 split = stringheLette[i].Split("\t");
-                Aula a = new Aula(split[0], Convert.ToDouble(split[1]), Convert.ToDouble(split[2]));
+                Aula a = new Aula(split[0], Convert.ToDouble(split[2]), Convert.ToDouble(split[1]));
                 listaAule.Add(a);
             }
             return listaAule;
@@ -109,6 +108,8 @@ namespace Banchi
         }
         public static List<Studente> LeggiTuttiGliStudenti()
         {
+            List<Studente> listaStudenti = new List<Studente>();
+
             string[] stringheLette = File.ReadAllLines(FileStudenti);
             string[] split = new string[3];
             for (int i = 1; i < stringheLette.Length; i++)
@@ -129,18 +130,29 @@ namespace Banchi
             }
             File.AppendAllLines(FileStudenti, arraySupporto);
         }
-        public static void LeggiStudentiClasse(Classe classe)
+        public static List<Studente> LeggiStudentiClasse(Classe classe)
         {
             // legge dal file Studenti.tsv tutti gli studenti della classe passata come parametro
             // e li mette nella lista che è inclusa dentro il tipo Classe
-            throw new NotImplementedException();
-        }
+            List<Studente> listaStudenti = new List<Studente>();
 
+            string[] stringheLette = File.ReadAllLines(FileStudenti);
+            for (int i = 1; i < stringheLette.Length; i++)
+            {
+                string[] split = stringheLette[i].Split("\t");
+                if (split[3] == classe.CodiceClasse)
+                {
+                    Studente s = new Studente(split[2], split[1], split[3]);
+                    listaStudenti.Add(s);
+                }
+            }
+            classe.Studenti = listaStudenti; 
+            return listaStudenti;
+        }
         internal static List<Aula> LeggiTutteLeAuleUtente()
         {
             return null;
         }
-
         internal static List<Classe> LeggiTutteLeClassiUtente()
         {
             return null;

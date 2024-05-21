@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using Label = System.Windows.Controls.Label;
@@ -32,7 +33,6 @@ namespace Banchi
                 {
                     cmbClasseUtente.Items.Add(a);
                 }
-
             // riempio i combobox dei modelli
             List<Aula> listaAuleModello = BusinessLayer.LeggiTutteLeAule();
             // riempimento del ComboBox con le aule appena lette
@@ -59,6 +59,16 @@ namespace Banchi
             }
             //cmbModelliClasse.SelectedIndex = 1;
             //cmbModelliClasse.SelectedItem = cmbClasseUtente.Items[1];
+
+            //// esempio: cambio del contenuto della label bancoDiProva
+            //TextBlock tb = new TextBlock();
+            //tb.TextAlignment = TextAlignment.Center;
+            //tb.Inlines.Add(new Run("PC1228"));
+            //tb.Inlines.Add(new LineBreak());
+            //tb.Inlines.Add(new Run("__________"));
+            //tb.Inlines.Add(new LineBreak());
+            //tb.Inlines.Add("Giorgio Salutini");
+            //bancoDiProva.Content = tb; 
         }
         private void MenuAula_Click(object sender, RoutedEventArgs e)
         {
@@ -102,6 +112,45 @@ namespace Banchi
         private void btn_Salva_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+        private void cmbModelliClasse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbModelliClasse.SelectedItem != null)
+            {
+                List<Studente> listaStudenti = BusinessLayer.LeggiStudentiClasse((Classe)cmbModelliClasse.SelectedItem);
+                lstStudenti.ItemsSource = listaStudenti;
+            }
+            else
+            {
+                lstStudenti.ItemsSource = null;
+            }
+        }
+        private void cmbModelliAule_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbModelliAule.SelectedItem != null)
+            {
+                ((Aula)cmbModelliAule.SelectedItem).VisualizzaAulaEBanchi();
+            }
+        }
+        private void chkStudenti_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void chkStudenti_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void chkComputer_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void chkComputer_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btn_Computer_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
