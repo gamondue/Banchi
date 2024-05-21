@@ -12,6 +12,7 @@ namespace Banchi
         public string NomeClasse { get; set; }
         public Point Position { get; set; }
         public Size Size { get; set; }
+        public static Point posizioneIniziale { get; set; } = new Point(0, 0);
         Label GraficaBanco { get; set; }
         public bool IsCattedra { get; } = false;
         public string CognomeNomeStudente { get; set; }
@@ -34,7 +35,8 @@ namespace Banchi
             GraficaBanco.FontWeight = FontWeights.Bold;
             // posizione di default (darla a tutti i banchi diversa,
             // in modo che non si sovrappongano completamente)
-            this.Position = new Point(0, 0);
+            this.Position = posizioneIniziale;
+            posizioneIniziale = new Point(posizioneIniziale.X+10, posizioneIniziale.Y + 10);
             // dimensione di default, vedere quale è la migliore
             // quando il resto funzione, si può pensare di poter rendere le proporzioni dei banchi 
             // configurabili dall'utente, in modo che possano essere come i banchi "veri" 

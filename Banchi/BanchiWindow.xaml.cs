@@ -17,6 +17,7 @@ namespace Banchi
         public BanchiWindow()
         {
             InitializeComponent();
+            //BusinessLayer.LeggiBanchi();
         }
         private void btn_NuovoBanco_Click(object sender, RoutedEventArgs e)
         {
@@ -78,6 +79,11 @@ namespace Banchi
                 isDragging = false;
                 label.ReleaseMouseCapture();
             }
+        }
+
+        private void btn_SalvataggioBanchi_Click(object sender, RoutedEventArgs e)
+        {
+            //BusinessLayer.ScriviTuttiIBanchi();
         }
     }
 }
