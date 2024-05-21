@@ -19,9 +19,13 @@
             <Image Height="80" Width="80" x:Name="logo" Source="Immagini\baldi104.jpg"/>
         </Border>
 
-        <Label Grid.Row="2" Content="Banchi" HorizontalAlignment="Center" Height="60" Background="White" FontSize="36" FontFamily="Arial Unicode MS" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Grid.Row="2" Content="Banchi" HorizontalAlignment="Center" Height="60" Background="White" FontSize="36" FontFamily="Arial Unicode MS" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,10,0,214"/>
 
-        <Label Grid.Row="3" Content="Ho perso lo studente" HorizontalAlignment="Center" FontSize="16" HorizontalContentAlignment="Center"/>
-        <Label Grid.Row="4" Content="ITT Blaise Pascal - Cesena" HorizontalAlignment="Center" FontSize="16" HorizontalContentAlignment="Center"/>
+        <Label Grid.Row="2" Content="Ho perso lo studente" HorizontalAlignment="Center" FontSize="16" HorizontalContentAlignment="Center" Margin="0,70,0,182"/>
+        <Label Grid.Row="2" Content="ITT Blaise Pascal - Cesena" HorizontalAlignment="Center" FontSize="16" HorizontalContentAlignment="Center" Margin="0,102,0,153"/>
+        <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="133,143,0,0" FontSize="14"
+               Width="600" Height="125" Content="Gruppi e compiti:"/>
+        <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="133,163,0,0" FontSize="14"
+               Width="600" Height="121" Content="1. Molinari Mattia, Giunchi Andrea, Savorelli Simone(finestra principale :classe in aula)&#xA;2. Barbozzi Andrea, Bertaccini Filippo, Bonoli Alex(finestra aula);&#xA;3. Blasi Samuele, Pasini Giulio, Beccanti Francesco(finestra about);&#xA;4. Casavecchia Nicolo', Bellavista Riccardo(finestra computer);&#xA;5. Dolci Federico, Magi Samuele, Shala Albin(menù: lista e distribuzione degli studenti nei banchi);&#xA;6. Zamagni Edoardo, Impagnatiello Michele, El Ghafiri Rayan(gestione file)."/>
     </Grid>
 </Window>
