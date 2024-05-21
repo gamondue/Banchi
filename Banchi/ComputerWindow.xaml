@@ -1,0 +1,45 @@
+﻿<Window x:Class="Banchi.ComputerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Banchi"
+        mc:Ignorable="d"
+        Title="ComputerWindow" Height="450" Width="800">
+    <Grid Height="434" VerticalAlignment="Bottom">
+        <StackPanel>
+            <StackPanel>
+                <Menu x:Name="menu" DockPanel.Dock="Top">
+                    <MenuItem Header="_Modifica">
+                        <MenuItem Header="_Posizionare i banchi" IsCheckable="True" IsChecked="True"/>
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Image Width="200" Source="\Immagini\Utente.jpg" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <StackPanel>
+                    <Label Content="Nome: "></Label>
+                    <Label Content="indirizzo IP:"></Label>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Nome dello studente "></Label>
+                    <Label Content="IP del computer "></Label>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Cognome: "></Label>
+                    <Label Content="Marca: "></Label>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Cognome dello studente "></Label>
+                    <Label Content="Marca del computer "></Label>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <Label Content="note" HorizontalAlignment="Center"></Label>
+                <TextBox Text="Luogo dove scrivere o leggere le note"></TextBox>
+            </StackPanel>
+        </StackPanel>
+        <Button Height="40" Margin="634,323,84,71" Content="salva"/>
+        <Button Height="40" Margin="63,323,653,71" Content="segnala"/>
+    </Grid>
+</Window>

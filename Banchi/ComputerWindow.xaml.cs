@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Banchi
 {
     /// <summary>
-    /// Logica di interazione per InfoComputer.xaml
+    /// Logica di interazione per ComputerWindow.xaml
     /// </summary>
-    public partial class InfoComputer : Window
+    public partial class ComputerWindow : Window
     {
-        public InfoComputer()
+        public ComputerWindow()
         {
             InitializeComponent();
         }

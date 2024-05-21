@@ -17,4 +17,12 @@
     <None Remove="Model\**" />
     <Page Remove="Model\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Immagini\Utente.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Immagini\Utente.jpg" />
+  </ItemGroup>
 </Project>

@@ -107,8 +107,9 @@ namespace Banchi
         }
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            InfoComputer finestra = new InfoComputer();
-            finestra.Show();
+            /*
+            ComputerWindow finestra = new ComputerWindow();
+            finestra.Show();*/
         }
         // commentati, gli stessi metodi delegati, ma che funzionano nel Canvas
         ////
