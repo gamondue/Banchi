@@ -13,10 +13,13 @@ namespace Banchi
         private Point startPosition;
 
         Banco banco;
+        //fare lista
+        //List<Banco> banchi;
 
         public BanchiWindow()
         {
             InitializeComponent();
+            //BusinessLayer.LeggiBanchi();
         }
         private void btn_NuovoBanco_Click(object sender, RoutedEventArgs e)
         {
@@ -32,6 +35,8 @@ namespace Banchi
             banco = new Banco(grafica, false, misure);
             // aggiunta del banco all'area di disegno (Canvas)
             AreaDisegno.Children.Add(grafica);
+            //aggiungere banco a lista
+            //banchi.Add(banco);
             // metodi delegati per gestione drag and drop
             grafica.MouseDown += ClickSuBanco;
             grafica.MouseMove += MovimentoSuBanco;
@@ -76,8 +81,36 @@ namespace Banchi
             if (isDragging)
             {
                 isDragging = false;
+                startPosition = e.GetPosition((IInputElement)this);
+                //modificare posizione banchi
+                ////banco.Position = startPosition;
                 label.ReleaseMouseCapture();
             }
+        }
+
+        private void btn_SalvataggioBanchi_Click(object sender, RoutedEventArgs e)
+        {
+            //BusinessLayer.ScriviTuttiIBanchi();
+        }
+
+        private void btn_NuovaCattedra_Click(object sender, RoutedEventArgs e)
+        {
+            // operazioni di inizializzazione da farsi per ogni banco che voglio creare
+            // creazione dell'oggetto grafico che rappresenta il banco
+            Label grafica = new Label();
+            // creazione del banco, passando l'oggetto grafico
+            // listaAule classe Banco definirà l'aspetto e il comportamento del banco
+            // il tavolo assume listaAule sua posizione e dimensione di default
+            double larghezza = Convert.ToDouble(txt_Larghezza.Text);
+            double lunghezza = Convert.ToDouble(txt_Lunghezza.Text);
+            Size misure = new Size(larghezza, lunghezza);
+            banco = new Banco(grafica, true, misure);
+            // aggiunta del banco all'area di disegno (Canvas)
+            AreaDisegno.Children.Add(grafica);
+            // metodi delegati per gestione drag and drop
+            grafica.MouseDown += ClickSuBanco;
+            grafica.MouseMove += MovimentoSuBanco;
+            grafica.MouseUp += MouseUpSuBanco;
         }
     }
 }
