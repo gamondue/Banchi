@@ -1,3 +1,5 @@
+﻿using System.Windows;
+using System.Windows.Controls;
 ﻿using Banchi.Classi;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,6 +32,18 @@ namespace Banchi
             this.AltezzaInCentimetri = AltezzaInCentimetri;
             this.BaseInCentimetri = BaseInCentimetri;
             this.NomeAula = NomeAula;
+
+            this.GraficaAula = GraficaAula;
+            // aspetto del banco, DA MIGLIORARE! 
+            //GraficaAula.HorizontalContentAlignment = HorizontalAlignment.Center;
+            //GraficaAula.VerticalContentAlignment = VerticalAlignment.Center;
+            GraficaAula.BorderThickness = new Thickness(2);
+            GraficaAula.BorderBrush = Brushes.Black;
+            GraficaAula.HorizontalAlignment = HorizontalAlignment.Left;
+            GraficaAula.VerticalAlignment = VerticalAlignment.Center;
+            GraficaAula.Background = Brushes.LightGray;
+            //GraficaAula.FontWeight = FontWeights.Bold;
+
             if (DirezioneNord != null)
                 this.DirezioneNord = DirezioneNord;
             Banchi = new List<Banco>();
