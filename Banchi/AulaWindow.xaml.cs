@@ -22,22 +22,20 @@ namespace Banchi
     public partial class AulaWindow : Window
     {
         DispatcherTimer timer = new DispatcherTimer();
-
         Label grafica = new Label();
         Aula a1;
-        bool isDragging = false;
         private Point startPosition;
 
         public AulaWindow()
         {
             InitializeComponent();
-            a1 = new Aula("L12", 200, 100);
-            canvasC.Children.Add(grafica);
-            DispatcherTimer timer = new DispatcherTimer();
+            txtAltezza.Text = "2000";
+            txtBase.Text = "1000";
+            a1 = new Aula("L12", 2000, 1000, grafica);
+            canvasC.Children.Add(grafica); //andrebbe passata la classe a1 e non la label grafica
             timer.Interval = new TimeSpan(1);
             timer.Start();
             timer.Tick += Timer_Tick;
-            // canvasC.Children.Add(grafica); spostato sopra, non dovrebbe cambiare nulla
 
             FinestrePorte.Visibility = Visibility.Hidden;
             canvasC.Visibility = Visibility.Visible;
@@ -45,14 +43,20 @@ namespace Banchi
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
-            double altezza2 = Convert.ToDouble(txtAltezza.Text);
+            //CONTROLLARE SE NUMERI TROPPO GRANDI O PICCOLI
+           double altezza2 = Convert.ToDouble(txtAltezza.Text);
             double base2 = Convert.ToDouble(txtBase.Text);
-            a1.AltezzaInMetri = altezza2;
-            a1.BaseInMetri = base2;
-            a1.NomeAula = txtNome.Text;
+            //a1.AltezzaInCentimetri = altezza2;
+            //a1.BaseInCentimetri = base2;
+            //a1.NomeAula = txtNome.Text;
+
+            grafica.Width = base2;
+            grafica.Height = altezza2;
+            // da controllare
+            // bisogna modificare la classe
         }
 
-        private void btnClick_Conferma(object sender, RoutedEventArgs e)
+        private void btnClick_ConfermaDim(object sender, RoutedEventArgs e)
         {
             if (Convert.ToDouble(txtBase.Text) > 0.0 && Convert.ToDouble(txtAltezza.Text) > 0.0)
             {
@@ -61,7 +65,7 @@ namespace Banchi
                 canvasC.Visibility = Visibility.Visible;
                 double base2 = Convert.ToDouble(txtBase.Text);
                 double altezza2 = Convert.ToDouble(txtAltezza.Text);
-                Aula aula1 = new(txtNome.Text, altezza2, base2);
+                a1 = new(txtNome.Text, altezza2, base2, grafica);
             }
         }
 
