@@ -17,4 +17,14 @@
     <None Remove="Model\**" />
     <Page Remove="Model\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Immagini\baldi104.jpg" />
+    <None Remove="Immagini\RosaDeiVenti.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Immagini\baldi104.jpg" />
+    <Resource Include="Immagini\RosaDeiVenti.svg" />
+  </ItemGroup>
 </Project>

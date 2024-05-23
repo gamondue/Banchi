@@ -1,0 +1,24 @@
+﻿<Window x:Class="Banchi.BanchiWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Banchi"
+        mc:Ignorable="d"
+        Title="Gestione Banchi" Height="450" Width="800">
+    <StackPanel >
+        <StackPanel Orientation="Horizontal">
+            <Label>Larghezza</Label>
+            <TextBox x:Name="txt_Larghezza" Text="100" Width="94"/>
+            <Label>Lunghezza</Label>
+            <TextBox x:Name="txt_Lunghezza" Text="100" Width="94"/>
+            <Button x:Name="btn_NuovoBanco" Content="Nuovo banco" Click="btn_NuovoBanco_Click"/>
+            <Button x:Name="btn_NuovaCattedra" Content="Nuova cattedra" Click="btn_NuovaCattedra_Click"/>
+            <Button x:Name="btn_SalvataggioBanchi" Content="Salvataggio banchi" Click="btn_SalvataggioBanchi_Click"/>
+        </StackPanel>
+        <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" 
+                Background="White">
+            <!-- canvas dove disegnamo l'aula ed i banchi. I banchi vengono creati dal programma -->
+        </Canvas>
+    </StackPanel>
+</Window>

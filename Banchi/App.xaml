@@ -3,14 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Banchi"
              StartupUri="MainWindow.xaml">
-    <!--<Application.Resources>
-        --><!-- stile per tutto il programma 
-        SOLO PER ESEMPIO. CANCELLARE LA PARTE SEGUENTE O MODIFICARLA NEL PROGRAMMA --><!--
-        <Style TargetType="TextBlock">
-            <Setter Property="HorizontalAlignment" Value="Center" />
+    <Application.Resources>
+        <!--stile per tutto il programma-->
+        <!--<Style x:Key="StileFinestre" TargetType="{x:Type Window}">
             <Setter Property="FontFamily" Value="Comic Sans MS" />
-            <Setter Property="FontSize" Value="34" />
-            <Setter Property="Background" Value="Aqua" />
-        </Style>
-    </Application.Resources>-->
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Background" Value="Magenta"/>
+        </Style>-->
+    </Application.Resources>
 </Application>

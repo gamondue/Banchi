@@ -36,7 +36,7 @@
         </StackPanel>
         <StackPanel Margin="192,92,0,0" x:Name="Canvas">
             <Canvas x:Name="canvasC" Background="Black">
-
+                <Image Height="80" Width="80" x:Name="Nord" Source="Immagini\RosaDeiVenti.svg"/>
             </Canvas>
         </StackPanel>
     </Grid>
