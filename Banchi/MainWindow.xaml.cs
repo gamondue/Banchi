@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using Label = System.Windows.Controls.Label;
 
@@ -26,8 +25,8 @@ namespace Banchi
                     // devo implementare il metodo ToString() dentro listaAuleUtente classe Aule
                     cmbAuleUtente.Items.Add(a);
                 }
-            
-            List<Classe> listaClassiUtente=BusinessLayer.LeggiTutteLeClassiUtente();
+
+            List<Classe> listaClassiUtente = BusinessLayer.LeggiTutteLeClassiUtente();
             if (listaAuleUtente != null)
                 foreach (Classe a in listaClassiUtente)
                 {
@@ -60,19 +59,31 @@ namespace Banchi
             //cmbModelliClasse.SelectedIndex = 1;
             //cmbModelliClasse.SelectedItem = cmbClasseUtente.Items[1];
 
-            //// esempio: cambio del contenuto della label bancoDiProva
-            //TextBlock tb = new TextBlock();
-            //tb.TextAlignment = TextAlignment.Center;
-            //tb.Inlines.Add(new Run("PC1228"));
-            //tb.Inlines.Add(new LineBreak());
-            //tb.Inlines.Add(new Run("__________"));
-            //tb.Inlines.Add(new LineBreak());
-            //tb.Inlines.Add("Giorgio Salutini");
-            //bancoDiProva.Content = tb; 
+            // esempio: creazione di un nuovo banco con C#
+            // i due banchi disegnati servono temporanemente perchè il 
+            // gruppo che deve scrivere entro i banchi i nomi degli studenti
+            // e dei computer possa fare le sue prove 
+            Label GraficaBanco = new();
+            GraficaBanco.BorderBrush = Brushes.Black;
+            GraficaBanco.HorizontalAlignment = HorizontalAlignment.Left;
+            GraficaBanco.VerticalAlignment = VerticalAlignment.Center;
+            GraficaBanco.Background = Brushes.BurlyWood;
+            GraficaBanco.FontWeight = FontWeights.Bold;
+            TextBlock tb = new TextBlock();
+            tb.TextAlignment = TextAlignment.Center;
+            tb.Inlines.Add(new Run("PC1228"));
+            tb.Inlines.Add(new LineBreak());
+            tb.Inlines.Add(new Run("__________"));
+            tb.Inlines.Add(new LineBreak());
+            tb.Inlines.Add("Giorgio Salutini");
+            GraficaBanco.Content = tb;
+            AreaDisegno.Children.Add(GraficaBanco);
+            Canvas.SetLeft(GraficaBanco, 250);
+            Canvas.SetTop(GraficaBanco, 100);
         }
         private void MenuAula_Click(object sender, RoutedEventArgs e)
         {
-            ApriFinestraAula(); 
+            ApriFinestraAula();
         }
         private void MenuAbout_Click(object sender, RoutedEventArgs e)
         {
@@ -96,13 +107,13 @@ namespace Banchi
         }
         private void btn_Aula_Click(object sender, RoutedEventArgs e)
         {
-            ApriFinestraAula(); 
+            ApriFinestraAula();
         }
         private void ApriFinestraAula()
         {
             if (cmbModelliAule.SelectedItem == null)
             {
-                MessageBox.Show("Selezionare un'aula fra i modelli", "Errore", 
+                MessageBox.Show("Selezionare un'aula fra i modelli", "Errore",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -150,7 +161,18 @@ namespace Banchi
         }
         private void btn_Computer_Click(object sender, RoutedEventArgs e)
         {
-
+            ApriFinestraComputer();
+        }
+        private void ApriFinestraComputer()
+        {
+            if (cmbModelliAule.SelectedItem == null)
+            {
+                MessageBox.Show("Selezionare un'aula fra i modelli", "Errore",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            ComputerWindow wnd = new ComputerWindow((Aula)cmbModelliAule.SelectedItem);
+            wnd.Show();
         }
     }
 }

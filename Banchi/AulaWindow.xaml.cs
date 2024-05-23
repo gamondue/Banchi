@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using System.Windows.Threading;
 using Label = System.Windows.Controls.Label;
 
@@ -54,7 +42,7 @@ namespace Banchi
             grafica.Height = altezza2;
             // da controllare
             // bisogna modificare la classe
-            Canvas.Visibility = Visibility.Hidden;           
+            Canvas.Visibility = Visibility.Hidden;
         }
         private void btnClick_ConfermaDim(object sender, RoutedEventArgs e)
         {
@@ -65,13 +53,15 @@ namespace Banchi
                 canvasC.Visibility = Visibility.Visible;
                 double base2 = Convert.ToDouble(txtBase.Text);
                 double altezza2 = Convert.ToDouble(txtAltezza.Text);
-                a1 = new(txtNome.Text, altezza2, base2, grafica);
+                a1 = new Aula(txtNome.Text, altezza2, base2, grafica);
             }
         }
 
         private void btn_ConfermaFinestra_Click(object sender, RoutedEventArgs e)
         {
-                Aula aula1 = new("L13", altezza2, base2);              
+            double base2 = Convert.ToDouble(txtBase.Text);
+            double altezza2 = Convert.ToDouble(txtAltezza.Text);
+            Aula aula1 = new("L13", altezza2, base2, grafica);
         }
     }
 }
