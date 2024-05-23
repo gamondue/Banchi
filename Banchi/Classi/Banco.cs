@@ -27,16 +27,24 @@ namespace Banchi
             // aspetto del banco, DA MIGLIORARE! 
             GraficaBanco.HorizontalContentAlignment = HorizontalAlignment.Center;
             GraficaBanco.VerticalContentAlignment = VerticalAlignment.Center;
-            GraficaBanco.BorderThickness = new Thickness(2);
+            if (!IsCattedra)
+            {
+                GraficaBanco.BorderThickness = new Thickness(2);
+            }
+            else
+            {
+                GraficaBanco.BorderThickness = new Thickness(4);
+            }
             GraficaBanco.BorderBrush = Brushes.Black;
             GraficaBanco.HorizontalAlignment = HorizontalAlignment.Left;
             GraficaBanco.VerticalAlignment = VerticalAlignment.Center;
             GraficaBanco.Background = Brushes.BurlyWood;
             GraficaBanco.FontWeight = FontWeights.Bold;
+            GraficaBanco.Content = CodiceBanco + "\n" + "_____________" + "\n" + CognomeNomeStudente;
             // posizione di default (darla a tutti i banchi diversa,
             // in modo che non si sovrappongano completamente)
             this.Position = posizioneIniziale;
-            posizioneIniziale = new Point(posizioneIniziale.X+10, posizioneIniziale.Y + 10);
+            posizioneIniziale = new Point(posizioneIniziale.X + 10, posizioneIniziale.Y + 10);
             // dimensione di default, vedere quale è la migliore
             // quando il resto funzione, si può pensare di poter rendere le proporzioni dei banchi 
             // configurabili dall'utente, in modo che possano essere come i banchi "veri" 

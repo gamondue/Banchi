@@ -13,7 +13,7 @@
             <Label>Lunghezza</Label>
             <TextBox x:Name="txt_Lunghezza" Text="100" Width="94"/>
             <Button x:Name="btn_NuovoBanco" Content="Nuovo banco" Click="btn_NuovoBanco_Click"/>
-            <Label Width="40"/>
+            <Button x:Name="btn_NuovaCattedra" Content="Nuova cattedra" Click="btn_NuovaCattedra_Click"/>
             <Button x:Name="btn_SalvataggioBanchi" Content="Salvataggio banchi" Click="btn_SalvataggioBanchi_Click"/>
         </StackPanel>
         <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" 
