@@ -15,19 +15,13 @@ using System.Windows.Shapes;
 namespace Banchi
 {
     /// <summary>
-    /// Logica di interazione per ComputerWindow.xaml
+    /// Logica di interazione per SegnalazioneWindow.xaml
     /// </summary>
-    public partial class ComputerWindow : Window
+    public partial class SegnalazioneWindow : Window
     {
-        public ComputerWindow()
+        public SegnalazioneWindow()
         {
             InitializeComponent();
-        }
-
-        private void SegnalazioneWindow_click(object sender, RoutedEventArgs e)
-        {
-            SegnalazioneWindow wnd = new SegnalazioneWindow();
-            wnd.Show();
         }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
         Title="ComputerWindow" Height="450" Width="800">
-    <Grid Height="434" VerticalAlignment="Bottom">
+    <Grid Height="434" VerticalAlignment="Top" HorizontalAlignment="Center">
         <StackPanel>
             <StackPanel>
                 <Menu x:Name="menu" DockPanel.Dock="Top">
@@ -36,10 +36,10 @@
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label Content="note" HorizontalAlignment="Center"></Label>
-                <TextBox Text="Luogo dove scrivere o leggere le note"></TextBox>
+                <TextBox x:Name="nota" Text="Luogo dove scrivere o leggere le note" Height="70"></TextBox>
             </StackPanel>
         </StackPanel>
         <Button Height="40" Margin="634,323,84,71" Content="salva"/>
-        <Button Height="40" Margin="63,323,653,71" Content="segnala"/>
+        <Button Height="40" Margin="63,323,653,71" Content="segnala" Click="SegnalazioneWindow_click"/>
     </Grid>
 </Window>
