@@ -92,5 +92,10 @@ namespace Banchi
         {
             return DataLayer.LeggiTutteLeClassiUtente();
         }
+
+        internal static List<Computer> SalvaComputer()
+        {  
+            return DataLayer.SalvaComputer();
+        }
     }
 }
