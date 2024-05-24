@@ -11,7 +11,6 @@
             <StackPanel>
                 <Menu x:Name="menu" DockPanel.Dock="Top">
                     <MenuItem Header="_Modifica" Click="ModificaComputer_Click">
-                        
                     </MenuItem>
                 </Menu>
             </StackPanel>
