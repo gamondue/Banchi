@@ -174,7 +174,7 @@ namespace Banchi
             string[] arraySupporto = new string[listaBanchi.Count + 1];
             for (int i = 0; i < listaBanchi.Count; i++)
             {
-                arraySupporto[i] = listaBanchi[i].CodiceBanco.ToString() + "\t" + listaBanchi[i].Position.ToString() + "\t" + listaBanchi[i].Size.Width.ToString() + "\t" + listaBanchi[i].Size.Height.ToString() + "\t" + listaBanchi[i].IsCattedra.ToString() + "\t" + listaBanchi[i].CognomeNomeStudente.ToString() + "\t" + listaBanchi[i].Position.X.ToString() + "\t" + listaBanchi[i].Position.Y.ToString() ;
+                arraySupporto[i] = listaBanchi[i].CodiceBanco.ToString() + "\t" + listaBanchi[i].NomeClasse.ToString() + "\t" + listaBanchi[i].Size.Width.ToString() + "\t" + listaBanchi[i].Size.Height.ToString() + "\t" + listaBanchi[i].IsCattedra.ToString() + "\t" + listaBanchi[i].CognomeNomeStudente.ToString() + "\t" + listaBanchi[i].Position.X.ToString() + "\t" + listaBanchi[i].Position.Y.ToString(); ////TODO COMPUTER
             }
             File.AppendAllLines(FileBanchi, arraySupporto);
         }
