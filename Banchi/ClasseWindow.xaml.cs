@@ -7,9 +7,18 @@ namespace Banchi
     /// </summary>
     public partial class ClasseWindow : Window
     {
-        public ClasseWindow()
+        public ClasseWindow(Classe classe)
         {
             InitializeComponent();
+
+            if (classe != null)
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }

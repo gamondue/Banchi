@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Immagini\baldi104.jpg" />
     <Resource Include="Immagini\computer.png" />
     <Resource Include="Immagini\RosaDeiVenti.svg" />
