@@ -158,5 +158,10 @@ namespace Banchi
         {
             return null;
         }
+        
+        internal static List<Computer> SalvaComputer()
+        {
+            return null;
+        }
     }
 }
