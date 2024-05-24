@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Banchi
 {
     /// <summary>
-    /// Logica di interazione per GestioneClasseWindow.xaml
+    /// Logica di interazione per SegnalazioneWindow.xaml
     /// </summary>
-    public partial class GestioneClasseWindow : Window
+    public partial class SegnalazioneWindow : Window
     {
-        public GestioneClasseWindow()
+        public SegnalazioneWindow()
         {
             InitializeComponent();
         }

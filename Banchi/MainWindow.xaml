@@ -58,7 +58,7 @@
                 <Label x:Name="bancoDiProva" Background="Aquamarine" 
                        Canvas.Left="100" Canvas.Top="100" Width="100" Height="80"
                        BorderThickness="4" BorderBrush="LightCoral">
-                    <!--All'interno della Label: scritta che va a capo con due righe separate dal linea-->
+                    <!--All'interno della Label: scritta che va a capo con due righe separate da una linea-->
                     <TextBlock TextAlignment="Center">
                         PC0112
                         <LineBreak/>

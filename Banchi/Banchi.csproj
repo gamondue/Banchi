@@ -21,10 +21,12 @@
   <ItemGroup>
     <None Remove="Immagini\baldi104.jpg" />
     <None Remove="Immagini\RosaDeiVenti.svg" />
+    <None Remove="Immagini\Utente.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Immagini\baldi104.jpg" />
     <Resource Include="Immagini\RosaDeiVenti.svg" />
+    <Resource Include="Immagini\Utente.jpg" />
   </ItemGroup>
 </Project>
