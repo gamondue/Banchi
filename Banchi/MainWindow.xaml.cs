@@ -11,6 +11,8 @@ namespace Banchi
     /// </summary>
     public partial class MainWindow : Window
     {
+        internal string studenteSelezionato;
+        internal Label labelSelezionata;
         public MainWindow()
         {
             InitializeComponent();
@@ -192,6 +194,26 @@ namespace Banchi
             ClasseWindow wnd = new ClasseWindow((Classe)cmbModelliClasse.SelectedItem);
             wnd.Show();
         }
+
+        private void btn_Associa_Click(object sender, RoutedEventArgs e)
+        {
+            studenteSelezionato = lstStudenti.SelectedItem.ToString();
+            TextBlock tb = new TextBlock();
+            tb.TextAlignment = TextAlignment.Center;
+            tb.Inlines.Add(new Run("PC1228"));
+            tb.Inlines.Add(new LineBreak());
+            tb.Inlines.Add(new Run("__________"));
+            tb.Inlines.Add(new LineBreak());
+            tb.Inlines.Add(studenteSelezionato);
+            labelSelezionata.Content = tb;
+            labelSelezionata.BorderBrush = Brushes.LightCoral;
+        }
+        private void click_Label(object sender, RoutedEventArgs e)
+        {
+            labelSelezionata = (Label)sender;
+            labelSelezionata.BorderBrush = Brushes.Black;
+        }
+
 
         private void cmbcmbBanchiEStudenti_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
