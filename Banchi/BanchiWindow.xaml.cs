@@ -85,13 +85,15 @@ namespace Banchi
                 startPosition = e.GetPosition((IInputElement)this);
                 TextBlock textBlock1 = (TextBlock)label.Content;
                 InlineCollection contenuto =textBlock1.Inlines;
-                string contenuto1= contenuto.First().ToString();
+                Inline contenuto1 = contenuto.First();
+                Run testo = (Run)contenuto1;
                 foreach (Banco b in banchi)
                 {
                     TextBlock textBlockB = (TextBlock)b.GraficaBanco.Content;
                     InlineCollection contenutoB = textBlockB.Inlines;
-                    string contenutoB1 = contenutoB.First().ToString();
-                    if (contenuto1 == contenutoB1)
+                    Inline contenutoB1 = contenutoB.First();
+                    Run testoB = (Run)contenutoB1;
+                    if (testo.Text == testoB.Text)
                     {
                         b.Position = startPosition;
                     }
