@@ -31,6 +31,7 @@
             <Button x:Name="btn_Computer" Content="Gestione computer" Click="btn_Computer_Click"/>
             <Button x:Name="btn_Classe" Content="Gestione classe" Click="btn_Classe_Click"/>
             <Button x:Name="btn_Salva" Content="Salva studenti in aula" Click="btn_Salva_Click"/>
+            <Button x:Name="btn_Associa" Content="Associa studente al banco"  Margin="20,0,0,0" Click="btn_Associa_Click"/>
         </StackPanel>
         <StackPanel x:Name="BarraComboBox" Orientation="Horizontal">
             <!-- barra dei combo box -->
@@ -76,7 +77,7 @@
                 <!-- disegno di un banco per prova. Da cancellare quando si disegnerà tutta l'aula-->
                 <Label x:Name="bancoDiProva" Background="Aquamarine" 
                        Canvas.Left="100" Canvas.Top="100" Width="100" Height="80"
-                       BorderThickness="4" BorderBrush="LightCoral">
+                       BorderThickness="4" BorderBrush="LightCoral" MouseDoubleClick="click_Label">
                     <!--All'interno della Label: scritta che va a capo con due righe separate da una linea-->
                     <TextBlock TextAlignment="Center">
                         PC0112
