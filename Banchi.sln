@@ -5,7 +5,12 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banchi", "Banchi\Banchi.csproj", "{B1B07964-2451-4684-86D7-474D41D6F43C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgettoTestNUnit", "ProgettoTestNUnit\ProgettoTestNUnit.csproj", "{B0C418B7-494D-478E-885E-28EC1E2BFB8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProgettoTestNUnit", "ProgettoTestNUnit\ProgettoTestNUnit.csproj", "{B0C418B7-494D-478E-885E-28EC1E2BFB8F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementi di soluzione", "Elementi di soluzione", "{7CB87997-72E0-4A33-B314-FDEE9CEF71CC}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

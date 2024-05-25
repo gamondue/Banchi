@@ -15,6 +15,7 @@ namespace Banchi
         {
             InitializeComponent();
             BusinessLayer.Inizializzazioni();
+
             // legge tutte le aule dal "database" e le mette in una lista
             List<Aula> listaAuleUtente = BusinessLayer.LeggiTutteLeAuleUtente();
             // riempimento del ComboBox con le aule appena lette
@@ -173,6 +174,28 @@ namespace Banchi
             }
             ComputerWindow wnd = new ComputerWindow((Aula)cmbModelliAule.SelectedItem);
             wnd.Show();
+        }
+        private void btn_Classe_Click(object sender, RoutedEventArgs e)
+        {
+            ApriFinestraClasse();
+        }
+
+        private void ApriFinestraClasse()
+        {
+            //if (cmbModelliAule.SelectedItem == null)
+            //{
+            //    MessageBox.Show("Selezionare un'aula fra i modelli", "Errore",
+            //        MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return;
+            //}
+            // se non c'è nulla di selezionato, la finestra aperta dovrà creare una nuova classe 
+            ClasseWindow wnd = new ClasseWindow((Classe)cmbModelliClasse.SelectedItem);
+            wnd.Show();
+        }
+
+        private void cmbcmbBanchiEStudenti_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // TODO visualizzare l'aula con gli studenti 
         }
     }
 }

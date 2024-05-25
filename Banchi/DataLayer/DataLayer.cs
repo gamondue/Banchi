@@ -194,7 +194,10 @@ namespace Banchi
                 Banco b = new(l, cattedra, size, posizione);
                 listaBanchi.Add(b);
             }
-            return listaBanchi;
+            return listaBanchi;       
+        internal static List<Computer> SalvaComputer()
+        {
+            return null;
         }
     }
 }

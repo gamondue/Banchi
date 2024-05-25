@@ -10,36 +10,49 @@
         <StackPanel>
             <StackPanel>
                 <Menu x:Name="menu" DockPanel.Dock="Top">
-                    <MenuItem Header="_Modifica">
-                        <MenuItem Header="_Posizionare i banchi" IsCheckable="True" IsChecked="True"/>
+                    <MenuItem Header="_Modifica" Click="ModificaComputer_Click">
                     </MenuItem>
                 </Menu>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Image Width="200" Source="\Immagini\Utente.jpg" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <Image Width="150" Source="\Immagini\computer.png" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <StackPanel>
-                    <Label Content="Nome: "></Label>
-                    <Label Content="indirizzo IP:"></Label>
+                    <TextBlock Text="indirizzo IP:"></TextBlock>
+                    <TextBox x:Name="IPMod" Text="IP del computer" IsReadOnly="True"/>
+                </StackPanel>
+                
+                <StackPanel>
+                    <TextBlock Text="Marca:"></TextBlock>
+                    <TextBox x:Name="MarcaMod" Text="Marca del computer" IsReadOnly="True"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Nome:"></TextBlock>
+                    <TextBox x:Name="NomeDispositivoMod" Text="Nome del dispositivo" IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel>
-                    <Label Content="Nome dello studente "></Label>
-                    <Label Content="IP del computer "></Label>
+                    <TextBlock Text="Processore(opz.):"></TextBlock>
+                    <TextBox x:Name="ProcessoreMod" Text="Proc. del computer" IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel>
-                    <Label Content="Cognome: "></Label>
-                    <Label Content="Marca: "></Label>
+                    <TextBlock Text="Tipo Sistema:"></TextBlock>
+                    <TextBox x:Name="TipoSistemaMod" Text="Tipo del sistema" IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel>
-                    <Label Content="Cognome dello studente "></Label>
-                    <Label Content="Marca del computer "></Label>
+                    <TextBlock Text="Seleziona Banco"></TextBlock>
+                    <ComboBox x:Name="BanchiComboBox" Width="60" Height="20" SelectionChanged="ComboBox_SelectionChanged"/>
                 </StackPanel>
+               
+
+
             </StackPanel>
+               
             <StackPanel Orientation="Vertical">
                 <Label Content="note" HorizontalAlignment="Center"></Label>
-                <TextBox x:Name="nota" Text="Luogo dove scrivere o leggere le note" Height="70"></TextBox>
+                <TextBox x:Name="NotaComputer" Text="Luogo dove scrivere o leggere le note" Height="70" TextChanged="nota_TextChanged" IsReadOnly="True"></TextBox>
             </StackPanel>
         </StackPanel>
-        <Button Height="40" Margin="634,323,84,71" Content="salva"/>
+        <Button x:Name="SalvaButton" Height="40" Margin="634,323,84,71" Content="salva" Click="SalvaButton_Click"/>
         <Button Height="40" Margin="63,323,653,71" Content="segnala" Click="SegnalazioneWindow_click"/>
     </Grid>
 </Window>
