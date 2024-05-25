@@ -254,21 +254,22 @@ namespace Banchi
         }
         public static List<Banco> LeggiTuttiBanchi()
         {
-            
+
             string[] stringheLette = File.ReadAllLines(FileBanchi);
             string[] split = new string[8];
             for (int i = 1; i < stringheLette.Length; i++)
             {
                 split = stringheLette[i].Split("\t");
-                
+
                 Size size = new(Convert.ToDouble(split[2]), Convert.ToDouble(split[3]));
                 Point posizione = new(Convert.ToDouble(split[7]), Convert.ToDouble(split[8]));
-                bool cattedra= Convert.ToBoolean(split[5]);
+                bool cattedra = Convert.ToBoolean(split[5]);
                 Label l = new();
                 Banco b = new(l, cattedra, size, posizione);
                 listaBanchi.Add(b);
             }
-            return listaBanchi;       
+            return listaBanchi;
+        }
         internal static List<Computer> SalvaComputer()
         {
             return null;

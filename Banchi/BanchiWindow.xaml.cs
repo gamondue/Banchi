@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Reflection.Metadata;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace Banchi
@@ -82,14 +84,16 @@ namespace Banchi
                 isDragging = false;
                 startPosition = e.GetPosition((IInputElement)this);
                 TextBlock textBlock1 = (TextBlock)label.Content;
-                string contenuto=textBlock1.Inlines.ToString();
-                contenuto.Split('\n');
+                InlineCollection contenuto =textBlock1.Inlines;
+                Inline contenuto1 = contenuto.First();
+                Run testo = (Run)contenuto1;
                 foreach (Banco b in banchi)
                 {
-                    TextBlock textBlockB = (TextBlock)label.Content;
-                    string contenutoB = textBlockB.Text;
-                    contenutoB.Split('\n');
-                    if (contenuto[0] == contenutoB[0])
+                    TextBlock textBlockB = (TextBlock)b.GraficaBanco.Content;
+                    InlineCollection contenutoB = textBlockB.Inlines;
+                    Inline contenutoB1 = contenutoB.First();
+                    Run testoB = (Run)contenutoB1;
+                    if (testo.Text == testoB.Text)
                     {
                         b.Position = startPosition;
                     }
