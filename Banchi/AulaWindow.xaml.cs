@@ -1,6 +1,8 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using Label = System.Windows.Controls.Label;
+
 
 namespace Banchi
 {
@@ -9,59 +11,124 @@ namespace Banchi
     /// </summary>
     public partial class AulaWindow : Window
     {
-        DispatcherTimer timer = new DispatcherTimer();
         Label grafica = new Label();
         Aula a1;
-        private Point startPosition;
 
+        bool finestra = false;
+        bool dimensione = true;
+        private Point startPosition;
+        private Point lato1;
+        private Point lato2;
+        private Point lato3;
+        private Point lato4;
         public AulaWindow(Aula selectedItem)
         {
             InitializeComponent();
-            txtAltezza.Text = "2000";
-            txtBase.Text = "1000";
-            a1 = new Aula("L12", 2000, 1000, grafica);
-            canvasC.Children.Add(grafica); //andrebbe passata la classe a1 e non la label grafica
-            timer.Interval = new TimeSpan(1);
-            timer.Start();
-            timer.Tick += Timer_Tick;
+            //METTERE FILE !!!TODOOOO!!!
+            //valori predefiniti iniziali
+            startPosition.X = 192;
+            startPosition.Y = 92;
+            a1 = new Aula("", 930, 1900, 0, grafica); //max lenghth = 1268,height = 614
+                                                        //altezza*1,465
+                                                        //base*1,34
+
+            canvasC.Children.Add(grafica);
 
             FinestrePorte.Visibility = Visibility.Hidden;
             canvasC.Visibility = Visibility.Visible;
         }
 
-        private void Timer_Tick(object? sender, EventArgs e)
-        {
-            //CONTROLLARE SE NUMERI TROPPO GRANDI O PICCOLI
-            double altezza2 = Convert.ToDouble(txtAltezza.Text);
-            double base2 = Convert.ToDouble(txtBase.Text);
-            //a1.AltezzaInCentimetri = altezza2;
-            //a1.BaseInCentimetri = base2;
-            //a1.NomeAula = txtNome.Text;
-
-            grafica.Width = base2;
-            grafica.Height = altezza2;
-            // da controllare
-            // bisogna modificare la classe
-            Canvas.Visibility = Visibility.Hidden;
-        }
         private void btnClick_ConfermaDim(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToDouble(txtBase.Text) > 0.0 && Convert.ToDouble(txtAltezza.Text) > 0.0)
+            if (Convert.ToDouble(txtBase.Text) > 0.0 && Convert.ToDouble(txtAltezza.Text) > 0.0 && txtNome.Text != "")
             {
-                DimensioniAula.Visibility = Visibility.Hidden;
+                //non si può più modificare la dimensione
+                DimensioniAula.IsEnabled = false;
                 FinestrePorte.Visibility = Visibility.Visible;
-                canvasC.Visibility = Visibility.Visible;
+
+                Canvas.Visibility = Visibility.Visible;
+                //prendo valori inseriti
                 double base2 = Convert.ToDouble(txtBase.Text);
                 double altezza2 = Convert.ToDouble(txtAltezza.Text);
-                a1 = new Aula(txtNome.Text, altezza2, base2, grafica);
+                int grado = Convert.ToInt32(txtGrado.Text);
+                string nomeAula = txtNome.Text;
+                dimensione = false;
+                Aula aula1 = new(nomeAula, altezza2, base2, grado);
+            }
+        }
+        private void btn_ConfermaFinestra_Click(object sender, RoutedEventArgs e)
+        {
+            if (radioBtnFinestre.IsChecked == true)
+            {
+                finestra = true;
+            }
+            else
+            {
+                finestra = false;
             }
         }
 
-        private void btn_ConfermaFinestra_Click(object sender, RoutedEventArgs e)
+        private void btn_ConfermaElemento_Click(object sender, RoutedEventArgs e)
         {
-            double base2 = Convert.ToDouble(txtBase.Text);
-            double altezza2 = Convert.ToDouble(txtAltezza.Text);
-            Aula aula1 = new("L13", altezza2, base2, grafica);
+            if (txtLato.Text != "1" && txtLato.Text != "2" && txtLato.Text != "3" && txtLato.Text != "4")
+            {
+                MessageBox.Show("Il numero del lato deve essere compreso tra 1 e 4");
+            }
+            if (txtLato.Text == "1" || txtLato.Text == "3")
+            {
+                if (Convert.ToDouble(txtDistanzaP.Text) < 0 || Convert.ToDouble(txtDistanzaP.Text) > Convert.ToDouble(txtAltezza.Text))
+                {
+                    MessageBox.Show("Distanza non accettabile");
+                }
+            }
+            else
+            {
+                if (Convert.ToDouble(txtDistanzaP.Text) < 0 || Convert.ToDouble(txtDistanzaP.Text) > Convert.ToDouble(txtBase.Text))
+                {
+                    MessageBox.Show("Distanza non accettabile");
+                }
+            }
+            if (txtLato.Text == "1" || txtLato.Text == "3")
+            {
+                if (Convert.ToDouble(txtDistanzaP.Text) < 1 || Convert.ToDouble(txtDistanzaP.Text) > Convert.ToDouble(txtAltezza.Text))
+                {
+                    MessageBox.Show("Larghezza non accettabile");
+                }
+            }
+            else
+            {
+                if (Convert.ToDouble(txtDistanzaP.Text) < 1 || Convert.ToDouble(txtDistanzaP.Text) > Convert.ToDouble(txtBase.Text))
+                {
+                    MessageBox.Show("Larghezza non accettabile");
+                }
+            }
+
+
+        }
+
+        private void txtAltezza_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            grafica.Height = Convert.ToDouble(txtAltezza.Text);
+        }
+
+        private void txtBase_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            grafica.Width = Convert.ToDouble(txtBase.Text);
+        }
+
+        private void txtDistanzaP_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtLarghezza_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+
+        }
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            MessageBox.Show("akudgdp");
         }
     }
 }
