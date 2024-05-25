@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
+
 namespace Banchi
 {
     public class Aula
@@ -16,18 +17,20 @@ namespace Banchi
         public List<Banco> Banchi { get; set; }
         // NON serve la lista dei computer che stanno in questa aula
         // perchè ogni banco può avere il suo computer
-
+        Label graficaAula { get; set; }
         // per disegnare le porte e le finestre dell'aula
         // definiano la struttura dati dei serramnti
         public List<Serramento> Serramenti { get; set; }
         // angolo del Nord rispetto al lato 1, in gradi
-        public int? DirezioneNord { get; set; }
+        public int? DirezioneNord { get; set; } //293 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
         // forse ci servirà la lista degli studenti che stanno in questa aula
         //public List<Studente> Studenti { get; set; } // eliminarla se poi non serve
         public Aula(string NomeAula, double AltezzaInCentimetri, double BaseInCentimetri,
-            Label GraficaAula = null, int? DirezioneNord = null)
+            int? DirezioneNord = null, Label GraficaAula = null)
         {
+
+
             // inizializzazione delle proprietà
             this.AltezzaInCentimetri = AltezzaInCentimetri;
             this.BaseInCentimetri = BaseInCentimetri;
@@ -51,6 +54,7 @@ namespace Banchi
                 this.DirezioneNord = DirezioneNord;
             Banchi = new List<Banco>();
             Serramenti = new List<Serramento>();
+
         }
         public void VisualizzaAulaEBanchi()
         {
