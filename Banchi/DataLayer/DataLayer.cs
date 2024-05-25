@@ -1,7 +1,7 @@
-﻿using System.Windows.Controls;
-using Banchi.Classi;
+﻿using Banchi.Classi;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Banchi
 {
@@ -25,7 +25,7 @@ namespace Banchi
         public static string FileBanchi;
         public static string FileComputer;
 
-      public static void Inizializzazioni()
+        public static void Inizializzazioni()
         {
             // 
             PathDatiUtente = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
@@ -242,35 +242,12 @@ namespace Banchi
         {
             return null;
         }
-        public static void ScriviTuttiBanchi(List<Banco> listaBanco)
-        {
-            // array di appoggio della dimesione giusta
-            string[] arraySupporto = new string[listaBanchi.Count + 1];
-            for (int i = 0; i < listaBanchi.Count; i++)
-            {
-                arraySupporto[i] = listaBanchi[i].CodiceBanco.ToString() + "\t" + listaBanchi[i].NomeClasse.ToString() + "\t" + listaBanchi[i].Size.Width.ToString() + "\t" + listaBanchi[i].Size.Height.ToString() + "\t" + listaBanchi[i].IsCattedra.ToString() + "\t" + listaBanchi[i].CognomeNomeStudente.ToString() + "\t" + listaBanchi[i].Position.X.ToString() + "\t" + listaBanchi[i].Position.Y.ToString(); ////TODO COMPUTER
-            }
-            File.AppendAllLines(FileBanchi, arraySupporto);
-        }
-        public static List<Banco> LeggiTuttiBanchi()
-        {
-
-            string[] stringheLette = File.ReadAllLines(FileBanchi);
-            string[] split = new string[8];
-            for (int i = 1; i < stringheLette.Length; i++)
-            {
-                split = stringheLette[i].Split("\t");
-
-                Size size = new(Convert.ToDouble(split[2]), Convert.ToDouble(split[3]));
-                Point posizione = new(Convert.ToDouble(split[7]), Convert.ToDouble(split[8]));
-                bool cattedra = Convert.ToBoolean(split[5]);
-                Label l = new();
-                Banco b = new(l, cattedra, size, posizione);
-                listaBanchi.Add(b);
-            }
-            return listaBanchi;
-        }
         internal static List<Computer> SalvaComputer()
+        {
+            return null;
+        }
+
+        internal static List<Classe> LeggiTutteLeClassiUtente()
         {
             return null;
         }
