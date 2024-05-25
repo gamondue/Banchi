@@ -1,6 +1,6 @@
-﻿
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace Banchi
@@ -9,17 +9,18 @@ namespace Banchi
     {
         // proprietà 
         public int CodiceBanco { get; set; }
+        public static int NumeroBanchi { get; set; } = 1;
         public string NomeClasse { get; set; }
         public Point Position { get; set; }
         public Size Size { get; set; }
         public static Point posizioneIniziale { get; set; } = new Point(0, 0);
-        Label GraficaBanco { get; set; }
+        public Label GraficaBanco { get; set; }
         public bool IsCattedra { get; } = false;
-        public string CognomeNomeStudente { get; set; }
+        public string CognomeNomeStudente { get; set; } = "";
         // il computer che (eventualmente) sta nel banco
         public Computer Computer { get; set; }
         // costruttore 
-        public Banco(Label GraficaBanco, bool IsCattedra, Size misure)
+        public Banco(Label GraficaBanco, bool IsCattedra, Size misure, Point pos)
         {
             this.IsCattedra = IsCattedra;
             // la label viene passata dalla Window, dove verrà disegnata
@@ -34,16 +35,26 @@ namespace Banchi
             else
             {
                 GraficaBanco.BorderThickness = new Thickness(4);
+                GraficaBanco.BorderBrush = Brushes.Red;
             }
             GraficaBanco.BorderBrush = Brushes.Black;
             GraficaBanco.HorizontalAlignment = HorizontalAlignment.Left;
             GraficaBanco.VerticalAlignment = VerticalAlignment.Center;
             GraficaBanco.Background = Brushes.BurlyWood;
             GraficaBanco.FontWeight = FontWeights.Bold;
-            GraficaBanco.Content = CodiceBanco + "\n" + "_____________" + "\n" + CognomeNomeStudente;
+            CodiceBanco = NumeroBanchi;
+            TextBlock tb = new TextBlock();
+            tb.TextAlignment = TextAlignment.Center;
+            tb.Inlines.Add(new Run(CodiceBanco.ToString()));
+            tb.Inlines.Add(new LineBreak());
+            tb.Inlines.Add(new Run("__________"));
+            tb.Inlines.Add(new LineBreak());
+            tb.Inlines.Add(CognomeNomeStudente);
+            NumeroBanchi++;
+            GraficaBanco.Content = tb;
             // posizione di default (darla a tutti i banchi diversa,
             // in modo che non si sovrappongano completamente)
-            this.Position = posizioneIniziale;
+            this.Position = pos;
             posizioneIniziale = new Point(posizioneIniziale.X + 10, posizioneIniziale.Y + 10);
             // dimensione di default, vedere quale è la migliore
             // quando il resto funzione, si può pensare di poter rendere le proporzioni dei banchi 

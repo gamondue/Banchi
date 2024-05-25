@@ -13,8 +13,7 @@ namespace Banchi
         private Point startPosition;
 
         Banco banco;
-        //fare lista
-        //List<Banco> banchi;
+        List<Banco> banchi = new();
 
         public BanchiWindow()
         {
@@ -32,11 +31,11 @@ namespace Banchi
             double larghezza = Convert.ToDouble(txt_Larghezza.Text);
             double lunghezza = Convert.ToDouble(txt_Lunghezza.Text);
             Size misure = new Size(larghezza, lunghezza);
-            banco = new Banco(grafica, false, misure);
+            banco = new Banco(grafica, false, misure, Banco.posizioneIniziale);
             // aggiunta del banco all'area di disegno (Canvas)
-            AreaDisegno.Children.Add(grafica);
+            AreaDisegno.Children.Add(banco.GraficaBanco);
             //aggiungere banco a lista
-            //banchi.Add(banco);
+            banchi.Add(banco);
             // metodi delegati per gestione drag and drop
             grafica.MouseDown += ClickSuBanco;
             grafica.MouseMove += MovimentoSuBanco;
@@ -82,8 +81,19 @@ namespace Banchi
             {
                 isDragging = false;
                 startPosition = e.GetPosition((IInputElement)this);
-                //modificare posizione banchi
-                ////banco.Position = startPosition;
+                TextBlock textBlock1 = (TextBlock)label.Content;
+                string contenuto=textBlock1.Inlines.ToString();
+                contenuto.Split('\n');
+                foreach (Banco b in banchi)
+                {
+                    TextBlock textBlockB = (TextBlock)label.Content;
+                    string contenutoB = textBlockB.Text;
+                    contenutoB.Split('\n');
+                    if (contenuto[0] == contenutoB[0])
+                    {
+                        b.Position = startPosition;
+                    }
+                }
                 label.ReleaseMouseCapture();
             }
         }
@@ -104,7 +114,7 @@ namespace Banchi
             double larghezza = Convert.ToDouble(txt_Larghezza.Text);
             double lunghezza = Convert.ToDouble(txt_Lunghezza.Text);
             Size misure = new Size(larghezza, lunghezza);
-            banco = new Banco(grafica, true, misure);
+            banco = new Banco(grafica, true, misure, Banco.posizioneIniziale);
             // aggiunta del banco all'area di disegno (Canvas)
             AreaDisegno.Children.Add(grafica);
             // metodi delegati per gestione drag and drop
