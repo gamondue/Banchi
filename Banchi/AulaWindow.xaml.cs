@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
 using Label = System.Windows.Controls.Label;
 
 
@@ -21,23 +20,31 @@ namespace Banchi
         private Point lato2;
         private Point lato3;
         private Point lato4;
-        public AulaWindow(Aula selectedItem)
+
+        public AulaWindow(Aula aula)
         {
             InitializeComponent();
             //METTERE FILE !!!TODOOOO!!!
             //valori predefiniti iniziali
             startPosition.X = 192;
             startPosition.Y = 92;
-            a1 = new Aula("", 930, 1900, 0, grafica); //max lenghth = 1268,height = 614
-                                                        //altezza*1,465
-                                                        //base*1,34
+            // se l'aula passata è nulla, la creo nuova, altrimenti me la tengo 
+            if (a1 == null)
+            {
+                a1 = new Aula("", 930, 1900, 0, grafica); //max lenghth = 1268,height = 614
+                                                          //altezza*1,465
+                                                          //base*1,34
+            }
+            else
+            {
+                this.a1 = aula;
+            }
 
             canvasC.Children.Add(grafica);
 
             FinestrePorte.Visibility = Visibility.Hidden;
             canvasC.Visibility = Visibility.Visible;
         }
-
         private void btnClick_ConfermaDim(object sender, RoutedEventArgs e)
         {
             if (Convert.ToDouble(txtBase.Text) > 0.0 && Convert.ToDouble(txtAltezza.Text) > 0.0 && txtNome.Text != "")
@@ -67,7 +74,6 @@ namespace Banchi
                 finestra = false;
             }
         }
-
         private void btn_ConfermaElemento_Click(object sender, RoutedEventArgs e)
         {
             if (txtLato.Text != "1" && txtLato.Text != "2" && txtLato.Text != "3" && txtLato.Text != "4")
@@ -105,22 +111,18 @@ namespace Banchi
 
 
         }
-
         private void txtAltezza_TextChanged(object sender, TextChangedEventArgs e)
         {
             grafica.Height = Convert.ToDouble(txtAltezza.Text);
         }
-
         private void txtBase_TextChanged(object sender, TextChangedEventArgs e)
         {
             grafica.Width = Convert.ToDouble(txtBase.Text);
         }
-
         private void txtDistanzaP_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
-
         private void txtLarghezza_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -128,7 +130,7 @@ namespace Banchi
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            MessageBox.Show("akudgdp");
+            //MessageBox.Show("akudgdp");
         }
     }
 }

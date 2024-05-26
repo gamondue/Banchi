@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
-        Title="Gestione Banchi" Height="450" Width="800">
+        Title="Gestione Banchi" Height="450" Width="800"
+        Style="{StaticResource StileFinestre}">
     <StackPanel >
         <StackPanel Orientation="Horizontal">
             <Label>Larghezza</Label>

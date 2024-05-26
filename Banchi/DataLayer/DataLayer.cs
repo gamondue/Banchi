@@ -187,7 +187,7 @@ namespace Banchi
             for (int i = 1; i < stringheLette.Length; i++)
             {
                 split = stringheLette[i].Split("\t");
-                Computer c = new Computer(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5]);
+                Computer c = new Computer(split[0], split[1], split[2], split[3], split[4], split[5]);
                 listaComputer.Add(c);
             }
             return listaComputer;
@@ -203,7 +203,7 @@ namespace Banchi
                 string[] split = stringheLette[i].Split("\t");
                 if (split[0] == NomeDispositivo.ToString())
                 {
-                    computerRichiesto = new(int.Parse(split[0]), split[1], split[2], split[3], split[4], split[5]);
+                    computerRichiesto = new(split[0], split[1], split[2], split[3], split[4], split[5]);
                     break;
                 }
             }

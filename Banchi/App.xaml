@@ -5,10 +5,20 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <!--stile per tutto il programma-->
-        <!--<Style x:Key="StileFinestre" TargetType="{x:Type Window}">
-            <Setter Property="FontFamily" Value="Comic Sans MS" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="Background" Value="Magenta"/>
-        </Style>-->
+        <Style x:Key="StileFinestre" TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Miriam Libre" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Background" Value="Azure"/>
+        </Style>
+        <Style x:Key="StileBottoni" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+        <Style x:Key="StileCheckbox" TargetType="{x:Type CheckBox}">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+        
     </Application.Resources>
 </Application>

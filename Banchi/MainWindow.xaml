@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
-        Title="Banchi: ho perso lo studente" Height="450" Width="800"
-        Padding="3">
+        Title="Banchi: ho perso lo studente" Height="600" Width="1000"
+        Padding="3"
+        Style="{StaticResource StileFinestre}">
     <StackPanel Orientation="Vertical">
-        <Menu x:Name="BarraMenu" DockPanel.Dock="Top">
+        <Menu x:Name="BarraMenu" DockPanel.Dock="Top" >
             <MenuItem Header="_File">
-                <MenuItem Header="_Nuova aula"/>
+                <MenuItem Header="_Nuova aula" />
                 <MenuItem Header="Nuova _classe in aula"/>
                 <MenuItem Header="_Importazione di tutti i dati"/>
                 <MenuItem Header="_Esportazione"/>
@@ -26,52 +27,64 @@
         </Menu>
         <StackPanel x:Name="BarraBottoni" Orientation="Horizontal">
             <!--barra delle icone e dei pulsanti -->
-            <Button x:Name="btn_Banchi" Content="Gestione banchi" Click="btn_Banchi_Click"/>
-            <Button x:Name="btn_Aula" Content="Gestione aula" Click="btn_Aula_Click"/>
-            <Button x:Name="btn_Computer" Content="Gestione computer" Click="btn_Computer_Click"/>
-            <Button x:Name="btn_Classe" Content="Gestione classe" Click="btn_Classe_Click"/>
-            <Button x:Name="btn_Salva" Content="Salva studenti in aula" Click="btn_Salva_Click"/>
-            <Button x:Name="btn_Associa" Content="Associa studente al banco"  Margin="20,0,0,0" Click="btn_Associa_Click"/>
+            <Button x:Name="btn_Banchi" Content="Gestione banchi" Click="btn_Banchi_Click" Style="{StaticResource StileBottoni}"/>
+            <Button x:Name="btn_Aula" Content="Gestione aula" Click="btn_Aula_Click" Style="{StaticResource StileBottoni}"/>
+            <Button x:Name="btn_Computer" Content="Gestione computer" Click="btn_Computer_Click" Style="{StaticResource StileBottoni}"/>
+            <Button x:Name="btn_Classe" Content="Gestione classe" Click="btn_Classe_Click" Style="{StaticResource StileBottoni}"/>
+            <Button x:Name="btn_AssociaStudente" Content="Studente in banco" Click="btn_AssociaStudente_Click" Style="{StaticResource StileBottoni}"/>
+            <Button x:Name="btn_AssociaComputer" Content="Computer in banco" Click="btn_AssociaComputer_Click" Style="{StaticResource StileBottoni}"/>
+            <Button x:Name="btn_DistribuisciStudenti" Content="Distribuz.stud." Click="btn_DistribuisciStudenti_Click" Style="{StaticResource StileBottoni}"/>
         </StackPanel>
         <StackPanel x:Name="BarraComboBox" Orientation="Horizontal">
             <!-- barra dei combo box -->
             <!--combo per i dati personali dell'utente-->
-            <GroupBox BorderThickness="2" >
+            <GroupBox x:Name="grpDatiUtente" BorderThickness="2" >
                 <GroupBox.Header>
                     <TextBlock FontWeight="Bold">Dati dell'utente</TextBlock>
                 </GroupBox.Header>
                 <StackPanel Orientation="Horizontal">
                     <Label Content=""/>
                     <Label Content="Aule" />
-                    <ComboBox x:Name="cmbAuleUtente" IsEditable="False"/>
+                    <ComboBox x:Name="cmbAuleUtente" Width="50" IsEditable="False"/>
                     <Label Content="Classi" />
-                <ComboBox x:Name="cmbClasseUtente" IsEditable="False"/>
+                    <ComboBox x:Name="cmbClasseUtente" Width="50" IsEditable="False"/>
+                    <Button x:Name="btn_SalvaUtente" Content="Salva" Click="btn_SalvataggioUtente_Click" 
+                            Style="{StaticResource StileBottoni}"/>
                 </StackPanel>
             </GroupBox>
-
             <!--combo per i dati condivisi, che potranno essere usati da tutti gli utenti-->
-            <GroupBox BorderThickness="2" >
+            <GroupBox x:Name="grpDatiCondivisi" BorderThickness="2" >
                 <GroupBox.Header>
                     <TextBlock FontWeight="Bold">Dati condivisi</TextBlock>
                 </GroupBox.Header>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Modelli condivisi"/>
                     <Label Content="Aule" />
-                    <ComboBox x:Name="cmbModelliAule" IsEditable="False" SelectionChanged="cmbModelliAule_SelectionChanged"/>
+                    <ComboBox x:Name="cmbModelliAule" Width="50" IsEditable="False" SelectionChanged="cmbModelliAule_SelectionChanged"/>
                     <Label Content="Classi" />
-                    <ComboBox x:Name="cmbModelliClasse" IsEditable="False" SelectionChanged="cmbModelliClasse_SelectionChanged"/>
+                    <ComboBox x:Name="cmbModelliClasse" Width="50" IsEditable="False" SelectionChanged="cmbModelliClasse_SelectionChanged"/>
                     <Label Content="Aule, banchi, studenti" />
-                    <ComboBox x:Name="cmbBanchiEStudenti" IsEditable="False" SelectionChanged="cmbcmbBanchiEStudenti_SelectionChanged"/>
+                    <ComboBox x:Name="cmbBanchiEStudenti" Width="100" IsEditable="False" SelectionChanged="cmbBanchiEStudenti_SelectionChanged"/>
+                        <Button x:Name="btn_Salva" Content="Salva" Click="btn_SalvataggioCondivisi_Click" 
+                                Style="{StaticResource StileBottoni}"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
         <StackPanel x:Name="BarraCheckBox" Orientation="Horizontal">
-            <CheckBox x:Name="chkStudenti" Content="Studenti" Checked="chkStudenti_Checked" Unchecked="chkStudenti_Unchecked"/>
-            <CheckBox x:Name="chkComputer" Content="Computer" Checked="chkComputer_Checked" Unchecked="chkComputer_Unchecked"/>
+            <CheckBox x:Name="chkStudenti" Content="Studenti" IsChecked="False"
+                      Style="{StaticResource StileCheckbox}"
+                      Checked="chkStudenti_Checked" Unchecked="chkStudenti_Unchecked"/>
+            <CheckBox x:Name="chkComputer" Content="Computer" IsChecked="False" 
+                      Style="{StaticResource StileCheckbox}"
+                      Checked="chkComputer_Checked" Unchecked="chkComputer_Unchecked"/>
         </StackPanel>
         <DockPanel x:Name="AreaPrincipale">
-            <ListBox DockPanel.Dock="Left" Width="160" x:Name="lstStudenti" BorderBrush="Transparent"/>
-            <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" 
+            <ListBox DockPanel.Dock="Left" Width="160" x:Name="lstStudenti" Visibility="Collapsed" BorderBrush="Black"/>
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Right">
+                <TextBox x:Name="txtFiltroComputer" TextChanged="txtFiltroComputer_TextChanged"/>
+                <ListBox  Width="160" x:Name="lstComputer" Visibility="Collapsed" BorderBrush="Black"/>
+            </StackPanel>
+             <!--il canvas, se scritto per ultimo e non "docked" occupa il centro del DockPanel-->
+            <Canvas x:Name="AreaDisegno" VerticalAlignment="Top"
                 Background="White">
                 <!-- canvas dove disegnamo l'aula ed i banchi. I banchi vengono creati dal programma -->
                 <!-- disegno di un banco per prova. Da cancellare quando si disegnerà tutta l'aula-->
@@ -84,11 +97,10 @@
                         <LineBreak/>
                         _____________
                         <LineBreak/>
-                        Gabriele Monti
+                        Monti Gabriele
                     </TextBlock>
                 </Label>
             </Canvas>
-            <ListBox DockPanel.Dock="Right" Width="160" x:Name="lstComputer" BorderBrush="Transparent"/>
         </DockPanel>
     </StackPanel>
 </Window>

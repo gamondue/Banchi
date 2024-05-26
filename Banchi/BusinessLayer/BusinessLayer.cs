@@ -20,7 +20,7 @@ namespace Banchi
             {
                 Utente.Accesso = Utente.RuoloUtente.ModificheAiModelli;
             }
-            else 
+            else
                 Utente.Accesso = Utente.RuoloUtente.ModifichePersonali;
         }
         private static bool PuòModificareModelli()
@@ -94,8 +94,13 @@ namespace Banchi
         }
 
         internal static List<Computer> SalvaComputer()
-        {  
+        {
             return DataLayer.SalvaComputer();
+        }
+
+        internal static List<Computer>? LeggiTuttiIComputer()
+        {
+            return DataLayer.LeggiTuttiComputer();
         }
     }
 }

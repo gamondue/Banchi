@@ -1,5 +1,4 @@
-﻿using System.Reflection.Metadata;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -14,13 +13,23 @@ namespace Banchi
         bool isDragging = false;
         private Point startPosition;
 
+        Aula aula;
         Banco banco;
         List<Banco> banchi = new();
 
-        public BanchiWindow()
+        public BanchiWindow(Aula aula)
         {
             InitializeComponent();
             //BusinessLayer.LeggiBanchi();
+
+            // se l'aula passata è nulla, ritorno dopo aver avvertito di passarla 
+            if (aula == null)
+            {
+                MessageBox.Show("Scegliere un'aula");
+                return;
+            }
+            // l'aula passata viene messa nella variabile globale 
+            this.aula = aula;
         }
         private void btn_NuovoBanco_Click(object sender, RoutedEventArgs e)
         {
@@ -43,12 +52,11 @@ namespace Banchi
             grafica.MouseMove += MovimentoSuBanco;
             grafica.MouseUp += MouseUpSuBanco;
         }
-
         // implementazione dei metodi delegati per gestione drag and drop
         // evento per iniziare il drag and drop, quando l'utente clicca sul banco
-        // è necesssario scrivere questi metodi qui, e non nella classe Banco,
-        // perchè il drag and drop è un'operazione che coinvolge l'interfaccia grafica
-        // e fare in modo che lo possa fare Banco è complicaato
+        // è necessario scrivere questi metodi qui, e non nella classe Banco,
+        // perché il drag and drop è un'operazione che coinvolge l'interfaccia grafica
+        // e fare in modo che lo possa fare Banco è complicato
         internal void ClickSuBanco(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -84,7 +92,7 @@ namespace Banchi
                 isDragging = false;
                 startPosition = e.GetPosition((IInputElement)this);
                 TextBlock textBlock1 = (TextBlock)label.Content;
-                InlineCollection contenuto =textBlock1.Inlines;
+                InlineCollection contenuto = textBlock1.Inlines;
                 Inline contenuto1 = contenuto.First();
                 Run testo = (Run)contenuto1;
                 foreach (Banco b in banchi)
@@ -101,12 +109,10 @@ namespace Banchi
                 label.ReleaseMouseCapture();
             }
         }
-
         private void btn_SalvataggioBanchi_Click(object sender, RoutedEventArgs e)
         {
             //BusinessLayer.ScriviTuttiIBanchi();
         }
-
         private void btn_NuovaCattedra_Click(object sender, RoutedEventArgs e)
         {
             // operazioni di inizializzazione da farsi per ogni banco che voglio creare

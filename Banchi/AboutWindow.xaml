@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
-        Title="About" Height="470" Width="800">
+        Title="About" Height="470" Width="800"
+        Style="{StaticResource StileFinestre}">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -23,9 +24,9 @@
 
         <Label Grid.Row="2" Content="Ho perso lo studente" HorizontalAlignment="Center" FontSize="16" HorizontalContentAlignment="Center" Margin="0,70,0,182"/>
         <Label Grid.Row="2" Content="ITT Blaise Pascal - Cesena" HorizontalAlignment="Center" FontSize="16" HorizontalContentAlignment="Center" Margin="0,102,0,153"/>
-        <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="133,138,0,0" FontSize="14"
-               Width="600" Height="125" Content="Ideazione, progetto e coordinamento: prof. Gabriele Monti &#xD;&#xA;Gruppi e compiti:"/>
+        <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="98,138,0,0" FontSize="14"
+               Width="673" Height="125" Content="Ideazione, progetto, coordinamento, git merging e un po' (troppo) codice: prof. Gabriele Monti &#xD;&#xA;Gruppi e compiti:"/>
         <Label Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="133,184,0,0" FontSize="14"
-               Width="600" Height="121" Content="1. Molinari Mattia, Giunchi Andrea, Savorelli Simone(finestra principale :classe in aula)&#xA;2. Barbozzi Andrea, Bertaccini Filippo, Bonoli Alex(finestra aula);&#xA;3. Blasi Samuele, Pasini Giulio, Beccanti Francesco(finestra about);&#xA;4. Casavecchia Nicolo', Bellavista Riccardo(finestra computer);&#xA;5. Dolci Federico, Magi Samuele, Shala Albin(menù: lista e distribuzione degli studenti nei banchi);&#xA;6. Zamagni Edoardo, Impagnatiello Michele, El Ghafiri Rayan(gestione file)." Grid.RowSpan="3"/>
+               Width="600" Height="121" Content="1. Molinari Mattia, Giunchi Andrea, Savorelli Simone (finestra principale :classe in aula)&#xA;2. Barbozzi Andrea, Bertaccini Filippo, Bonoli Alex (finestra aula);&#xA;3. Blasi Samuele, Pasini Giulio, Beccanti Francesco (finestra about);&#xA;4. Casavecchia Nicolo', Bellavista Riccardo (finestra computer);&#xA;5. Dolci Federico, Magi Samuele, Shala Albin(menù: lista e distribuzione degli studenti nei banchi);&#xA;6. Zamagni Edoardo, Impagnatiello Michele, El Ghafiri Rayan (gestione file)." Grid.RowSpan="3"/>
     </Grid>
 </Window>

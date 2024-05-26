@@ -8,9 +8,12 @@ namespace Banchi
     /// </summary>
     public partial class SegnalazioneWindow : Window
     {
-        public SegnalazioneWindow()
+        Computer computer;
+        public SegnalazioneWindow(Computer computer)
         {
             InitializeComponent();
+
+            this.computer = computer;
             DateTime momentoProblema = DateTime.Now;
             string output = "";
             output += momentoProblema.Hour + ":" + momentoProblema.Minute + " " + momentoProblema.Day + "/" + momentoProblema.Month + "/" + momentoProblema.Year;
