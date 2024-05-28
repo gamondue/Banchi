@@ -20,7 +20,7 @@ namespace Banchi
         public BanchiWindow(Aula aula)
         {
             InitializeComponent();
-            //BusinessLayer.LeggiBanchi();
+            BusinessLayer.LeggiBanchiDellAula(aula);
 
             // se l'aula passata è nulla, ritorno dopo aver avvertito di passarla 
             if (aula == null)
@@ -111,7 +111,7 @@ namespace Banchi
         }
         private void btn_SalvataggioBanchi_Click(object sender, RoutedEventArgs e)
         {
-            //BusinessLayer.ScriviTuttiIBanchi();
+            BusinessLayer.ScriviBanchiDellAula(banchi, aula);
         }
         private void btn_NuovaCattedra_Click(object sender, RoutedEventArgs e)
         {

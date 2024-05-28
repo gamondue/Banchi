@@ -82,25 +82,29 @@ namespace Banchi
             // creando i file di testo che verranno usati da questo programma 
             throw new NotImplementedException();
         }
-
         internal static List<Aula> LeggiTutteLeAuleUtente()
         {
             return DataLayer.LeggiTutteLeAuleUtente();
         }
-
         internal static List<Classe> LeggiTutteLeClassiUtente()
         {
             return DataLayer.LeggiTutteLeClassiUtente();
         }
-
-        internal static List<Computer> SalvaComputer()
+        internal static void SalvaComputer()
         {
-            return DataLayer.SalvaComputer();
+            DataLayer.SalvaComputer();
         }
-
         internal static List<Computer>? LeggiTuttiIComputer()
         {
             return DataLayer.LeggiTuttiComputer();
+        }
+        internal static void ScriviBanchiDellAula(List<Banco> banchi, Aula aula)
+        {
+            DataLayer.ScriviBanchiDellAula(banchi, aula);
+        }
+        internal static List<Banco> LeggiBanchiDellAula(Aula aula)
+        {
+            return DataLayer.LeggiBanchiDellAula(aula);
         }
     }
 }

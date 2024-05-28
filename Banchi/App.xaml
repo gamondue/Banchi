@@ -6,7 +6,8 @@
     <Application.Resources>
         <!--stile per tutto il programma-->
         <Style x:Key="StileFinestre" TargetType="{x:Type Window}">
-            <Setter Property="FontFamily" Value="Miriam Libre" />
+            <!--<Setter Property="FontFamily" Value="Miriam Libre" />-->
+            <Setter Property="FontFamily" Value="Cascadia Code" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Margin" Value="3" />
             <Setter Property="Background" Value="Azure"/>

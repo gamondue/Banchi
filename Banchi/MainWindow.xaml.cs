@@ -1,7 +1,6 @@
 ﻿using Banchi.Classi;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
 using Label = System.Windows.Controls.Label;
 
@@ -12,7 +11,10 @@ namespace Banchi
     /// </summary>
     public partial class MainWindow : Window
     {
-        internal string studenteSelezionato;
+        private Aula aulaCorrente;
+        private Banco bancoCorrente;
+        //private Studente studenteCorrente;
+
         internal Label labelSelezionata;
 
         List<Aula> listaAuleUtente;
@@ -49,7 +51,7 @@ namespace Banchi
                     cmbClasseUtente.Items.Add(a);
                 }
 
-            // riempio i combobox dei modelli, se l'utente ne ha il diritto
+            // riempio i combobox dei modelli
             listaAuleModello = BusinessLayer.LeggiTutteLeAule();
             // riempimento del ComboBox con le aule appena lette
             foreach (Aula a in listaAuleModello)
@@ -82,27 +84,8 @@ namespace Banchi
             {
                 lstComputer.Items.Add(c);
             }
-            // esempio: creazione di un nuovo banco con C#
-            // i due banchi disegnati servono temporanemente perchè il 
-            // gruppo che deve scrivere entro i banchi i nomi degli studenti
-            // e dei computer possa fare le sue prove 
-            Label GraficaBanco = new();
-            GraficaBanco.BorderBrush = Brushes.Black;
-            GraficaBanco.HorizontalAlignment = HorizontalAlignment.Left;
-            GraficaBanco.VerticalAlignment = VerticalAlignment.Center;
-            GraficaBanco.Background = Brushes.BurlyWood;
-            GraficaBanco.FontWeight = FontWeights.Bold;
-            TextBlock tb = new TextBlock();
-            tb.TextAlignment = TextAlignment.Center;
-            tb.Inlines.Add(new Run("PC1228"));
-            tb.Inlines.Add(new LineBreak());
-            tb.Inlines.Add(new Run("__________"));
-            tb.Inlines.Add(new LineBreak());
-            tb.Inlines.Add("Salutini Giorgio");
-            GraficaBanco.Content = tb;
-            AreaDisegno.Children.Add(GraficaBanco);
-            Canvas.SetLeft(GraficaBanco, 250);
-            Canvas.SetTop(GraficaBanco, 100);
+            // metodo di prova che crea un'intera aula con pochi banci 
+            CreaAulaDiProva();
         }
         private void MenuAula_Click(object sender, RoutedEventArgs e)
         {
@@ -225,22 +208,27 @@ namespace Banchi
         {
             if (lstStudenti.SelectedItem != null)
             {
-                studenteSelezionato = lstStudenti.SelectedItem.ToString();
-                TextBlock tb = new TextBlock();
-                tb.TextAlignment = TextAlignment.Center;
-                tb.Inlines.Add(new Run("PC1228"));
-                tb.Inlines.Add(new LineBreak());
-                tb.Inlines.Add(new Run("__________"));
-                tb.Inlines.Add(new LineBreak());
-                tb.Inlines.Add(studenteSelezionato);
-                labelSelezionata.Content = tb;
-                labelSelezionata.BorderBrush = Brushes.LightCoral;
+                bancoCorrente.Studente = (Studente)lstStudenti.SelectedItem;
+                bancoCorrente.AggiungiTestoAGrafica();
+                bancoCorrente.GraficaBanco.BorderBrush = Brushes.LightCoral;
             }
         }
-        private void click_Label(object sender, RoutedEventArgs e)
+        private void ClickSuBanco(object sender, RoutedEventArgs e)
         {
             labelSelezionata = (Label)sender;
-            labelSelezionata.BorderBrush = Brushes.Black;
+            // cerca nei banchi dell'aula quello che è stato cliccato
+            foreach (Banco b in aulaCorrente.Banchi)
+            {
+                if (b.GraficaBanco == labelSelezionata)
+                {
+                    bancoCorrente = b;
+                    labelSelezionata.BorderBrush = Brushes.Red;
+                }
+                else
+                {
+                    b.GraficaBanco.BorderBrush = Brushes.Black;
+                }
+            }
         }
         private void cmbBanchiEStudenti_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -252,7 +240,12 @@ namespace Banchi
         }
         private void btn_AssociaComputer_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lstComputer.SelectedItem != null)
+            {
+                bancoCorrente.Computer = (Computer)lstComputer.SelectedItem;
+                bancoCorrente.AggiungiTestoAGrafica();
+                bancoCorrente.GraficaBanco.BorderBrush = Brushes.LightCoral;
+            }
         }
         private void btn_DistribuisciStudenti_Click(object sender, RoutedEventArgs e)
         {
@@ -271,6 +264,34 @@ namespace Banchi
                     lstComputer.Items.Add(item); // Aggiungi solo gli elementi che corrispondono al filtro
                 }
             }
+        }
+        private void CreaAulaDiProva()
+        {
+            // QUESTO METODO CREA UN'AULA DI PROVA E DOVRA' ESSERE CANCELLATO QUANDO LE 
+            // AULE CARICATE NEL COMBOBOX AVRANNO AL LORO INTERNO LE INFORMAZIONI
+            // CHE METTIAMO NEL SEGUENTE CODICE 
+            // creazione aula
+            aulaCorrente = new Aula("L13", 8000, 12000);
+            // creazione di un nuovo banco
+            Label GraficaBanco = new();
+            // metodo delegato per gestione click
+            GraficaBanco.MouseDown += ClickSuBanco;
+            AreaDisegno.Children.Add(GraficaBanco);
+            Banco bancoNuovo = new Banco(GraficaBanco, false,
+                new Size(100, 80), new Point(250, 100));
+            //bancoNuovo.AggiungiTestoAGrafica();
+            // aggiunta del banco appena fatto all'aula
+            aulaCorrente.Banchi.Add(bancoNuovo);
+
+            GraficaBanco = new();
+            // metodo delegato per gestione click
+            GraficaBanco.MouseDown += ClickSuBanco;
+            AreaDisegno.Children.Add(GraficaBanco);
+            bancoNuovo = new Banco(GraficaBanco, false,
+                new Size(100, 80), new Point(250, 200));
+            //bancoNuovo.AggiungiTestoAGrafica();
+            // aggiunta del banco appena fatto all'aula
+            aulaCorrente.Banchi.Add(bancoNuovo);
         }
     }
 }

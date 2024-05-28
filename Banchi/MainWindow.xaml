@@ -88,18 +88,19 @@
                 Background="White">
                 <!-- canvas dove disegnamo l'aula ed i banchi. I banchi vengono creati dal programma -->
                 <!-- disegno di un banco per prova. Da cancellare quando si disegnerà tutta l'aula-->
-                <Label x:Name="bancoDiProva" Background="Aquamarine" 
+                <!--<Label x:Name="bancoDiProva" Background="Aquamarine" 
                        Canvas.Left="100" Canvas.Top="100" Width="100" Height="80"
-                       BorderThickness="4" BorderBrush="LightCoral" MouseDoubleClick="click_Label">
-                    <!--All'interno della Label: scritta che va a capo con due righe separate da una linea-->
-                    <TextBlock TextAlignment="Center">
+                       BorderThickness="4" BorderBrush="LightCoral" MouseDown="click_Label">
+                    --><!--All'interno della Label: scritta che va a capo con due righe separate da una linea--><!--
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               TextAlignment="Center" TextWrapping="WrapWithOverflow">
                         PC0112
                         <LineBreak/>
-                        _____________
+                        _____
                         <LineBreak/>
                         Monti Gabriele
                     </TextBlock>
-                </Label>
+                </Label>-->
             </Canvas>
         </DockPanel>
     </StackPanel>

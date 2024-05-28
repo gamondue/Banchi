@@ -19,7 +19,7 @@ namespace Banchi
         // perchè ogni banco può avere il suo computer
         Label graficaAula { get; set; }
         // per disegnare le porte e le finestre dell'aula
-        // definiano la struttura dati dei serramnti
+        // definiamo la struttura dati dei serramenti
         public List<Serramento> Serramenti { get; set; }
         // angolo del Nord rispetto al lato 1, in gradi
         public int? DirezioneNord { get; set; } //293 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF

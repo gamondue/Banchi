@@ -16,7 +16,7 @@ namespace Banchi
         public static Point posizioneIniziale { get; set; } = new Point(0, 0);
         public Label GraficaBanco { get; set; }
         public bool IsCattedra { get; } = false;
-        public string CognomeNomeStudente { get; set; } = "";
+        public Studente Studente { get; set; } = null;
         // il computer che (eventualmente) sta nel banco
         public Computer Computer { get; set; }
         // costruttore 
@@ -42,16 +42,9 @@ namespace Banchi
             GraficaBanco.VerticalAlignment = VerticalAlignment.Center;
             GraficaBanco.Background = Brushes.BurlyWood;
             GraficaBanco.FontWeight = FontWeights.Bold;
+            AggiungiTestoAGrafica();
             CodiceBanco = NumeroBanchi;
-            TextBlock tb = new TextBlock();
-            tb.TextAlignment = TextAlignment.Center;
-            tb.Inlines.Add(new Run(CodiceBanco.ToString()));
-            tb.Inlines.Add(new LineBreak());
-            tb.Inlines.Add(new Run("__________"));
-            tb.Inlines.Add(new LineBreak());
-            tb.Inlines.Add(CognomeNomeStudente);
             NumeroBanchi++;
-            GraficaBanco.Content = tb;
             // posizione di default (darla a tutti i banchi diversa,
             // in modo che non si sovrappongano completamente)
             this.Position = pos;
@@ -71,5 +64,25 @@ namespace Banchi
         }
         // sarebbe bello che i banchi cambiassero di dimensione quando
         // si cambia la dimensione della finestra e si riposizionassero automaticamente 
+        public void AggiungiTestoAGrafica()
+        {
+            TextBlock tb = new TextBlock();
+            tb.HorizontalAlignment = HorizontalAlignment.Center;
+            tb.VerticalAlignment = VerticalAlignment.Center;
+            tb.TextAlignment = TextAlignment.Center;
+            tb.TextWrapping = TextWrapping.WrapWithOverflow;
+            if (Computer != null && Computer.NomeDispositivo != null)
+                tb.Inlines.Add(new Run(Computer.NomeDispositivo));
+            else
+                tb.Inlines.Add("---");
+            tb.Inlines.Add(new LineBreak());
+            tb.Inlines.Add(new Run("-----"));
+            tb.Inlines.Add(new LineBreak());
+            if (Studente != null && Studente.Cognome != null && Studente.Nome != null)
+                tb.Inlines.Add(new Run(Studente.Cognome + " " + Studente.Nome));
+            else
+                tb.Inlines.Add("---");
+            GraficaBanco.Content = tb;
+        }
     }
 }
