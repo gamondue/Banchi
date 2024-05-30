@@ -9,61 +9,116 @@ namespace Banchi
     {
         // proprietà 
         public int CodiceBanco { get; set; }
+        public bool IsCattedra { get; } = false;
         public static int NumeroBanchi { get; set; } = 1;
         public string NomeClasse { get; set; }
-        public Point Position { get; set; }
-        public Size Size { get; set; }
-        public static Point posizioneIniziale { get; set; } = new Point(0, 0);
-        public Label GraficaBanco { get; set; }
-        public bool IsCattedra { get; } = false;
+        public double AltezzaInCentimetri { get; set; }
+        public double BaseInCentimetri { get; set; }
+        private static double posizioneStartX = 0;
+        private static double posizioneStartY = 0;
+        // i banchi cambiano di dimensione quando si cambia la dimensione della finestra
+        // (!!!! TODO vedere come si riposizionano !!!!)
+        // fattore di scala moltiplicativo per il ridimensionamento, in [pixel/cm]
+        double fattoreDiScala = 0.1;
+        public double PosizioneX { get; set; }
+        public double PosizioneY { get; set; }
+        private Label graficaBanco;
+        private bool graficaInizializzata = false;
+
+        public Label GraficaBanco
+        {
+            get
+            {
+                return graficaBanco;
+            }
+            set
+            {
+                graficaBanco = value;
+                if (!graficaInizializzata)
+                {
+                    InizializzaGraficaBanco();
+                }
+            }
+        }
+        public double FattoreDiScala
+        {
+            get
+            {
+                return fattoreDiScala;
+            }
+            // quando cambia il fattore di scala cambiano le dimensioni del banco
+            set
+            {
+                fattoreDiScala = value;
+                GraficaBanco.Height = fattoreDiScala * AltezzaInCentimetri;
+                GraficaBanco.Width = fattoreDiScala * BaseInCentimetri;
+            }
+        }
         public Studente Studente { get; set; } = null;
         // il computer che (eventualmente) sta nel banco
         public Computer Computer { get; set; }
         // costruttore 
-        public Banco(Label GraficaBanco, bool IsCattedra, Size misure, Point pos)
+        public Banco(bool IsCattedra, double Base, double Altezza,
+            double PosizioneX, double PosizioneY, Label GraficaBanco)
         {
             this.IsCattedra = IsCattedra;
-            // la label viene passata dalla Window, dove verrà disegnata
             this.GraficaBanco = GraficaBanco;
-            // aspetto del banco, DA MIGLIORARE! 
-            GraficaBanco.HorizontalContentAlignment = HorizontalAlignment.Center;
-            GraficaBanco.VerticalContentAlignment = VerticalAlignment.Center;
-            if (!IsCattedra)
-            {
-                GraficaBanco.BorderThickness = new Thickness(2);
-            }
-            else
-            {
-                GraficaBanco.BorderThickness = new Thickness(4);
-                GraficaBanco.BorderBrush = Brushes.Red;
-            }
-            GraficaBanco.BorderBrush = Brushes.Black;
-            GraficaBanco.HorizontalAlignment = HorizontalAlignment.Left;
-            GraficaBanco.VerticalAlignment = VerticalAlignment.Center;
-            GraficaBanco.Background = Brushes.BurlyWood;
-            GraficaBanco.FontWeight = FontWeights.Bold;
-            AggiungiTestoAGrafica();
+            // la label viene passata dalla Window, dove verrà disegnata
+            if (GraficaBanco != null)
+                InizializzaGraficaBanco();
             CodiceBanco = NumeroBanchi;
             NumeroBanchi++;
-            // posizione di default (darla a tutti i banchi diversa,
-            // in modo che non si sovrappongano completamente)
-            this.Position = pos;
-            posizioneIniziale = new Point(posizioneIniziale.X + 10, posizioneIniziale.Y + 10);
-            // dimensione di default, vedere quale è la migliore
-            // quando il resto funzione, si può pensare di poter rendere le proporzioni dei banchi 
-            // configurabili dall'utente, in modo che possano essere come i banchi "veri" 
-            // questo potrebbe essere fatto chiedendo altezza e larghezza (in cm, da convertire in pixel)
-            // MA SOLO DOPO CHE IL RESTO FUNZIONA
-            // impostazione della posizione della grafica del banco
-            Canvas.SetLeft(GraficaBanco, this.Position.X);
-            Canvas.SetTop(GraficaBanco, this.Position.Y);
-            // impostazione della dimensione della grafica del banco
-            this.Size = misure; // dimensione di default
-            GraficaBanco.Width = this.Size.Width;
-            GraficaBanco.Height = this.Size.Height;
         }
-        // sarebbe bello che i banchi cambiassero di dimensione quando
-        // si cambia la dimensione della finestra e si riposizionassero automaticamente 
+        private void InizializzaGraficaBanco()
+        {
+            // aspetto del banco 
+            if (GraficaBanco != null)
+            {
+                graficaInizializzata = true;
+                GraficaBanco.HorizontalContentAlignment = HorizontalAlignment.Center;
+                GraficaBanco.VerticalContentAlignment = VerticalAlignment.Center;
+                if (!IsCattedra)
+                {
+                    GraficaBanco.BorderThickness = new Thickness(2);
+                }
+                else
+                {
+                    GraficaBanco.BorderThickness = new Thickness(4);
+                    GraficaBanco.BorderBrush = Brushes.Red;
+                }
+                GraficaBanco.BorderBrush = Brushes.Black;
+                GraficaBanco.HorizontalAlignment = HorizontalAlignment.Left;
+                GraficaBanco.VerticalAlignment = VerticalAlignment.Center;
+                GraficaBanco.Background = Brushes.BurlyWood;
+                GraficaBanco.FontWeight = FontWeights.Bold;
+                AggiungiTestoAGrafica();
+                // posizione di default a tutti i banchi diversa,
+                // in modo che non si sovrappongano completamente
+                if (PosizioneX == null || PosizioneX == 0)
+                {
+                    PosizioneX = posizioneStartX;
+                    posizioneStartX += 10;
+                }
+                if (PosizioneY == null || PosizioneY == 0)
+                {
+                    PosizioneY = posizioneStartY;
+                    posizioneStartY += 10;
+                }
+                //// impostazione della posizione della grafica del banco
+                //Canvas.SetLeft(GraficaBanco, FattoreDiScala * PosizioneX);
+                //Canvas.SetTop(GraficaBanco, FattoreDiScala * PosizioneY);
+                //// impostazione della dimensione della grafica del banco
+                //GraficaBanco.Width = FattoreDiScala * BaseInCentimetri;
+                //GraficaBanco.Height = FattoreDiScala * AltezzaInCentimetri;
+
+                // impostazione della posizione della grafica del banco
+                Canvas.SetLeft(GraficaBanco, 200);
+                Canvas.SetTop(GraficaBanco, 80);
+                // impostazione della dimensione della grafica del banco
+                GraficaBanco.Width = 100;
+                GraficaBanco.Height = 70;
+            }
+        }
         public void AggiungiTestoAGrafica()
         {
             TextBlock tb = new TextBlock();

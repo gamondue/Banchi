@@ -33,4 +33,8 @@
     <Resource Include="Immagini\computer.png" />
     <Resource Include="Immagini\RosaDeiVenti.svg" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="HelpHTML\" />
+  </ItemGroup>
 </Project>

@@ -13,6 +13,8 @@ namespace Banchi
     {
         private Aula aulaCorrente;
         private Banco bancoCorrente;
+        private Classe classeCorrente;
+
         //private Studente studenteCorrente;
 
         internal Label labelSelezionata;
@@ -84,8 +86,17 @@ namespace Banchi
             {
                 lstComputer.Items.Add(c);
             }
-            // metodo di prova che crea un'intera aula con pochi banci 
-            CreaAulaDiProva();
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // evento che viene lanciato alla fine del caricamento della finestra 
+            // metodo di prova che crea un'intera aula con pochi banchi 
+            //aula = CreaAulaDiProva();
+            //aula.MettiInScalaAulaEBanchi();
+            // cartiglio
+            Label graficaCartiglio = new();
+            AreaDisegno.Children.Add(graficaCartiglio);
+            Cartiglio c = new Cartiglio(graficaCartiglio, aulaCorrente, classeCorrente, Utente.Username);
         }
         private void MenuAula_Click(object sender, RoutedEventArgs e)
         {
@@ -123,7 +134,7 @@ namespace Banchi
             //        MessageBoxButton.OK, MessageBoxImage.Error);
             //    return;
             //}
-            AulaWindow wnd = new AulaWindow((Aula)cmbModelliAule.SelectedItem);
+            AulaWindow wnd = new AulaWindow(aulaCorrente);
             wnd.Show();
         }
         private void btn_SalvataggioCondivisi_Click(object sender, RoutedEventArgs e)
@@ -148,9 +159,40 @@ namespace Banchi
         }
         private void cmbModelliAule_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // cancella tutti i controlli dell'aula precedente
+            AreaDisegno.Children.Clear();
             if (cmbModelliAule.SelectedItem != null)
             {
-                ((Aula)cmbModelliAule.SelectedItem).VisualizzaAulaEBanchi();
+                aulaCorrente = ((Aula)cmbModelliAule.SelectedItem);
+                //// aula farlocca, in attesa di completare la lettura dei dati 
+                //aula = CreaAulaDiProva();
+                CreaAulaGrafica(aulaCorrente);
+                aulaCorrente.MettiInScalaAulaEBanchi();
+            }
+        }
+        private void CreaAulaGrafica(Aula aula)
+        {
+            Label GraficaAula = new Label();
+            AreaDisegno.Children.Add(GraficaAula);
+            if (aula == null)
+                aula = new Aula("prova", 8000, 12000, GraficaAula, GridDisegno);
+            else
+                aula.GraficaAula = GraficaAula;
+            // creazione di tutti i nuovi banchi grafici
+            int zIndexBanco = 100;
+            foreach (Banco b in aula.Banchi)
+            {
+                Label GraficaBanco = new();
+                // metodo delegato per gestione click
+                GraficaBanco.MouseDown += ClickSuBanco;
+                AreaDisegno.Children.Add(GraficaBanco);
+                b.GraficaBanco = GraficaBanco;
+                //Banco bancoNuovo = new Banco(false, b.BaseInCentimetri,
+                //    b.AltezzaInCentimetri, b.PosizioneX, b.PosizioneY, GraficaBanco);
+                //// aggiunta del banco appena fatto all'aula
+                //aula.Banchi.Add(bancoNuovo);
+                Panel.SetZIndex(GraficaBanco, zIndexBanco);
+                zIndexBanco++;
             }
         }
         private void chkStudenti_Checked(object sender, RoutedEventArgs e)
@@ -206,9 +248,18 @@ namespace Banchi
         }
         private void btn_AssociaStudente_Click(object sender, RoutedEventArgs e)
         {
-            if (lstStudenti.SelectedItem != null)
+            if (lstStudenti.SelectedItem != null && bancoCorrente != null)
             {
                 bancoCorrente.Studente = (Studente)lstStudenti.SelectedItem;
+                bancoCorrente.AggiungiTestoAGrafica();
+                bancoCorrente.GraficaBanco.BorderBrush = Brushes.LightCoral;
+            }
+        }
+        private void btn_AssociaComputer_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstComputer.SelectedItem != null && bancoCorrente != null)
+            {
+                bancoCorrente.Computer = (Computer)lstComputer.SelectedItem;
                 bancoCorrente.AggiungiTestoAGrafica();
                 bancoCorrente.GraficaBanco.BorderBrush = Brushes.LightCoral;
             }
@@ -238,15 +289,6 @@ namespace Banchi
         {
 
         }
-        private void btn_AssociaComputer_Click(object sender, RoutedEventArgs e)
-        {
-            if (lstComputer.SelectedItem != null)
-            {
-                bancoCorrente.Computer = (Computer)lstComputer.SelectedItem;
-                bancoCorrente.AggiungiTestoAGrafica();
-                bancoCorrente.GraficaBanco.BorderBrush = Brushes.LightCoral;
-            }
-        }
         private void btn_DistribuisciStudenti_Click(object sender, RoutedEventArgs e)
         {
 
@@ -265,33 +307,41 @@ namespace Banchi
                 }
             }
         }
-        private void CreaAulaDiProva()
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (this.IsLoaded)
+                aulaCorrente.MettiInScalaAulaEBanchi();
+        }
+        private Aula CreaAulaDiProva()
         {
             // QUESTO METODO CREA UN'AULA DI PROVA E DOVRA' ESSERE CANCELLATO QUANDO LE 
             // AULE CARICATE NEL COMBOBOX AVRANNO AL LORO INTERNO LE INFORMAZIONI
             // CHE METTIAMO NEL SEGUENTE CODICE 
             // creazione aula
-            aulaCorrente = new Aula("L13", 8000, 12000);
+            Label GraficaAula = new Label();
+            AreaDisegno.Children.Add(GraficaAula);
+
+            Aula aula = new Aula("prova", 8000, 12000, GraficaAula, GridDisegno);
             // creazione di un nuovo banco
             Label GraficaBanco = new();
             // metodo delegato per gestione click
             GraficaBanco.MouseDown += ClickSuBanco;
             AreaDisegno.Children.Add(GraficaBanco);
-            Banco bancoNuovo = new Banco(GraficaBanco, false,
-                new Size(100, 80), new Point(250, 100));
-            //bancoNuovo.AggiungiTestoAGrafica();
+            Banco bancoNuovo = new Banco(false, 100, 80, 250, 100, GraficaBanco);
             // aggiunta del banco appena fatto all'aula
-            aulaCorrente.Banchi.Add(bancoNuovo);
+            aula.Banchi.Add(bancoNuovo);
+            Panel.SetZIndex(GraficaBanco, 100);
 
             GraficaBanco = new();
             // metodo delegato per gestione click
             GraficaBanco.MouseDown += ClickSuBanco;
             AreaDisegno.Children.Add(GraficaBanco);
-            bancoNuovo = new Banco(GraficaBanco, false,
-                new Size(100, 80), new Point(250, 200));
-            //bancoNuovo.AggiungiTestoAGrafica();
+            bancoNuovo = new Banco(false, 100, 80, 250, 200, GraficaBanco);
             // aggiunta del banco appena fatto all'aula
-            aulaCorrente.Banchi.Add(bancoNuovo);
+            aula.Banchi.Add(bancoNuovo);
+            Panel.SetZIndex(GraficaBanco, 101);
+
+            return aula;
         }
     }
 }

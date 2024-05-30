@@ -1,6 +1,5 @@
 ﻿using Banchi.Classi;
 using System.IO;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace Banchi
@@ -73,12 +72,31 @@ namespace Banchi
         }
         public static List<Aula> LeggiTutteLeAule()
         {
-            string[] stringheLette = File.ReadAllLines(FileAule);
-            string[] split = new string[3];
-            for (int i = 1; i < stringheLette.Length; i++)
+            // lettura di tutte le righe del file 
+            string[] righeLette = File.ReadAllLines(FileAule);
+            string[] split;
+            int nRiga = 2; // salto le prime due righe, che sono di descrizione 
+            split = righeLette[nRiga].Split("\t");
+            Aula a = null;
+            while (nRiga < righeLette.Length - 1)
             {
-                split = stringheLette[i].Split("\t");
-                Aula a = new Aula(split[0], Convert.ToDouble(split[2]), Convert.ToDouble(split[1]));
+                // per primi ci sono i dati dell'aula 
+                a = new Aula(split[0], Convert.ToDouble(split[1]), Convert.ToDouble(split[2]),
+                    null, null, Convert.ToInt32(split[3]));
+                // alla riga successiva arrivano i banchi (se ci sono), che hanno un tab come primo campo
+                nRiga++;
+                split = righeLette[nRiga].Split("\t");
+                // gira finché c'è un vuoto come primo campo
+                while (split[0] == "" && nRiga < righeLette.Length)
+                {
+                    Banco b = new Banco(Convert.ToBoolean(split[2]), Convert.ToDouble(split[3]),
+                        Convert.ToDouble(split[4]), Convert.ToDouble(split[5]), Convert.ToDouble(split[6]), null);
+                    a.Banchi.Add(b);
+                    nRiga++;
+                    if (nRiga < righeLette.Length)
+                        split = righeLette[nRiga].Split("\t");
+                }
+                // prossimo giro per cercare la prossima aula
                 listaAule.Add(a);
             }
             return listaAule;
@@ -207,13 +225,13 @@ namespace Banchi
             {
                 arraySupporto[i] = listaBanchi[i].CodiceBanco.ToString()
                     + "\t" + listaBanchi[i].NomeClasse.ToString()
-                    + "\t" + listaBanchi[i].Size.Width.ToString()
-                    + "\t" + listaBanchi[i].Size.Height.ToString()
+                    + "\t" + listaBanchi[i].BaseInCentimetri.ToString()
+                    + "\t" + listaBanchi[i].AltezzaInCentimetri.ToString()
                     + "\t" + listaBanchi[i].IsCattedra.ToString()
                     + "\t" + listaBanchi[i].Studente.Cognome
                     + "\t" + listaBanchi[i].Studente.Nome
-                    + "\t" + listaBanchi[i].Position.X.ToString()
-                    + "\t" + listaBanchi[i].Position.Y.ToString();
+                    + "\t" + listaBanchi[i].PosizioneX.ToString()
+                    + "\t" + listaBanchi[i].PosizioneY.ToString();
             }
             File.AppendAllLines(FileBanchi, arraySupporto);
         }
@@ -224,11 +242,13 @@ namespace Banchi
             {
                 string[] split = stringheLette[i].Split("\t");
 
-                Size size = new(Convert.ToDouble(split[2]), Convert.ToDouble(split[3]));
-                Point posizione = new(Convert.ToDouble(split[7]), Convert.ToDouble(split[8]));
+                double larghezza = Convert.ToDouble(split[2]);
+                double altezza = Convert.ToDouble(split[3]);
+                double posizioneX = Convert.ToDouble(split[7]);
+                double posizioneY = Convert.ToDouble(split[8]);
                 bool cattedra = Convert.ToBoolean(split[4]);
                 Label l = new();
-                Banco b = new(l, cattedra, size, posizione);
+                Banco b = new(cattedra, larghezza, altezza, posizioneX, posizioneY, l);
                 b.Studente.Cognome = split[5];
                 b.Studente.Nome = split[6];
                 listaBanchi.Add(b);

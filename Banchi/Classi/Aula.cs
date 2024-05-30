@@ -9,68 +9,118 @@ namespace Banchi
     public class Aula
     {
         public string NomeAula { get; set; }
-        public Label GraficaAula { get; }
-        // dimensioni dell'aula. 
+        // dimensioni dell'aula
         public double AltezzaInCentimetri { get; set; }
         public double BaseInCentimetri { get; set; }
+        public int? DirezioneNord { get; set; } //293 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        public Grid GridDelDisegno { get; set; }
+        private bool graficaInizializzata = false;
+        private Label graficaAula;
+        public Label GraficaAula
+        {
+            get
+            {
+                return graficaAula;
+            }
+            set
+            {
+                graficaAula = value;
+                if (!graficaInizializzata)
+                {
+                    InizializzaGraficaAula();
+                }
+            }
+        }
+
+        // fattore di scala moltiplicativo, in [pixel/cm]
+        public double FattoreDiScala = 0.1;
         // ci serve la lista dei banchi che stanno in questa aula
         public List<Banco> Banchi { get; set; }
-        // NON serve la lista dei computer che stanno in questa aula
-        // perchè ogni banco può avere il suo computer
-        Label graficaAula { get; set; }
+        // NON serve la lista dei computer che stanno in questa aula, da esporre come proprietà 
+        // perché i computer stanno sui banchi ed ogni banco può avere il suo computer
+
         // per disegnare le porte e le finestre dell'aula
         // definiamo la struttura dati dei serramenti
         public List<Serramento> Serramenti { get; set; }
         // angolo del Nord rispetto al lato 1, in gradi
-        public int? DirezioneNord { get; set; } //293 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
-        // forse ci servirà la lista degli studenti che stanno in questa aula
-        //public List<Studente> Studenti { get; set; } // eliminarla se poi non serve
         public Aula(string NomeAula, double AltezzaInCentimetri, double BaseInCentimetri,
-            int? DirezioneNord = null, Label GraficaAula = null)
+            Label GraficaAula = null, Grid GridDelDisegno = null, int? DirezioneNord = null)
         {
-
-
             // inizializzazione delle proprietà
             this.AltezzaInCentimetri = AltezzaInCentimetri;
             this.BaseInCentimetri = BaseInCentimetri;
             this.NomeAula = NomeAula;
+            this.GridDelDisegno = GridDelDisegno;
 
             if (GraficaAula != null)
             {
-                this.GraficaAula = GraficaAula;
-                // aspetto del banco, DA MIGLIORARE! 
-                //GraficaAula.HorizontalContentAlignment = HorizontalAlignment.Center;
-                //GraficaAula.VerticalContentAlignment = VerticalAlignment.Center;
-                GraficaAula.BorderThickness = new Thickness(2);
-                GraficaAula.BorderBrush = Brushes.Black;
-                GraficaAula.HorizontalAlignment = HorizontalAlignment.Left;
-                GraficaAula.VerticalAlignment = VerticalAlignment.Center;
-                GraficaAula.Background = Brushes.LightGray;
-                //GraficaAula.FontWeight = FontWeights.Bold;
-            }
+                InizializzaGraficaAula();
 
+            }
             if (DirezioneNord != null)
                 this.DirezioneNord = DirezioneNord;
             Banchi = new List<Banco>();
             Serramenti = new List<Serramento>();
-
         }
-        public void VisualizzaAulaEBanchi()
+        private void InizializzaGraficaAula()
         {
-            VisualizzaAula();
-            VisualizzaBanchi();
+            if (GraficaAula != null)
+            {
+                graficaInizializzata = true;
+                // aspetto dell'aula
+                this.GraficaAula = GraficaAula;
+                GraficaAula.Height = FattoreDiScala * AltezzaInCentimetri;
+                GraficaAula.Width = FattoreDiScala * BaseInCentimetri;
+                GraficaAula.BorderThickness = new Thickness(12);
+                GraficaAula.BorderBrush = Brushes.Black;
+                GraficaAula.HorizontalAlignment = HorizontalAlignment.Left;
+                GraficaAula.VerticalAlignment = VerticalAlignment.Center;
+                GraficaAula.Background = Brushes.LightGray;
+            }
         }
-        private void VisualizzaAula()
+        public void MettiInScalaAulaEBanchi()
         {
-            // !!!! TODO DA FARE !!!!
-            //throw new NotImplementedException();
+            MettiInScalaAula();
+            MettiInScalaBanchi();
         }
-        // temporaneo
-        Banco tempBanco;
-        private void VisualizzaBanchi()
+        private void MettiInScalaAula()
         {
-            // !!!! PEZZO DA FARE TUTTO !!!!
+            // facciamo in modo che il lato più lungo stia lungo le X 
+            double temp;
+            if (AltezzaInCentimetri > BaseInCentimetri)
+            {
+                // scambio fra base ed altezza 
+                temp = BaseInCentimetri;
+                BaseInCentimetri = AltezzaInCentimetri;
+                AltezzaInCentimetri = temp;
+            }
+            // acquisisco la finestra dove c'è la Label che rappresenta l'aula
+            Window finestraContenitore = Window.GetWindow(GraficaAula);
+            // il fattore di scala è il rapporto fra le dimensioni in pixel della Window
+            // e la dimensione in centimetri dell'aula
+            // tolgo ai pixel nelle Y il numero di pixel delle barre superiori 
+            double fattoreDiScalaY = (finestraContenitore.Height - 183) / AltezzaInCentimetri;
+            double fattoreDiScalaX = finestraContenitore.Width / BaseInCentimetri;
+            // il fattore di scala che adotto è il più piccolo dei due, così ci sta tutto 
+            if (fattoreDiScalaX > fattoreDiScalaY)
+            {
+                FattoreDiScala = fattoreDiScalaY;
+            }
+            else
+            {
+                FattoreDiScala = fattoreDiScalaX;
+            }
+            GraficaAula.Height = FattoreDiScala * AltezzaInCentimetri;
+            GraficaAula.Width = FattoreDiScala * BaseInCentimetri;
+        }
+        private void MettiInScalaBanchi()
+        {
+            //  cambia il FattoreDiScala ad ogni banco, per visualizzarlo nelle giuste dimensioni
+            foreach (Banco b in Banchi)
+            {
+                b.FattoreDiScala = FattoreDiScala;
+            }
         }
         public override string ToString()
         {

@@ -16,6 +16,8 @@ namespace Banchi
         Aula aula;
         Banco banco;
         List<Banco> banchi = new();
+        private static double XIniziale;
+        private static double YIniziale;
 
         public BanchiWindow(Aula aula)
         {
@@ -42,7 +44,7 @@ namespace Banchi
             double larghezza = Convert.ToDouble(txt_Larghezza.Text);
             double lunghezza = Convert.ToDouble(txt_Lunghezza.Text);
             Size misure = new Size(larghezza, lunghezza);
-            banco = new Banco(grafica, false, misure, Banco.posizioneIniziale);
+            banco = new Banco(false, larghezza, lunghezza, XIniziale, YIniziale, grafica);
             // aggiunta del banco all'area di disegno (Canvas)
             AreaDisegno.Children.Add(banco.GraficaBanco);
             //aggiungere banco a lista
@@ -95,15 +97,17 @@ namespace Banchi
                 InlineCollection contenuto = textBlock1.Inlines;
                 Inline contenuto1 = contenuto.First();
                 Run testo = (Run)contenuto1;
-                foreach (Banco b in banchi)
+                for (int i = 0; i < banchi.Count; i++)
                 {
+                    Banco b = banchi[i];
                     TextBlock textBlockB = (TextBlock)b.GraficaBanco.Content;
                     InlineCollection contenutoB = textBlockB.Inlines;
                     Inline contenutoB1 = contenutoB.First();
                     Run testoB = (Run)contenutoB1;
                     if (testo.Text == testoB.Text)
                     {
-                        b.Position = startPosition;
+                        b.PosizioneX = startPosition.X;
+                        b.PosizioneY = startPosition.Y;
                     }
                 }
                 label.ReleaseMouseCapture();
@@ -123,8 +127,8 @@ namespace Banchi
             // il tavolo assume listaAule sua posizione e dimensione di default
             double larghezza = Convert.ToDouble(txt_Larghezza.Text);
             double lunghezza = Convert.ToDouble(txt_Lunghezza.Text);
-            Size misure = new Size(larghezza, lunghezza);
-            banco = new Banco(grafica, true, misure, Banco.posizioneIniziale);
+            Size misure = new Size();
+            banco = new Banco(true, larghezza, lunghezza, XIniziale, YIniziale, grafica);
             // aggiunta del banco all'area di disegno (Canvas)
             AreaDisegno.Children.Add(grafica);
             // metodi delegati per gestione drag and drop

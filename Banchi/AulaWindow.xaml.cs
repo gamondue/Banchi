@@ -31,7 +31,7 @@ namespace Banchi
             // se l'aula passata è nulla, la creo nuova, altrimenti me la tengo 
             if (a1 == null)
             {
-                a1 = new Aula("", 930, 1900, 0, grafica); //max lenghth = 1268,height = 614
+                a1 = new Aula("", 930, 1900, grafica);    //max lenghth = 1268,height = 614
                                                           //altezza*1,465
                                                           //base*1,34
             }
@@ -57,10 +57,10 @@ namespace Banchi
                 //prendo valori inseriti
                 double base2 = Convert.ToDouble(txtBase.Text);
                 double altezza2 = Convert.ToDouble(txtAltezza.Text);
-                int grado = Convert.ToInt32(txtGrado.Text);
+                int grado = Convert.ToInt32(txtGrado.Text); // cos'è il grado? 
                 string nomeAula = txtNome.Text;
                 dimensione = false;
-                Aula aula1 = new(nomeAula, altezza2, base2, grado);
+                Aula aula1 = new(nomeAula, altezza2, base2);
             }
         }
         private void btn_ConfermaFinestra_Click(object sender, RoutedEventArgs e)

@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
         Title="Banchi: ho perso lo studente" Height="600" Width="1000"
-        Padding="3"
-        Style="{StaticResource StileFinestre}">
+        Padding="3" 
+        Style="{StaticResource StileFinestre}"
+        Loaded="Window_Loaded" SizeChanged="Window_SizeChanged">
     <StackPanel Orientation="Vertical">
         <Menu x:Name="BarraMenu" DockPanel.Dock="Top" >
             <MenuItem Header="_File">
@@ -45,9 +46,9 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Content=""/>
                     <Label Content="Aule" />
-                    <ComboBox x:Name="cmbAuleUtente" Width="50" IsEditable="False"/>
+                    <ComboBox x:Name="cmbAuleUtente" Width="90" IsEditable="False"/>
                     <Label Content="Classi" />
-                    <ComboBox x:Name="cmbClasseUtente" Width="50" IsEditable="False"/>
+                    <ComboBox x:Name="cmbClasseUtente" Width="90" IsEditable="False"/>
                     <Button x:Name="btn_SalvaUtente" Content="Salva" Click="btn_SalvataggioUtente_Click" 
                             Style="{StaticResource StileBottoni}"/>
                 </StackPanel>
@@ -59,9 +60,9 @@
                 </GroupBox.Header>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Aule" />
-                    <ComboBox x:Name="cmbModelliAule" Width="50" IsEditable="False" SelectionChanged="cmbModelliAule_SelectionChanged"/>
+                    <ComboBox x:Name="cmbModelliAule" Width="60" IsEditable="False" SelectionChanged="cmbModelliAule_SelectionChanged"/>
                     <Label Content="Classi" />
-                    <ComboBox x:Name="cmbModelliClasse" Width="50" IsEditable="False" SelectionChanged="cmbModelliClasse_SelectionChanged"/>
+                    <ComboBox x:Name="cmbModelliClasse" Width="60" IsEditable="False" SelectionChanged="cmbModelliClasse_SelectionChanged"/>
                     <Label Content="Aule, banchi, studenti" />
                     <ComboBox x:Name="cmbBanchiEStudenti" Width="100" IsEditable="False" SelectionChanged="cmbBanchiEStudenti_SelectionChanged"/>
                         <Button x:Name="btn_Salva" Content="Salva" Click="btn_SalvataggioCondivisi_Click" 
@@ -76,6 +77,10 @@
             <CheckBox x:Name="chkComputer" Content="Computer" IsChecked="False" 
                       Style="{StaticResource StileCheckbox}"
                       Checked="chkComputer_Checked" Unchecked="chkComputer_Unchecked"/>
+            <Label>Studente</Label>
+            <TextBlock x:Name="txtStudente" Width="200"/>
+            <Label>Computer</Label>
+            <TextBlock x:Name="txtComputer" Width="200"/>
         </StackPanel>
         <DockPanel x:Name="AreaPrincipale">
             <ListBox DockPanel.Dock="Left" Width="160" x:Name="lstStudenti" Visibility="Collapsed" BorderBrush="Black"/>
@@ -83,25 +88,35 @@
                 <TextBox x:Name="txtFiltroComputer" TextChanged="txtFiltroComputer_TextChanged"/>
                 <ListBox  Width="160" x:Name="lstComputer" Visibility="Collapsed" BorderBrush="Black"/>
             </StackPanel>
-             <!--il canvas, se scritto per ultimo e non "docked" occupa il centro del DockPanel-->
-            <Canvas x:Name="AreaDisegno" VerticalAlignment="Top"
+             <!-- questa Grid da una cella, se scritta per ultima e non "docked" occupa il centro del DockPanel
+                (il Canvas, non ci fa sapere qual è l'area visibile, per cui lo metto qui dentro) -->
+            <Grid x:Name="GridDisegno" VerticalAlignment="Top"
                 Background="White">
-                <!-- canvas dove disegnamo l'aula ed i banchi. I banchi vengono creati dal programma -->
-                <!-- disegno di un banco per prova. Da cancellare quando si disegnerà tutta l'aula-->
-                <!--<Label x:Name="bancoDiProva" Background="Aquamarine" 
-                       Canvas.Left="100" Canvas.Top="100" Width="100" Height="80"
-                       BorderThickness="4" BorderBrush="LightCoral" MouseDown="click_Label">
-                    --><!--All'interno della Label: scritta che va a capo con due righe separate da una linea--><!--
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
-                               TextAlignment="Center" TextWrapping="WrapWithOverflow">
-                        PC0112
-                        <LineBreak/>
-                        _____
-                        <LineBreak/>
-                        Monti Gabriele
-                    </TextBlock>
-                </Label>-->
-            </Canvas>
+                <!-- Grid dove disegnamo l'aula ed i banchi. I banchi vengono creati dal programma -->
+                <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" Background="White">
+                    <!--ViewBox per il ridimensionamento del testo-->
+                    <Viewbox Grid.Row="0" Grid.Column="0">
+                        <!-- disegno di un banco per prova. Da cancellare quando si disegnerà tutta l'aula-->
+                        <Label x:Name="bancoDiProva" Background="Aquamarine" 
+                               Margin="200, 50" Width="100" Height="80"
+                               BorderThickness="4" BorderBrush="LightCoral"
+                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <!--All'interno della Label: scritta che va a capo con due righe separate da una linea-->
+                            <!--Viewbox per ridimensionamento del testo del TextBlock -->
+                            <Viewbox StretchDirection="Both">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                           TextAlignment="Center" TextWrapping="WrapWithOverflow">
+                                    PC0112
+                                    <LineBreak/>
+                                    _____
+                                    <LineBreak/>
+                                    Monti Gabriele
+                                </TextBlock>
+                            </Viewbox>
+                        </Label>
+                    </Viewbox>
+                </Canvas>
+            </Grid>
         </DockPanel>
     </StackPanel>
 </Window>
