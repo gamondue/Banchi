@@ -20,10 +20,12 @@ namespace Banchi
         // (!!!! TODO vedere come si riposizionano !!!!)
         // fattore di scala moltiplicativo per il ridimensionamento, in [pixel/cm]
         double fattoreDiScala = 0.1;
-        public double PosizioneX { get; set; }
-        public double PosizioneY { get; set; }
+        public double PosizioneXInCentimetri { get; set; }
+        public double PosizioneYInCentimetri { get; set; }
         private Label graficaBanco;
         private bool graficaInizializzata = false;
+        private double posizioneXInPixel;
+        private double posizioneYInPixel;
 
         public Label GraficaBanco
         {
@@ -59,11 +61,16 @@ namespace Banchi
         public Computer Computer { get; set; }
         // costruttore 
         public Banco(bool IsCattedra, double Base, double Altezza,
-            double PosizioneX, double PosizioneY, Label GraficaBanco)
+            double PosizioneXInCentimetri, double PosizioneYInCentimetri, Label GraficaBanco)
         {
             this.IsCattedra = IsCattedra;
             this.GraficaBanco = GraficaBanco;
-            // la label viene passata dalla Window, dove verrà disegnata
+            BaseInCentimetri = Base;
+            AltezzaInCentimetri = Altezza;
+            this.PosizioneXInCentimetri = PosizioneXInCentimetri;
+            this.PosizioneYInCentimetri = PosizioneYInCentimetri;
+            // la label viene passata dalla Window dove verrà disegnata
+            // se c'è la inizializziamo 
             if (GraficaBanco != null)
                 InizializzaGraficaBanco();
             CodiceBanco = NumeroBanchi;
@@ -94,29 +101,30 @@ namespace Banchi
                 AggiungiTestoAGrafica();
                 // posizione di default a tutti i banchi diversa,
                 // in modo che non si sovrappongano completamente
-                if (PosizioneX == null || PosizioneX == 0)
+                if (PosizioneXInCentimetri == null || PosizioneXInCentimetri == 0)
                 {
-                    PosizioneX = posizioneStartX;
+                    posizioneXInPixel = posizioneStartX;
                     posizioneStartX += 10;
                 }
-                if (PosizioneY == null || PosizioneY == 0)
+                else
                 {
-                    PosizioneY = posizioneStartY;
+                    posizioneXInPixel = FattoreDiScala * PosizioneXInCentimetri;
+                }
+                if (PosizioneYInCentimetri == null || PosizioneYInCentimetri == 0)
+                {
+                    posizioneYInPixel = posizioneStartY;
                     posizioneStartY += 10;
                 }
-                //// impostazione della posizione della grafica del banco
-                //Canvas.SetLeft(GraficaBanco, FattoreDiScala * PosizioneX);
-                //Canvas.SetTop(GraficaBanco, FattoreDiScala * PosizioneY);
-                //// impostazione della dimensione della grafica del banco
-                //GraficaBanco.Width = FattoreDiScala * BaseInCentimetri;
-                //GraficaBanco.Height = FattoreDiScala * AltezzaInCentimetri;
-
+                else
+                {
+                    posizioneYInPixel = FattoreDiScala * PosizioneYInCentimetri;
+                }
                 // impostazione della posizione della grafica del banco
-                Canvas.SetLeft(GraficaBanco, 200);
-                Canvas.SetTop(GraficaBanco, 80);
+                Canvas.SetLeft(GraficaBanco, posizioneXInPixel);
+                Canvas.SetTop(GraficaBanco, posizioneYInPixel);
                 // impostazione della dimensione della grafica del banco
-                GraficaBanco.Width = 100;
-                GraficaBanco.Height = 70;
+                GraficaBanco.Width = FattoreDiScala * BaseInCentimetri;
+                GraficaBanco.Height = FattoreDiScala * AltezzaInCentimetri;
             }
         }
         public void AggiungiTestoAGrafica()

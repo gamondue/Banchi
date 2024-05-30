@@ -73,7 +73,7 @@ namespace Banchi
                 GraficaAula.BorderBrush = Brushes.Black;
                 GraficaAula.HorizontalAlignment = HorizontalAlignment.Left;
                 GraficaAula.VerticalAlignment = VerticalAlignment.Center;
-                GraficaAula.Background = Brushes.Transparent;
+                GraficaAula.Background = Brushes.LightGray;
             }
         }
         public void MettiInScalaAulaEBanchi()

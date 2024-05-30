@@ -29,7 +29,7 @@ namespace Banchi
             startPosition.X = 192;
             startPosition.Y = 92;
             // se l'aula passata è nulla, la creo nuova, altrimenti me la tengo 
-            if (a1 == null)
+            if (aula == null)
             {
                 a1 = new Aula("", 930, 1900, grafica);    //max lenghth = 1268,height = 614
                                                           //altezza*1,465

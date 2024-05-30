@@ -231,8 +231,8 @@ namespace Banchi
                     + "\t" + listaBanchi[i].IsCattedra.ToString()
                     + "\t" + listaBanchi[i].Studente.Cognome
                     + "\t" + listaBanchi[i].Studente.Nome
-                    + "\t" + listaBanchi[i].PosizioneX.ToString()
-                    + "\t" + listaBanchi[i].PosizioneY.ToString();
+                    + "\t" + listaBanchi[i].PosizioneXInCentimetri.ToString()
+                    + "\t" + listaBanchi[i].PosizioneYInCentimetri.ToString();
             }
             File.AppendAllLines(FileBanchi, arraySupporto);
         }

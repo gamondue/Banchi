@@ -106,8 +106,8 @@ namespace Banchi
                     Run testoB = (Run)contenutoB1;
                     if (testo.Text == testoB.Text)
                     {
-                        b.PosizioneX = startPosition.X;
-                        b.PosizioneY = startPosition.Y;
+                        b.PosizioneXInCentimetri = startPosition.X;
+                        b.PosizioneYInCentimetri = startPosition.Y;
                     }
                 }
                 label.ReleaseMouseCapture();

@@ -165,10 +165,10 @@ namespace Banchi
             if (cmbModelliAule.SelectedItem != null)
             {
                 aulaCorrente = ((Aula)cmbModelliAule.SelectedItem);
-                //// aula farlocca, in attesa di completare la lettura dei dati 
-                //aula = CreaAulaDiProva();
+                // aula farlocca, in attesa di completare la lettura dei dati 
+                //aulaCorrente = CreaAulaDiProva();
                 CreaAulaGrafica(aulaCorrente);
-                aulaCorrente.MettiInScalaAulaEBanchi();
+                //aulaCorrente.MettiInScalaAulaEBanchi();
             }
         }
         private void CreaAulaGrafica(Aula aula)
@@ -189,7 +189,7 @@ namespace Banchi
                 AreaDisegno.Children.Add(GraficaBanco);
                 b.GraficaBanco = GraficaBanco;
                 //Banco bancoNuovo = new Banco(false, b.BaseInCentimetri,
-                //    b.AltezzaInCentimetri, b.PosizioneX, b.PosizioneY, GraficaBanco);
+                //    b.AltezzaInCentimetri, b.PosizioneXInPixel, b.PosizioneYInPixel, GraficaBanco);
                 //// aggiunta del banco appena fatto all'aula
                 //aula.Banchi.Add(bancoNuovo);
                 Panel.SetZIndex(GraficaBanco, zIndexBanco);

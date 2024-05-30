@@ -101,29 +101,29 @@
                 <TextBox x:Name="txtFiltroComputer" TextChanged="txtFiltroComputer_TextChanged"/>
                 <ListBox  Width="160" x:Name="lstComputer" Visibility="Collapsed" BorderBrush="Black"/>
             </StackPanel>
-                <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" Background="White">
-                    <!--ViewBox per il ridimensionamento del testo-->
-                    <Viewbox>
-                        <!-- disegno di un banco per prova. Da cancellare quando si disegnerà tutta l'aula-->
-                        <Label x:Name="bancoDiProva" Background="Aquamarine" 
-                               Margin="200, 50" Width="200" Height="160"
-                               BorderThickness="4" BorderBrush="LightCoral"
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                            <!--All'interno della Label: scritta che va a capo con due righe separate da una linea-->
-                            <!--Viewbox per ridimensionamento del testo del TextBlock -->
-                            <Viewbox StretchDirection="Both">
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                           TextAlignment="Center" TextWrapping="WrapWithOverflow">
-                                    PC0112
-                                    <LineBreak/>
-                                    _____
-                                    <LineBreak/>
-                                    Monti Gabriele
-                                </TextBlock>
-                            </Viewbox>
-                        </Label>
-                    </Viewbox>
-                </Canvas>
+            <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" Background="White">
+                <!--ViewBox per il ridimensionamento del testo-->
+                <Viewbox x:Name="vboxFuori" StretchDirection="Both">
+                    <!-- disegno di un banco per prova. Da cancellare quando si disegnerà tutta l'aula-->
+                    <Label x:Name="bancoDiProva" Background="Aquamarine" 
+                            Margin="200, 50" Width="200" Height="160"
+                            BorderThickness="4" BorderBrush="LightCoral"
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <!--All'interno della Label: scritta che va a capo con due righe separate da una linea-->
+                        <!--Viewbox per ridimensionamento del testo del TextBlock -->
+                        <Viewbox x:Name="vboxDentro" StretchDirection="Both">
+                            <TextBlock x:Name="BancoDiProva" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                        TextAlignment="Center" TextWrapping="WrapWithOverflow">
+                                PC0112
+                                <LineBreak/>
+                                _____
+                                <LineBreak/>
+                                Monti Gabriele
+                            </TextBlock>
+                        </Viewbox>
+                    </Label>
+                </Viewbox>
+            </Canvas>
         </DockPanel>
     </StackPanel>
 </Window>
