@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
-        Title="Banchi: ho perso lo studente" Height="600" Width="1000"
+        Title="Banchi: ho perso lo studente" Height="600" Width="1070"
         Padding="3" 
         Style="{StaticResource StileFinestre}"
         Loaded="Window_Loaded" SizeChanged="Window_SizeChanged">
@@ -63,7 +63,7 @@
                     <ComboBox x:Name="cmbModelliAule" Width="60" IsEditable="False" SelectionChanged="cmbModelliAule_SelectionChanged"/>
                     <Label Content="Classi" />
                     <ComboBox x:Name="cmbModelliClasse" Width="60" IsEditable="False" SelectionChanged="cmbModelliClasse_SelectionChanged"/>
-                    <Label Content="Aule, banchi, studenti" />
+                    <Label Content="Aule con studenti" />
                     <ComboBox x:Name="cmbBanchiEStudenti" Width="100" IsEditable="False" SelectionChanged="cmbBanchiEStudenti_SelectionChanged"/>
                         <Button x:Name="btn_Salva" Content="Salva" Click="btn_SalvataggioCondivisi_Click" 
                                 Style="{StaticResource StileBottoni}"/>
@@ -77,10 +77,23 @@
             <CheckBox x:Name="chkComputer" Content="Computer" IsChecked="False" 
                       Style="{StaticResource StileCheckbox}"
                       Checked="chkComputer_Checked" Unchecked="chkComputer_Unchecked"/>
+            <CheckBox x:Name="chkCartiglio" Content="Cartiglio" IsChecked="False" 
+                      Style="{StaticResource StileCheckbox}"
+                      Checked="chkCartiglio_Checked" Unchecked="chkCartiglio_Unchecked"/>
             <Label>Studente</Label>
             <TextBlock x:Name="txtStudente" Width="200"/>
             <Label>Computer</Label>
-            <TextBlock x:Name="txtComputer" Width="200"/>
+            <TextBlock x:Name="txtComputer" Width="50"/>
+            <GroupBox x:Name="grpOpzioniDistibuzione" BorderThickness="1" >
+                <GroupBox.Header>
+                    <TextBlock FontWeight="Bold">Opzioni per la distribuzione allievi</TextBlock>
+                </GroupBox.Header>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <RadioButton x:Name="rdbCasuale" IsChecked="true">Casuale</RadioButton>
+                    <RadioButton x:Name="rdbAlfabetico">Alfabetico</RadioButton>
+                    <RadioButton x:Name="rdbPerVoto">Per voto</RadioButton>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
         <DockPanel x:Name="AreaPrincipale">
             <ListBox DockPanel.Dock="Left" Width="160" x:Name="lstStudenti" Visibility="Collapsed" BorderBrush="Black"/>
@@ -88,17 +101,12 @@
                 <TextBox x:Name="txtFiltroComputer" TextChanged="txtFiltroComputer_TextChanged"/>
                 <ListBox  Width="160" x:Name="lstComputer" Visibility="Collapsed" BorderBrush="Black"/>
             </StackPanel>
-             <!-- questa Grid da una cella, se scritta per ultima e non "docked" occupa il centro del DockPanel
-                (il Canvas, non ci fa sapere qual è l'area visibile, per cui lo metto qui dentro) -->
-            <Grid x:Name="GridDisegno" VerticalAlignment="Top"
-                Background="White">
-                <!-- Grid dove disegnamo l'aula ed i banchi. I banchi vengono creati dal programma -->
                 <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" Background="White">
                     <!--ViewBox per il ridimensionamento del testo-->
-                    <Viewbox Grid.Row="0" Grid.Column="0">
+                    <Viewbox>
                         <!-- disegno di un banco per prova. Da cancellare quando si disegnerà tutta l'aula-->
                         <Label x:Name="bancoDiProva" Background="Aquamarine" 
-                               Margin="200, 50" Width="100" Height="80"
+                               Margin="200, 50" Width="200" Height="160"
                                BorderThickness="4" BorderBrush="LightCoral"
                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                             <!--All'interno della Label: scritta che va a capo con due righe separate da una linea-->
@@ -116,7 +124,6 @@
                         </Label>
                     </Viewbox>
                 </Canvas>
-            </Grid>
         </DockPanel>
     </StackPanel>
 </Window>

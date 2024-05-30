@@ -82,7 +82,7 @@ namespace Banchi
             {
                 // per primi ci sono i dati dell'aula 
                 a = new Aula(split[0], Convert.ToDouble(split[1]), Convert.ToDouble(split[2]),
-                    null, null, Convert.ToInt32(split[3]));
+                    null, Convert.ToInt32(split[3]));
                 // alla riga successiva arrivano i banchi (se ci sono), che hanno un tab come primo campo
                 nRiga++;
                 split = righeLette[nRiga].Split("\t");
@@ -103,6 +103,7 @@ namespace Banchi
         }
         public static void ScriviTutteLeAule(List<Aula> listaAule)
         {
+            // TODO
             // array di appoggio della dimesione giusta
             string[] arraySupporto = new string[listaAule.Count + 1];
             // salva prima riga di intestazione

@@ -86,6 +86,7 @@ namespace Banchi
             {
                 lstComputer.Items.Add(c);
             }
+            Panel.SetZIndex(lstComputer, 10000);
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -175,7 +176,7 @@ namespace Banchi
             Label GraficaAula = new Label();
             AreaDisegno.Children.Add(GraficaAula);
             if (aula == null)
-                aula = new Aula("prova", 8000, 12000, GraficaAula, GridDisegno);
+                aula = new Aula("prova", 8000, 12000, GraficaAula);
             else
                 aula.GraficaAula = GraficaAula;
             // creazione di tutti i nuovi banchi grafici
@@ -309,7 +310,7 @@ namespace Banchi
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (this.IsLoaded)
+            if (this.IsLoaded && aulaCorrente != null)
                 aulaCorrente.MettiInScalaAulaEBanchi();
         }
         private Aula CreaAulaDiProva()
@@ -321,7 +322,7 @@ namespace Banchi
             Label GraficaAula = new Label();
             AreaDisegno.Children.Add(GraficaAula);
 
-            Aula aula = new Aula("prova", 8000, 12000, GraficaAula, GridDisegno);
+            Aula aula = new Aula("prova", 8000, 12000, GraficaAula);
             // creazione di un nuovo banco
             Label GraficaBanco = new();
             // metodo delegato per gestione click
@@ -342,6 +343,14 @@ namespace Banchi
             Panel.SetZIndex(GraficaBanco, 101);
 
             return aula;
+        }
+        private void chkCartiglio_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void chkCartiglio_Unchecked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Banchi
         public double AltezzaInCentimetri { get; set; }
         public double BaseInCentimetri { get; set; }
         public int? DirezioneNord { get; set; } //293 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        public Grid GridDelDisegno { get; set; }
         private bool graficaInizializzata = false;
         private Label graficaAula;
         public Label GraficaAula
@@ -45,18 +44,16 @@ namespace Banchi
         // angolo del Nord rispetto al lato 1, in gradi
 
         public Aula(string NomeAula, double AltezzaInCentimetri, double BaseInCentimetri,
-            Label GraficaAula = null, Grid GridDelDisegno = null, int? DirezioneNord = null)
+            Label GraficaAula = null, int? DirezioneNord = null)
         {
             // inizializzazione delle proprietà
             this.AltezzaInCentimetri = AltezzaInCentimetri;
             this.BaseInCentimetri = BaseInCentimetri;
             this.NomeAula = NomeAula;
-            this.GridDelDisegno = GridDelDisegno;
 
             if (GraficaAula != null)
             {
                 InizializzaGraficaAula();
-
             }
             if (DirezioneNord != null)
                 this.DirezioneNord = DirezioneNord;
@@ -76,7 +73,7 @@ namespace Banchi
                 GraficaAula.BorderBrush = Brushes.Black;
                 GraficaAula.HorizontalAlignment = HorizontalAlignment.Left;
                 GraficaAula.VerticalAlignment = VerticalAlignment.Center;
-                GraficaAula.Background = Brushes.LightGray;
+                GraficaAula.Background = Brushes.Transparent;
             }
         }
         public void MettiInScalaAulaEBanchi()
@@ -100,7 +97,7 @@ namespace Banchi
             // il fattore di scala è il rapporto fra le dimensioni in pixel della Window
             // e la dimensione in centimetri dell'aula
             // tolgo ai pixel nelle Y il numero di pixel delle barre superiori 
-            double fattoreDiScalaY = (finestraContenitore.Height - 183) / AltezzaInCentimetri;
+            double fattoreDiScalaY = (finestraContenitore.Height - 193) / AltezzaInCentimetri;
             double fattoreDiScalaX = finestraContenitore.Width / BaseInCentimetri;
             // il fattore di scala che adotto è il più piccolo dei due, così ci sta tutto 
             if (fattoreDiScalaX > fattoreDiScalaY)
