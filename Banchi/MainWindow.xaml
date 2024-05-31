@@ -90,9 +90,9 @@
                     <TextBlock FontWeight="Bold">Opzioni per la distribuzione allievi</TextBlock>
                 </GroupBox.Header>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <RadioButton x:Name="rdbCasuale" IsChecked="true" >Casuale</RadioButton>
-                    <RadioButton x:Name="rdbAlfabetico" >Alfabetico</RadioButton>
-                    <RadioButton x:Name="rdbPerVoto" >Per voto</RadioButton>
+                    <RadioButton x:Name="rdbCasuale" IsChecked="true">Casuale</RadioButton>
+                    <RadioButton x:Name="rdbAlfabetico">Alfabetico</RadioButton>
+                    <RadioButton x:Name="rdbPerVoto">Per voto</RadioButton>
                 </StackPanel>
             </GroupBox>
         </StackPanel>

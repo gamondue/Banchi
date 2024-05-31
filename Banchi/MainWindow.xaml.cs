@@ -32,6 +32,7 @@ namespace Banchi
         List<Aula> listaAuleModello;
         List<Classe> listaClassiModello;
         List<Computer> listaComputer;
+
         List<Studente> listaDistribuzioneBanco;
 
         bool cartiglioIsCheckedMainWindow = false;
@@ -489,6 +490,10 @@ namespace Banchi
             return aula;
         }
         private void chkCartiglio_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void chkCartiglio_Unchecked(object sender, RoutedEventArgs e)
         {
             graficaCartiglio = new();
             AreaDisegno.Children.Add(graficaCartiglio);
