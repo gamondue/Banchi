@@ -18,31 +18,34 @@
             <StackPanel Orientation="Horizontal">
                 <Image Width="150" Source="\Immagini\computer.png" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <StackPanel>
-                    <TextBlock Text="indirizzo IP:"></TextBlock>
-                    <TextBox x:Name="IPMod" Text="IP del computer" IsReadOnly="True"/>
+                    <TextBlock Text="Nome:"></TextBlock>
+                    <TextBox x:Name="NomeDispositivoMod"  IsReadOnly="True"/>
                 </StackPanel>
+                <StackPanel>
+                    <Separator Width="20" Background="Transparent">
+                    </Separator>
+                </StackPanel>
+                
                 
                 <StackPanel>
                     <TextBlock Text="Marca:"></TextBlock>
-                    <TextBox x:Name="MarcaMod" Text="Marca del computer" IsReadOnly="True"/>
+                    <TextBox x:Name="MarcaMod"  IsReadOnly="True"/>
                 </StackPanel>
 
-                <StackPanel>
-                    <TextBlock Text="Nome:"></TextBlock>
-                    <TextBox x:Name="NomeDispositivoMod" Text="Nome del dispositivo" IsReadOnly="True"/>
-                </StackPanel>
+                
                 <StackPanel>
                     <TextBlock Text="Processore(opz.):"></TextBlock>
-                    <TextBox x:Name="ProcessoreMod" Text="Proc. del computer" IsReadOnly="True"/>
+                    <TextBox x:Name="ProcessoreMod"  IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Tipo Sistema:"></TextBlock>
-                    <TextBox x:Name="TipoSistemaMod" Text="Tipo del sistema" IsReadOnly="True"/>
+                    <TextBox x:Name="TipoSistemaMod"  IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel>
-                    <TextBlock Text="Seleziona Banco"></TextBlock>
-                    <ComboBox x:Name="BanchiComboBox" Width="60" Height="20" SelectionChanged="ComboBox_SelectionChanged"/>
+                    <TextBlock Text="indirizzo IP:"></TextBlock>
+                    <TextBox x:Name="IPMod"  IsReadOnly="True"/>
                 </StackPanel>
+                
                
 
 
@@ -50,7 +53,7 @@
                
             <StackPanel Orientation="Vertical">
                 <Label Content="note" HorizontalAlignment="Center"></Label>
-                <TextBox x:Name="NotaComputer" Text="Luogo dove scrivere o leggere le note" Height="70" TextChanged="nota_TextChanged" IsReadOnly="True"></TextBox>
+                <TextBox x:Name="NotaComputer"  TextChanged="nota_TextChanged" IsReadOnly="True"></TextBox>
             </StackPanel>
         </StackPanel>
         <Button x:Name="SalvaButton" Height="40" Margin="634,323,84,71" Content="salva" Click="SalvaButton_Click"/>

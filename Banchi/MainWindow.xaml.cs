@@ -1,6 +1,10 @@
 ﻿using Banchi.Classi;
+using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using Label = System.Windows.Controls.Label;
 
@@ -15,6 +19,9 @@ namespace Banchi
         private Banco bancoCorrente;
         private Classe classeCorrente;
 
+        bool isDragging = false;
+        private Point startPosition;
+
         //private Studente studenteCorrente;
 
         internal Label labelSelezionata;
@@ -26,10 +33,18 @@ namespace Banchi
         List<Classe> listaClassiModello;
         List<Computer> listaComputer;
 
+        List<Studente> listaDistribuzioneBanco;
+
+        bool cartiglioIsCheckedMainWindow = false;
+        private Cartiglio cartiglio;
+        private Label graficaCartiglio;
+
         public MainWindow()
         {
             InitializeComponent();
             BusinessLayer.Inizializzazioni();
+
+           
 
             if (Utente.Accesso != Utente.RuoloUtente.ModificheAiModelli)
             {
@@ -90,15 +105,51 @@ namespace Banchi
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
             // evento che viene lanciato alla fine del caricamento della finestra 
             // metodo di prova che crea un'intera aula con pochi banchi 
             //aula = CreaAulaDiProva();
             //aula.MettiInScalaAulaEBanchi();
-            // cartiglio
-            Label graficaCartiglio = new();
-            AreaDisegno.Children.Add(graficaCartiglio);
-            Cartiglio c = new Cartiglio(graficaCartiglio, aulaCorrente, classeCorrente, Utente.Username);
+            
         }
+
+        internal void ClickSuCartiglio(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Label daPrendere = (Label)sender;
+                isDragging = true;
+                startPosition = e.GetPosition((IInputElement)this);
+                daPrendere.CaptureMouse();
+            }
+        }
+        // evento per continuare il drag and drop, quando il mouse si muove con il tasto premuto
+        internal void MovimentoSuCartiglio(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Label label = (Label)sender;
+            if (isDragging)
+            {
+                Point currentPosition = e.GetPosition((IInputElement)this);
+                double offsetX = currentPosition.X - startPosition.X;
+                double offsetY = currentPosition.Y - startPosition.Y;
+
+                Canvas.SetLeft(label, Canvas.GetLeft(label) + offsetX);
+                Canvas.SetTop(label, Canvas.GetTop(label) + offsetY);
+
+                startPosition = currentPosition;
+            }
+        }
+        // evento per terminare il drag and drop, quando il tasto del mouse viene rilasciato
+        internal void MouseUpSuCartiglio(object sender, MouseButtonEventArgs e)
+        {
+            Label label = (Label)sender;
+            if (isDragging)
+            {
+                isDragging = false;
+                label.ReleaseMouseCapture();
+            }
+        }
+
         private void MenuAula_Click(object sender, RoutedEventArgs e)
         {
             ApriFinestraAula();
@@ -107,6 +158,34 @@ namespace Banchi
         {
             AboutWindow wnd = new AboutWindow();
             wnd.Show();
+        }
+        private void MenuHelp1_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                string workingDirectory = @"Z:\banchi\Banchi\Banchi\bin\Debug\net7.0-windows"; // Imposta la tua directory di lavoro qui
+
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = "Banchi\\bin\\Debug\\net7.0-windows\\HelpHTML\\index.html", // Specifica il percorso del file da avviare
+                    UseShellExecute = true,
+                    WorkingDirectory = workingDirectory // Imposta la directory di lavoro
+                };
+
+                Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Errore: {ex.Message}");
+            }
+            System.Diagnostics.Process.Start(new ProcessStartInfo
+            {
+                
+                FileName = "..\\..\\..\\HelpHTML\\index.html",
+                UseShellExecute = true
+            });
+
         }
         private void btn_Banchi_Click(object sender, RoutedEventArgs e)
         {
@@ -150,6 +229,7 @@ namespace Banchi
                 {
                     List<Studente> listaStudenti = BusinessLayer.LeggiStudentiClasse((Classe)cmbModelliClasse.SelectedItem);
                     lstStudenti.ItemsSource = listaStudenti;
+                    listaDistribuzioneBanco = listaStudenti;
                 }
                 else
                 {
@@ -228,8 +308,33 @@ namespace Banchi
             //        MessageBoxButton.OK, MessageBoxImage.Error);
             //    return;
             //}
+            Computer computer;
+            computer = (Computer)lstComputer.SelectedItem;
+
+
+
+            MessageBoxButton bottone = MessageBoxButton.YesNo;
+            MessageBoxResult result;
             ComputerWindow wnd = new ComputerWindow((Aula)cmbModelliAule.SelectedItem, (Computer)lstComputer.SelectedItem);
-            wnd.Show();
+            string messageboxtext = "Non hai selezionato un computer, vuoi crearne uno nuovo?";
+            string messageboxcaption = "errore";
+
+            MessageBoxImage messageBoxImage = MessageBoxImage.Question;
+
+
+            if (computer == null)
+            {
+                result = MessageBox.Show(messageboxtext, messageboxcaption, bottone, messageBoxImage, MessageBoxResult.No);
+                if (result == MessageBoxResult.Yes)
+                {
+                    wnd.Show();
+                }
+            }
+
+            if (computer != null)
+            {
+                wnd.Show();
+            }
         }
         private void btn_Classe_Click(object sender, RoutedEventArgs e)
         {
@@ -292,7 +397,47 @@ namespace Banchi
         }
         private void btn_DistribuisciStudenti_Click(object sender, RoutedEventArgs e)
         {
+            if (listaDistribuzioneBanco != null && aulaCorrente != null)
+            {
+                ////questi commenti servono a vedere se l'ordinamento voti funziona
+                //listaDistribuzioneBanco[0].Voto = 0.0;
+                //listaDistribuzioneBanco[1].Voto = 1.0;
+                //listaDistribuzioneBanco[2].Voto = 2.0;
+                //listaDistribuzioneBanco[3].Voto = 3.0;
+                //listaDistribuzioneBanco[4].Voto = 4.0;
+                //listaDistribuzioneBanco[5].Voto = 5.0;
+                //listaDistribuzioneBanco[6].Voto = 6.0;
+                //listaDistribuzioneBanco[7].Voto = 7.0;
+                //listaDistribuzioneBanco[8].Voto = 8.0;
+                //listaDistribuzioneBanco[9].Voto = 9.0;
+                //listaDistribuzioneBanco[10].Voto = 10.0;
+                //listaDistribuzioneBanco[11].Voto = 11.0;
+                //listaDistribuzioneBanco[12].Voto = 12.0;
+                //listaDistribuzioneBanco[13].Voto = 13.0;
+                //listaDistribuzioneBanco[14].Voto = 14.0;
+                //listaDistribuzioneBanco[15].Voto = 15.0;
+                //listaDistribuzioneBanco[16].Voto = 16.0;
 
+                if (rdbCasuale.IsChecked == true)
+                    listaDistribuzioneBanco = BusinessLayer.ordinamentoCasualeListaStudenti(listaDistribuzioneBanco);
+                else
+                {
+                    if (rdbAlfabetico.IsChecked == true)
+                        listaDistribuzioneBanco = BusinessLayer.ordinamentoAlfabeticoListaStudenti(listaDistribuzioneBanco);
+                    else
+                        listaDistribuzioneBanco = BusinessLayer.ordinamentoVotoListaStudenti(listaDistribuzioneBanco);
+                }
+
+
+                int minimoLunghezzaListe = aulaCorrente.Banchi.Count();
+                if (listaDistribuzioneBanco.Count() < minimoLunghezzaListe)
+                    minimoLunghezzaListe = listaDistribuzioneBanco.Count();
+                for (int i = 0; i < minimoLunghezzaListe; i++)
+                {
+                    aulaCorrente.Banchi[i].Studente = listaDistribuzioneBanco[i];
+                    aulaCorrente.Banchi[i].AggiungiTestoAGrafica();
+                }
+            }
         }
         private void txtFiltroComputer_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -350,7 +495,36 @@ namespace Banchi
         }
         private void chkCartiglio_Unchecked(object sender, RoutedEventArgs e)
         {
+            graficaCartiglio = new();
+            AreaDisegno.Children.Add(graficaCartiglio);
+            aulaCorrente = (Aula)(cmbModelliAule.SelectedItem);
+            if (aulaCorrente == null)
+            {
+                MessageBox.Show("Selezionare un aula, se si vuole avere il cartiglio");
+                chkCartiglio.IsChecked = false;
+            }
+            classeCorrente = (Classe)(cmbModelliClasse.SelectedItem);
+            if (classeCorrente == null)
+            {
+                MessageBox.Show("Selezionare una classe, se si vuole avere il cartiglio");
+                chkCartiglio.IsChecked = false;
+            }
+            if(chkCartiglio.IsChecked == true)
+            {
+                cartiglio = new Cartiglio(graficaCartiglio, aulaCorrente, classeCorrente, Utente.Username);
+                
+                //cartiglio.cartiglioIsChecked = true;
+                //cartiglioIsCheckedMainWindow = cartiglio.cartiglioIsChecked;
 
+                graficaCartiglio.MouseDown += ClickSuCartiglio;
+                graficaCartiglio.MouseMove += MovimentoSuCartiglio;
+                graficaCartiglio.MouseUp += MouseUpSuCartiglio;
+            }
+        }
+        private void chkCartiglio_Unchecked(object sender, RoutedEventArgs e)
+        {
+            cartiglio = null;
+            graficaCartiglio = null;         
         }
     }
 }

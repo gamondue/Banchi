@@ -16,11 +16,23 @@ namespace Banchi
         // per questo è necessario aggiungere una textbox con il nome dell'aula
         // ???? i nuovi computer generati li mettiamo in una listbox qui ???? 
         Computer computer;
-
+        MessageBoxButton bottone = MessageBoxButton.YesNo;
+        MessageBoxResult result;
         public ComputerWindow(Aula aula, Computer computer = null)
         {
             InitializeComponent();
-            BanchiComboBox.Items.Add(computer);
+            
+            if (computer != null)
+            {
+                NomeDispositivoMod.Text = computer.ToString();
+                MarcaMod.Text = computer.MarcaComputer;
+                ProcessoreMod.Text = computer.Processore;
+                TipoSistemaMod.Text = computer.TipoSistema;
+                IPMod.Text = computer.IndirizzoIPComputer;
+            }
+               
+            
+            
 
             this.computer = computer;
         }
@@ -28,7 +40,11 @@ namespace Banchi
         private void SegnalazioneWindow_click(object sender, RoutedEventArgs e)
         {
             SegnalazioneWindow wnd = new SegnalazioneWindow(computer);
-            wnd.Show();
+            if (result == MessageBoxResult.Yes) 
+            {
+                wnd.Show();
+            }
+           
         }
         private void ModificaComputer_Click(object sender, RoutedEventArgs e)
         {
