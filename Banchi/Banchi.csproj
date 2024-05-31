@@ -22,6 +22,10 @@
     <None Remove="HelpHTML\index.html" />
     <None Remove="Immagini\baldi104.jpg" />
     <None Remove="Immagini\computer.png" />
+    <None Remove="Immagini\logo.jpg" />
+    <None Remove="Immagini\logoIstituto.jpg" />
+    <None Remove="Immagini\logoProgramma.ico" />
+    <None Remove="Immagini\logoProgramma.jpg" />
     <None Remove="Immagini\RosaDeiVenti.svg" />
   </ItemGroup>
 
@@ -36,6 +40,10 @@
   <ItemGroup>
     <Resource Include="Immagini\baldi104.jpg" />
     <Resource Include="Immagini\computer.png" />
+    <Resource Include="Immagini\logo.jpg" />
+    <Resource Include="Immagini\logoIstituto.jpg" />
+    <Resource Include="Immagini\logoProgramma.ico" />
+    <Resource Include="Immagini\logoProgramma.jpg" />
     <Resource Include="Immagini\RosaDeiVenti.svg" />
   </ItemGroup>
 </Project>

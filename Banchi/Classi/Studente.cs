@@ -6,6 +6,8 @@
         public string Cognome { get; set; }
         public string Nome { get; set; }
         public string CodiceClasse { get; set; }
+        public double Voto { get; internal set; }
+
         public Studente(string Nome, string Cognome, string CodiceClasse)
         {
             // inizializzazione delle proprietà

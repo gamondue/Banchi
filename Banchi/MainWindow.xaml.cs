@@ -1,9 +1,7 @@
 ﻿using Banchi.Classi;
-using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using Label = System.Windows.Controls.Label;
@@ -44,8 +42,6 @@ namespace Banchi
             InitializeComponent();
             BusinessLayer.Inizializzazioni();
 
-           
-
             if (Utente.Accesso != Utente.RuoloUtente.ModificheAiModelli)
             {
                 btn_Salva.Visibility = Visibility.Hidden;
@@ -67,7 +63,6 @@ namespace Banchi
                 {
                     cmbClasseUtente.Items.Add(a);
                 }
-
             // riempio i combobox dei modelli
             listaAuleModello = BusinessLayer.LeggiTutteLeAule();
             // riempimento del ComboBox con le aule appena lette
@@ -110,7 +105,7 @@ namespace Banchi
             // metodo di prova che crea un'intera aula con pochi banchi 
             //aula = CreaAulaDiProva();
             //aula.MettiInScalaAulaEBanchi();
-            
+
         }
 
         internal void ClickSuCartiglio(object sender, MouseButtonEventArgs e)
@@ -181,7 +176,7 @@ namespace Banchi
             }
             System.Diagnostics.Process.Start(new ProcessStartInfo
             {
-                
+
                 FileName = "..\\..\\..\\HelpHTML\\index.html",
                 UseShellExecute = true
             });
@@ -491,10 +486,6 @@ namespace Banchi
         }
         private void chkCartiglio_Checked(object sender, RoutedEventArgs e)
         {
-
-        }
-        private void chkCartiglio_Unchecked(object sender, RoutedEventArgs e)
-        {
             graficaCartiglio = new();
             AreaDisegno.Children.Add(graficaCartiglio);
             aulaCorrente = (Aula)(cmbModelliAule.SelectedItem);
@@ -509,10 +500,10 @@ namespace Banchi
                 MessageBox.Show("Selezionare una classe, se si vuole avere il cartiglio");
                 chkCartiglio.IsChecked = false;
             }
-            if(chkCartiglio.IsChecked == true)
+            if (chkCartiglio.IsChecked == true)
             {
                 cartiglio = new Cartiglio(graficaCartiglio, aulaCorrente, classeCorrente, Utente.Username);
-                
+
                 //cartiglio.cartiglioIsChecked = true;
                 //cartiglioIsCheckedMainWindow = cartiglio.cartiglioIsChecked;
 
@@ -524,7 +515,7 @@ namespace Banchi
         private void chkCartiglio_Unchecked(object sender, RoutedEventArgs e)
         {
             cartiglio = null;
-            graficaCartiglio = null;         
+            graficaCartiglio = null;
         }
     }
 }
