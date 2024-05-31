@@ -3,6 +3,8 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using Label = System.Windows.Controls.Label;
 
@@ -17,6 +19,9 @@ namespace Banchi
         private Banco bancoCorrente;
         private Classe classeCorrente;
 
+        bool isDragging = false;
+        private Point startPosition;
+
         //private Studente studenteCorrente;
 
         internal Label labelSelezionata;
@@ -28,6 +33,10 @@ namespace Banchi
         List<Classe> listaClassiModello;
         List<Computer> listaComputer;
         List<Studente> listaDistribuzioneBanco;
+
+        bool cartiglioIsCheckedMainWindow = false;
+        private Cartiglio cartiglio;
+        private Label graficaCartiglio;
 
         public MainWindow()
         {
@@ -95,15 +104,51 @@ namespace Banchi
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
             // evento che viene lanciato alla fine del caricamento della finestra 
             // metodo di prova che crea un'intera aula con pochi banchi 
             //aula = CreaAulaDiProva();
             //aula.MettiInScalaAulaEBanchi();
-            // cartiglio
-            Label graficaCartiglio = new();
-            AreaDisegno.Children.Add(graficaCartiglio);
-            Cartiglio c = new Cartiglio(graficaCartiglio, aulaCorrente, classeCorrente, Utente.Username);
+            
         }
+
+        internal void ClickSuCartiglio(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Label daPrendere = (Label)sender;
+                isDragging = true;
+                startPosition = e.GetPosition((IInputElement)this);
+                daPrendere.CaptureMouse();
+            }
+        }
+        // evento per continuare il drag and drop, quando il mouse si muove con il tasto premuto
+        internal void MovimentoSuCartiglio(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Label label = (Label)sender;
+            if (isDragging)
+            {
+                Point currentPosition = e.GetPosition((IInputElement)this);
+                double offsetX = currentPosition.X - startPosition.X;
+                double offsetY = currentPosition.Y - startPosition.Y;
+
+                Canvas.SetLeft(label, Canvas.GetLeft(label) + offsetX);
+                Canvas.SetTop(label, Canvas.GetTop(label) + offsetY);
+
+                startPosition = currentPosition;
+            }
+        }
+        // evento per terminare il drag and drop, quando il tasto del mouse viene rilasciato
+        internal void MouseUpSuCartiglio(object sender, MouseButtonEventArgs e)
+        {
+            Label label = (Label)sender;
+            if (isDragging)
+            {
+                isDragging = false;
+                label.ReleaseMouseCapture();
+            }
+        }
+
         private void MenuAula_Click(object sender, RoutedEventArgs e)
         {
             ApriFinestraAula();
@@ -445,11 +490,36 @@ namespace Banchi
         }
         private void chkCartiglio_Checked(object sender, RoutedEventArgs e)
         {
+            graficaCartiglio = new();
+            AreaDisegno.Children.Add(graficaCartiglio);
+            aulaCorrente = (Aula)(cmbModelliAule.SelectedItem);
+            if (aulaCorrente == null)
+            {
+                MessageBox.Show("Selezionare un aula, se si vuole avere il cartiglio");
+                chkCartiglio.IsChecked = false;
+            }
+            classeCorrente = (Classe)(cmbModelliClasse.SelectedItem);
+            if (classeCorrente == null)
+            {
+                MessageBox.Show("Selezionare una classe, se si vuole avere il cartiglio");
+                chkCartiglio.IsChecked = false;
+            }
+            if(chkCartiglio.IsChecked == true)
+            {
+                cartiglio = new Cartiglio(graficaCartiglio, aulaCorrente, classeCorrente, Utente.Username);
+                
+                //cartiglio.cartiglioIsChecked = true;
+                //cartiglioIsCheckedMainWindow = cartiglio.cartiglioIsChecked;
 
+                graficaCartiglio.MouseDown += ClickSuCartiglio;
+                graficaCartiglio.MouseMove += MovimentoSuCartiglio;
+                graficaCartiglio.MouseUp += MouseUpSuCartiglio;
+            }
         }
         private void chkCartiglio_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            cartiglio = null;
+            graficaCartiglio = null;         
         }
     }
 }
