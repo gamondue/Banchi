@@ -8,13 +8,13 @@
         Title="Gestione Segnalazioni" Height="500" Width="900"
         Style="{StaticResource StileFinestre}">
     <Grid>
-        <Label Height="50" Width="370" Content="SEGNALAZIONE PROBLEMI" FontSize="30" HorizontalAlignment="Center" Margin="0,22,0,367"></Label>
+        <Label Height="50" Width="380" Content="SEGNALAZIONE PROBLEMI" FontSize="30" HorizontalAlignment="Center" Margin="0,22,0,367"></Label>
         <Button Height="30" Width="50" Margin="637,367,113,37" Content="Salva" Click="salva_click"></Button>
-        <Label Height="30" Width="160" Content="Presentazione del problema" Margin="113,172,528,233"></Label>
+        <Label Height="30" Width="240" Content="Presentazione del problema" Margin="170,172,528,233"></Label>
         <TextBox Height="140" Width="600" x:Name="testo" Margin="116,202,84,92"/>
-        <Label Height="30" Width="70" Content="Data e Ora" Margin="34,82,694,323"></Label>
+        <Label Height="30" Width="100" Content="Data e Ora" Margin="70,82,694,323"></Label>
         <TextBox Height="60" Width="100" x:Name="testoOrario" Margin="38,111,662,262"/>
-        <Label Height="30" Width="50" Content="Classe" Margin="346,81,407,323"></Label>
+        <Label Height="30" Width="70" Content="Classe" Margin="385,81,407,323"></Label>
         <TextBox Height="60" Width="100" x:Name="testoClasse" Margin="350,112,350,261"/>
         <Label Height="30" Width="70" Content="Nome PC" Margin="662,82,68,322"></Label>
         <TextBox Height="60" Width="100" x:Name="testoNomePC" Margin="666,111,34,262"/>
