@@ -230,8 +230,33 @@ namespace Banchi
             //        MessageBoxButton.OK, MessageBoxImage.Error);
             //    return;
             //}
+            Computer computer;
+            computer = (Computer)lstComputer.SelectedItem;
+
+
+
+            MessageBoxButton bottone = MessageBoxButton.YesNo;
+            MessageBoxResult result;
             ComputerWindow wnd = new ComputerWindow((Aula)cmbModelliAule.SelectedItem, (Computer)lstComputer.SelectedItem);
-            wnd.Show();
+            string messageboxtext = "Non hai selezionato un computer, vuoi crearne uno nuovo?";
+            string messageboxcaption = "errore";
+
+            MessageBoxImage messageBoxImage = MessageBoxImage.Question;
+
+
+            if (computer == null)
+            {
+                result = MessageBox.Show(messageboxtext, messageboxcaption, bottone, messageBoxImage, MessageBoxResult.No);
+                if (result == MessageBoxResult.Yes)
+                {
+                    wnd.Show();
+                }
+            }
+
+            if (computer != null)
+            {
+                wnd.Show();
+            }
         }
         private void btn_Classe_Click(object sender, RoutedEventArgs e)
         {
