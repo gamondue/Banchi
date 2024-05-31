@@ -23,6 +23,7 @@
                 <MenuItem Header="_Posizionare i banchi" IsCheckable="True" IsChecked="True"/>
             </MenuItem>
             <MenuItem x:Name="MenuHelp" Header="_Help">
+                <MenuItem Header="Help" x:Name="MenuHelp1" Click="MenuHelp1_Click"/>
                 <MenuItem Header="About" x:Name="MenuAbout" Click="MenuAbout_Click"/>
             </MenuItem>
         </Menu>

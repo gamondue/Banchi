@@ -19,9 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="HelpHTML\index.html" />
     <None Remove="Immagini\baldi104.jpg" />
     <None Remove="Immagini\computer.png" />
     <None Remove="Immagini\RosaDeiVenti.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="HelpHTML\index.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,9 +37,5 @@
     <Resource Include="Immagini\baldi104.jpg" />
     <Resource Include="Immagini\computer.png" />
     <Resource Include="Immagini\RosaDeiVenti.svg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="HelpHTML\" />
   </ItemGroup>
 </Project>
