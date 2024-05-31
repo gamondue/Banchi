@@ -25,8 +25,7 @@ namespace Banchi
         List<Aula> listaAuleModello;
         List<Classe> listaClassiModello;
         List<Computer> listaComputer;
-        //serve per sort casuale
-        int semeRandom = 100;
+        List<Studente> listaDistribuzioneBanco;
 
         public MainWindow()
         {
@@ -152,6 +151,7 @@ namespace Banchi
                 {
                     List<Studente> listaStudenti = BusinessLayer.LeggiStudentiClasse((Classe)cmbModelliClasse.SelectedItem);
                     lstStudenti.ItemsSource = listaStudenti;
+                    listaDistribuzioneBanco = listaStudenti;
                 }
                 else
                 {
@@ -294,7 +294,47 @@ namespace Banchi
         }
         private void btn_DistribuisciStudenti_Click(object sender, RoutedEventArgs e)
         {
+            if (listaDistribuzioneBanco != null && aulaCorrente != null)
+            {
+                ////questi commenti servono a vedere se l'ordinamento voti funziona
+                //listaDistribuzioneBanco[0].Voto = 0.0;
+                //listaDistribuzioneBanco[1].Voto = 1.0;
+                //listaDistribuzioneBanco[2].Voto = 2.0;
+                //listaDistribuzioneBanco[3].Voto = 3.0;
+                //listaDistribuzioneBanco[4].Voto = 4.0;
+                //listaDistribuzioneBanco[5].Voto = 5.0;
+                //listaDistribuzioneBanco[6].Voto = 6.0;
+                //listaDistribuzioneBanco[7].Voto = 7.0;
+                //listaDistribuzioneBanco[8].Voto = 8.0;
+                //listaDistribuzioneBanco[9].Voto = 9.0;
+                //listaDistribuzioneBanco[10].Voto = 10.0;
+                //listaDistribuzioneBanco[11].Voto = 11.0;
+                //listaDistribuzioneBanco[12].Voto = 12.0;
+                //listaDistribuzioneBanco[13].Voto = 13.0;
+                //listaDistribuzioneBanco[14].Voto = 14.0;
+                //listaDistribuzioneBanco[15].Voto = 15.0;
+                //listaDistribuzioneBanco[16].Voto = 16.0;
 
+                if (rdbCasuale.IsChecked == true)
+                    listaDistribuzioneBanco = BusinessLayer.ordinamentoCasualeListaStudenti(listaDistribuzioneBanco);
+                else
+                {
+                    if (rdbAlfabetico.IsChecked == true)
+                        listaDistribuzioneBanco = BusinessLayer.ordinamentoAlfabeticoListaStudenti(listaDistribuzioneBanco);
+                    else
+                        listaDistribuzioneBanco = BusinessLayer.ordinamentoVotoListaStudenti(listaDistribuzioneBanco);
+                }
+
+
+                int minimoLunghezzaListe = aulaCorrente.Banchi.Count();
+                if (listaDistribuzioneBanco.Count() < minimoLunghezzaListe)
+                    minimoLunghezzaListe = listaDistribuzioneBanco.Count();
+                for (int i = 0; i < minimoLunghezzaListe; i++)
+                {
+                    aulaCorrente.Banchi[i].Studente = listaDistribuzioneBanco[i];
+                    aulaCorrente.Banchi[i].AggiungiTestoAGrafica();
+                }
+            }
         }
         private void txtFiltroComputer_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -353,115 +393,6 @@ namespace Banchi
         private void chkCartiglio_Unchecked(object sender, RoutedEventArgs e)
         {
 
-        }
-        private void rdb_Casuale_On(object sender, RoutedEventArgs e)
-        {
-            if (cmbModelliClasse.SelectedItem != null)
-            {
-                List<Studente> listaStudenti = BusinessLayer.LeggiStudentiClasse((Classe)cmbModelliClasse.SelectedItem);
-
-                List<Studente> listaStudentiRandom = new List<Studente>(0);
-
-                bool[] antiRipetizioneRandom = new bool[listaStudenti.Count()];
-                for(int i= listaStudenti.Count()-1; i>0; i--)
-                {
-                    Random studenteRandom = new Random(semeRandom);
-                    semeRandom++;
-                    int numero =studenteRandom.Next(i+1);
-                    int posizioneCicloRandom = 0;
-                    for(int j=0; j<listaStudenti.Count(); j++)
-                    {
-                        if(antiRipetizioneRandom[j]!=true)
-                        {
-                            if(posizioneCicloRandom.ToString()==numero.ToString())
-                            {
-                                listaStudentiRandom.Add(listaStudenti[j]);
-                                antiRipetizioneRandom[j] = true;
-                                break;
-                            }
-                            else
-                                posizioneCicloRandom++;
-                        }
-                    }
-                }
-                for(int i=0; i<listaStudenti.Count(); i++)
-                {
-                    if(antiRipetizioneRandom[i]!=true)
-                    {
-                        listaStudentiRandom.Add(listaStudenti[i]);
-                        break;
-                    }
-                }
-
-
-                lstStudenti.ItemsSource = listaStudentiRandom;
-            }
-            else
-            {
-                lstStudenti.ItemsSource = null;
-            }
-        }
-        private void rdb_Alfabetico_On(object sender, RoutedEventArgs e)
-        {
-            if (cmbModelliClasse.SelectedItem != null)
-            {
-                List<Studente> listaStudenti = BusinessLayer.LeggiStudentiClasse((Classe)cmbModelliClasse.SelectedItem);
-                for(int i=0; i<listaStudenti.Count()-1; i++)
-                {
-                    string cognomeSort = listaStudenti[i].Cognome;
-                    int indiceCognomeSort = i;
-
-                    for(int j=i; j<listaStudenti.Count(); j++)
-                    {
-                        //se è 1 scambio e se è -1 no scambio
-                        int valoreDiScambioDelSort = String.Compare(cognomeSort, listaStudenti[j].Cognome);
-                        if(valoreDiScambioDelSort > 0)
-                        {
-                            cognomeSort = listaStudenti[j].Cognome;
-                            indiceCognomeSort = j;
-                        }
-                    }
-
-                    Studente supporto = listaStudenti[i];
-                    listaStudenti[i] = listaStudenti[indiceCognomeSort];
-                    listaStudenti[indiceCognomeSort]= supporto;
-                }
-                lstStudenti.ItemsSource = listaStudenti;
-            }
-            else
-            {
-                lstStudenti.ItemsSource = null;
-            }
-        }
-        private void rdb_Voto_On(object sender, RoutedEventArgs e)
-        {
-            if (cmbModelliClasse.SelectedItem != null)
-            {
-                List<Studente> listaStudenti = BusinessLayer.LeggiStudentiClasse((Classe)cmbModelliClasse.SelectedItem);
-                for (int i = 0; i < listaStudenti.Count() - 1; i++)
-                {
-                    double votoSort = listaStudenti[i].Voto;
-                    int indiceVotoSort = i;
-
-                    for (int j = i; j < listaStudenti.Count(); j++)
-                    {
-                        if (listaStudenti[j].Voto>votoSort)
-                        {
-                            votoSort = listaStudenti[j].Voto;
-                            indiceVotoSort = j;
-                        }
-                    }
-
-                    Studente supporto = listaStudenti[i];
-                    listaStudenti[i] = listaStudenti[indiceVotoSort];
-                    listaStudenti[indiceVotoSort] = supporto;
-                }
-                lstStudenti.ItemsSource = listaStudenti;
-            }
-            else
-            {
-                lstStudenti.ItemsSource = null;
-            }
         }
     }
 }

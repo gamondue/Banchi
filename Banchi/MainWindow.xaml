@@ -65,7 +65,7 @@
                     <ComboBox x:Name="cmbModelliClasse" Width="60" IsEditable="False" SelectionChanged="cmbModelliClasse_SelectionChanged"/>
                     <Label Content="Aule con studenti" />
                     <ComboBox x:Name="cmbBanchiEStudenti" Width="100" IsEditable="False" SelectionChanged="cmbBanchiEStudenti_SelectionChanged"/>
-                        <Button x:Name="btn_Salva" Content="Salva" Click="btn_SalvataggioCondivisi_Click" 
+                    <Button x:Name="btn_Salva" Content="Salva" Click="btn_SalvataggioCondivisi_Click" 
                                 Style="{StaticResource StileBottoni}"/>
                 </StackPanel>
             </GroupBox>
@@ -89,9 +89,9 @@
                     <TextBlock FontWeight="Bold">Opzioni per la distribuzione allievi</TextBlock>
                 </GroupBox.Header>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <RadioButton x:Name="rdbCasuale" IsChecked="true" Click="rdb_Casuale_On">Casuale</RadioButton>
-                    <RadioButton x:Name="rdbAlfabetico" Click="rdb_Alfabetico_On">Alfabetico</RadioButton>
-                    <RadioButton x:Name="rdbPerVoto" Click="rdb_Voto_On">Per voto</RadioButton>
+                    <RadioButton x:Name="rdbCasuale" IsChecked="true" >Casuale</RadioButton>
+                    <RadioButton x:Name="rdbAlfabetico" >Alfabetico</RadioButton>
+                    <RadioButton x:Name="rdbPerVoto" >Per voto</RadioButton>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
