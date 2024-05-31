@@ -25,8 +25,6 @@ namespace Banchi
         List<Aula> listaAuleModello;
         List<Classe> listaClassiModello;
         List<Computer> listaComputer;
-        //serve per sort casuale
-        int semeRandom = 100;
 
         public MainWindow()
         {
@@ -353,115 +351,6 @@ namespace Banchi
         private void chkCartiglio_Unchecked(object sender, RoutedEventArgs e)
         {
 
-        }
-        private void rdb_Casuale_On(object sender, RoutedEventArgs e)
-        {
-            if (cmbModelliClasse.SelectedItem != null)
-            {
-                List<Studente> listaStudenti = BusinessLayer.LeggiStudentiClasse((Classe)cmbModelliClasse.SelectedItem);
-
-                List<Studente> listaStudentiRandom = new List<Studente>(0);
-
-                bool[] antiRipetizioneRandom = new bool[listaStudenti.Count()];
-                for(int i= listaStudenti.Count()-1; i>0; i--)
-                {
-                    Random studenteRandom = new Random(semeRandom);
-                    semeRandom++;
-                    int numero =studenteRandom.Next(i+1);
-                    int posizioneCicloRandom = 0;
-                    for(int j=0; j<listaStudenti.Count(); j++)
-                    {
-                        if(antiRipetizioneRandom[j]!=true)
-                        {
-                            if(posizioneCicloRandom.ToString()==numero.ToString())
-                            {
-                                listaStudentiRandom.Add(listaStudenti[j]);
-                                antiRipetizioneRandom[j] = true;
-                                break;
-                            }
-                            else
-                                posizioneCicloRandom++;
-                        }
-                    }
-                }
-                for(int i=0; i<listaStudenti.Count(); i++)
-                {
-                    if(antiRipetizioneRandom[i]!=true)
-                    {
-                        listaStudentiRandom.Add(listaStudenti[i]);
-                        break;
-                    }
-                }
-
-
-                lstStudenti.ItemsSource = listaStudentiRandom;
-            }
-            else
-            {
-                lstStudenti.ItemsSource = null;
-            }
-        }
-        private void rdb_Alfabetico_On(object sender, RoutedEventArgs e)
-        {
-            if (cmbModelliClasse.SelectedItem != null)
-            {
-                List<Studente> listaStudenti = BusinessLayer.LeggiStudentiClasse((Classe)cmbModelliClasse.SelectedItem);
-                for(int i=0; i<listaStudenti.Count()-1; i++)
-                {
-                    string cognomeSort = listaStudenti[i].Cognome;
-                    int indiceCognomeSort = i;
-
-                    for(int j=i; j<listaStudenti.Count(); j++)
-                    {
-                        //se è 1 scambio e se è -1 no scambio
-                        int valoreDiScambioDelSort = String.Compare(cognomeSort, listaStudenti[j].Cognome);
-                        if(valoreDiScambioDelSort > 0)
-                        {
-                            cognomeSort = listaStudenti[j].Cognome;
-                            indiceCognomeSort = j;
-                        }
-                    }
-
-                    Studente supporto = listaStudenti[i];
-                    listaStudenti[i] = listaStudenti[indiceCognomeSort];
-                    listaStudenti[indiceCognomeSort]= supporto;
-                }
-                lstStudenti.ItemsSource = listaStudenti;
-            }
-            else
-            {
-                lstStudenti.ItemsSource = null;
-            }
-        }
-        private void rdb_Voto_On(object sender, RoutedEventArgs e)
-        {
-            if (cmbModelliClasse.SelectedItem != null)
-            {
-                List<Studente> listaStudenti = BusinessLayer.LeggiStudentiClasse((Classe)cmbModelliClasse.SelectedItem);
-                for (int i = 0; i < listaStudenti.Count() - 1; i++)
-                {
-                    double votoSort = listaStudenti[i].Voto;
-                    int indiceVotoSort = i;
-
-                    for (int j = i; j < listaStudenti.Count(); j++)
-                    {
-                        if (listaStudenti[j].Voto>votoSort)
-                        {
-                            votoSort = listaStudenti[j].Voto;
-                            indiceVotoSort = j;
-                        }
-                    }
-
-                    Studente supporto = listaStudenti[i];
-                    listaStudenti[i] = listaStudenti[indiceVotoSort];
-                    listaStudenti[indiceVotoSort] = supporto;
-                }
-                lstStudenti.ItemsSource = listaStudenti;
-            }
-            else
-            {
-                lstStudenti.ItemsSource = null;
-            }
         }
     }
 }
