@@ -1,4 +1,6 @@
 ﻿using Banchi.Classi;
+using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -30,6 +32,8 @@ namespace Banchi
         {
             InitializeComponent();
             BusinessLayer.Inizializzazioni();
+
+           
 
             if (Utente.Accesso != Utente.RuoloUtente.ModificheAiModelli)
             {
@@ -107,6 +111,34 @@ namespace Banchi
         {
             AboutWindow wnd = new AboutWindow();
             wnd.Show();
+        }
+        private void MenuHelp1_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                string workingDirectory = @"Z:\banchi\Banchi\Banchi\bin\Debug\net7.0-windows"; // Imposta la tua directory di lavoro qui
+
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = "Banchi\\bin\\Debug\\net7.0-windows\\HelpHTML\\index.html", // Specifica il percorso del file da avviare
+                    UseShellExecute = true,
+                    WorkingDirectory = workingDirectory // Imposta la directory di lavoro
+                };
+
+                Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Errore: {ex.Message}");
+            }
+            System.Diagnostics.Process.Start(new ProcessStartInfo
+            {
+                
+                FileName = "..\\..\\..\\HelpHTML\\index.html",
+                UseShellExecute = true
+            });
+
         }
         private void btn_Banchi_Click(object sender, RoutedEventArgs e)
         {
