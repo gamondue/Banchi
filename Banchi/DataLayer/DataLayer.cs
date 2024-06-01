@@ -6,12 +6,6 @@ namespace Banchi
 {
     public static partial class DataLayer
     {
-        //liste per le varie 
-        static List<Aula> listaAule = new List<Aula>();
-        static List<Classe> listaClassi = new List<Classe>();
-        static List<Banco> listaBanchi = new List<Banco>();
-        static List<Computer> listaComputer = new List<Computer>();
-
         // posizione dove si trova il file
         public static string PathDatiUtente;
         public static string PathDatiCondivisa;
@@ -72,6 +66,7 @@ namespace Banchi
         }
         public static List<Aula> LeggiTutteLeAule()
         {
+            List<Aula> listaAule = new List<Aula>();
             // lettura di tutte le righe del file 
             string[] righeLette = File.ReadAllLines(FileAule);
             string[] split;
@@ -119,6 +114,7 @@ namespace Banchi
         }
         public static List<Classe> LeggiTutteLeClassi()
         {
+            List<Classe> listaClassi = new List<Classe>();
             string[] stringheLette = File.ReadAllLines(FileClassi);
             string[] split = new string[2];
             for (int i = 1; i < stringheLette.Length; i++)
@@ -220,6 +216,7 @@ namespace Banchi
         }
         public static void ScriviTuttiBanchi(List<Banco> listaBanco)
         {
+            List<Banco> listaBanchi = new List<Banco>();
             // array di appoggio della dimensione giusta
             string[] arraySupporto = new string[listaBanchi.Count + 1];
             for (int i = 0; i < listaBanchi.Count; i++)
@@ -238,6 +235,7 @@ namespace Banchi
         }
         public static List<Banco> LeggiTuttiBanchi()
         {
+            List<Banco> listaBanchi = new List<Banco>();
             string[] stringheLette = File.ReadAllLines(FileBanchi);
             for (int i = 1; i < stringheLette.Length; i++)
             {
@@ -255,6 +253,57 @@ namespace Banchi
                 listaBanchi.Add(b);
             }
             return listaBanchi;
+        }
+        public static void ScriviAulaEClasse(Aula aula, Classe classe)
+        {
+            string FileSalvaAuleEClasse = Path.Combine(PathDatiUtente, "AC_" + aula.NomeAula + "_" + classe.CodiceClasse + ".tsv");
+            string[] arraySupporto = new string[aula.Banchi.Count + 3];
+            arraySupporto[0] = "NomeAula\tBase\tAltezza\tDirezioneNord\tClasse";
+            arraySupporto[1] = "vuoto\tCodiceBanco\tIsCattedra\tBaseInCentimetri\tAltezzaInCentimetri" +
+                "\tPosizioneX\tPosizioneY\tStudente\tComputer";
+            arraySupporto[2] = aula.NomeAula + "\t" + aula.BaseInCentimetri + "\t" + aula.AltezzaInCentimetri
+                + "\t" + aula.DirezioneNord + "\t" + classe.CodiceClasse;
+            int i = 3;
+            foreach (Banco b in aula.Banchi)
+            {
+                arraySupporto[i] = "\t" + b.CodiceBanco + "\t" + b.IsCattedra + "\t"
+                + b.BaseInCentimetri + "\t" + b.AltezzaInCentimetri
+                + "\t" + b.PosizioneXInCentimetri + "\t" + b.PosizioneYInCentimetri
+                + "\t" + b.Studente + "\t" + b.Computer;
+                i++;
+            }
+            File.WriteAllLines(FileSalvaAuleEClasse, arraySupporto);
+        }
+        internal static List<Aula> LeggiTutteLeAuleEClassi()
+        {
+            List<Aula> listaAule = new List<Aula>();
+            // cerca tutti i file che iniziano con AC_ e legge le aule e le classi
+            // che ci sono dentro
+            string[] fileAC = Directory.GetFiles(PathDatiUtente, "AC_*.tsv");
+            foreach (string file in fileAC)
+            {
+                string[] righeLette = File.ReadAllLines(file);
+                string[] split = righeLette[2].Split("\t");
+                Aula a = new Aula(split[0], Convert.ToDouble(split[1]), Convert.ToDouble(split[2]),
+                    null, Convert.ToInt32(split[3]));
+                a.Classe = new Classe(split[4]);
+                split = righeLette[1].Split("\t");
+                // alla riga successiva arrivano i banchi (se ci sono), che hanno un tab come primo campo
+                int nRiga = 3;
+                split = righeLette[nRiga].Split("\t");
+                // gira finché c'è un vuoto come primo campo
+                while (split[0] == "" && nRiga < righeLette.Length)
+                {
+                    Banco b = new Banco(Convert.ToBoolean(split[2]), Convert.ToDouble(split[3]),
+                        Convert.ToDouble(split[4]), Convert.ToDouble(split[5]), Convert.ToDouble(split[6]), null);
+                    a.Banchi.Add(b);
+                    nRiga++;
+                    if (nRiga < righeLette.Length)
+                        split = righeLette[nRiga].Split("\t");
+                }
+                listaAule.Add(a);
+            }
+            return listaAule;
         }
         internal static List<Aula> LeggiTutteLeAuleUtente()
         {

@@ -12,7 +12,10 @@ namespace Banchi
         // dimensioni dell'aula
         public double AltezzaInCentimetri { get; set; }
         public double BaseInCentimetri { get; set; }
-        public int? DirezioneNord { get; set; } //293 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        public int? DirezioneNord { get; set; }
+        // la classe che usa questa aula, non si usa sempre 
+        public Classe Classe { get; set; }
+
         private bool graficaInizializzata = false;
         private Label graficaAula;
         public Label GraficaAula
@@ -97,9 +100,9 @@ namespace Banchi
             // il fattore di scala è il rapporto fra le dimensioni in pixel della Window
             // e la dimensione in centimetri dell'aula
             // tolgo ai pixel nelle Y il numero di pixel delle barre superiori 
-            double fattoreDiScalaY = (finestraContenitore.Height - 193) / AltezzaInCentimetri;
-            double fattoreDiScalaX = finestraContenitore.Width / BaseInCentimetri;
-            // il fattore di scala che adotto è il più piccolo dei due, così ci sta tutto 
+            double fattoreDiScalaY = (finestraContenitore.ActualHeight - 193) / AltezzaInCentimetri;
+            double fattoreDiScalaX = finestraContenitore.ActualWidth / BaseInCentimetri;
+            // il fattore di scala che adotto per i disegno è il più piccolo dei due, così ci sta tutto 
             if (fattoreDiScalaX > fattoreDiScalaY)
             {
                 FattoreDiScala = fattoreDiScalaY;
@@ -110,10 +113,12 @@ namespace Banchi
             }
             GraficaAula.Height = FattoreDiScala * AltezzaInCentimetri;
             GraficaAula.Width = FattoreDiScala * BaseInCentimetri;
+            // l'aula ha sempre posizione 0,0
         }
         private void MettiInScalaBanchi()
         {
             //  cambia il FattoreDiScala ad ogni banco, per visualizzarlo nelle giuste dimensioni
+            // e nel giusto posto, prende lo stesso fattore di scala dell'aula
             foreach (Banco b in Banchi)
             {
                 b.FattoreDiScala = FattoreDiScala;
@@ -121,7 +126,11 @@ namespace Banchi
         }
         public override string ToString()
         {
-            return NomeAula; // per riempire il ComboBox con il nome dell'aula
+            // per riempire il ComboBox con il nome dell'aula
+            if (Classe == null)
+                return NomeAula;
+            else
+                return NomeAula + " " + Classe.CodiceClasse;
         }
     }
 }

@@ -106,7 +106,7 @@ namespace Banchi
         {
             return DataLayer.LeggiBanchiDellAula(aula);
         }
-        internal static List<Studente> ordinamentoCasualeListaStudenti(List<Studente> listaStudenti)
+        internal static List<Studente> OrdinamentoCasualeListaStudenti(List<Studente> listaStudenti)
         {
             List<Studente> listaStudentiRandom = new List<Studente>(0);
             if (listaStudenti != null)
@@ -144,7 +144,7 @@ namespace Banchi
             }
             return listaStudentiRandom;
         }
-        internal static List<Studente> ordinamentoAlfabeticoListaStudenti(List<Studente> listaStudenti)
+        internal static List<Studente> OrdinamentoAlfabeticoListaStudenti(List<Studente> listaStudenti)
         {
             if (listaStudenti != null)
             {
@@ -171,7 +171,7 @@ namespace Banchi
             }
             return listaStudenti;
         }
-        internal static List<Studente> ordinamentoVotoListaStudenti(List<Studente> listaStudenti)
+        internal static List<Studente> OrdinamentoVotoListaStudenti(List<Studente> listaStudenti)
         {
             if (listaStudenti != null)
             {
@@ -195,6 +195,15 @@ namespace Banchi
                 }
             }
             return listaStudenti;
+        }
+        internal static void ScriviAulaEClasse(Aula aula, Classe classe)
+        {
+            DataLayer.ScriviAulaEClasse(aula, classe);
+        }
+
+        internal static List<Aula> LeggiTutteLeAuleEClassi()
+        {
+            return DataLayer.LeggiTutteLeAuleEClassi();
         }
     }
 }

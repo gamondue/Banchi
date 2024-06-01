@@ -10,9 +10,7 @@
     <Grid >
         <Image x:Name="logoIstituto" Source="Immagini\logoIstituto.jpg" Margin="597,51,45,296"/>
         <Image x:Name="logoProgramma" Source="Immagini\logoProgramma.jpg" Margin="45,51,597,296"/>
-        
         <Label  Content="Banchi" HorizontalAlignment="Center" Height="60" Background="White" FontSize="36" FontFamily="Arial Unicode MS" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,51,0,343"/>
-
         <Label  Content="Ho perso lo studente" HorizontalAlignment="Center" FontSize="16" HorizontalContentAlignment="Center" Margin="0,138,0,281"/>
         <Label  Content="ITT Blaise Pascal - Cesena" HorizontalAlignment="Center" FontSize="16" HorizontalContentAlignment="Center" Margin="0,196,0,218"/>
         <Label  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,251,0,0" FontSize="14"

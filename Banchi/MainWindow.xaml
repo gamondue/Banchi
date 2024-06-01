@@ -65,7 +65,7 @@
                     <Label Content="Classi" />
                     <ComboBox x:Name="cmbModelliClasse" Width="60" IsEditable="False" SelectionChanged="cmbModelliClasse_SelectionChanged"/>
                     <Label Content="Aule con studenti" />
-                    <ComboBox x:Name="cmbBanchiEStudenti" Width="100" IsEditable="False" SelectionChanged="cmbBanchiEStudenti_SelectionChanged"/>
+                    <ComboBox x:Name="cmbAulaEClasse" Width="100" IsEditable="False" SelectionChanged="cmbAulaEClasse_SelectionChanged"/>
                     <Button x:Name="btn_Salva" Content="Salva" Click="btn_SalvataggioCondivisi_Click" 
                                 Style="{StaticResource StileBottoni}"/>
                 </StackPanel>
@@ -82,9 +82,9 @@
                       Style="{StaticResource StileCheckbox}"
                       Checked="chkCartiglio_Checked" Unchecked="chkCartiglio_Unchecked"/>
             <Label>Studente</Label>
-            <TextBlock x:Name="txtStudente" Width="200"/>
+            <TextBlock x:Name="txtStudente" Width="210"/>
             <Label>Computer</Label>
-            <TextBlock x:Name="txtComputer" Width="50"/>
+            <TextBlock x:Name="txtComputer" Width="70"/>
             <GroupBox x:Name="grpOpzioniDistibuzione" BorderThickness="1" >
                 <GroupBox.Header>
                     <TextBlock FontWeight="Bold">Opzioni per la distribuzione allievi</TextBlock>
@@ -97,10 +97,11 @@
             </GroupBox>
         </StackPanel>
         <DockPanel x:Name="AreaPrincipale">
-            <ListBox DockPanel.Dock="Left" Width="160" x:Name="lstStudenti" Visibility="Collapsed" BorderBrush="Black"/>
+            <ListBox DockPanel.Dock="Left" Width="160" x:Name="lstStudenti" SelectionChanged="lstStudenti_SelectionChanged" 
+                     Visibility="Collapsed" BorderBrush="Black"/>
             <StackPanel Orientation="Vertical" DockPanel.Dock="Right">
                 <TextBox x:Name="txtFiltroComputer" TextChanged="txtFiltroComputer_TextChanged"/>
-                <ListBox  Width="160" x:Name="lstComputer" Visibility="Collapsed" BorderBrush="Black"/>
+                <ListBox  Width="160" x:Name="lstComputer" SelectionChanged="lstComputer_SelectionChanged" Visibility="Collapsed" BorderBrush="Black"/>
             </StackPanel>
             <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" Background="White">
                 <!--ViewBox per il ridimensionamento del testo-->
