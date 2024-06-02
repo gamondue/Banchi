@@ -9,7 +9,7 @@
         Padding="3" 
         Style="{StaticResource StileFinestre}"
         Loaded="Window_Loaded" SizeChanged="Window_SizeChanged"
-        Icon="Immagini\logoProgramma.ico">
+        >
     <StackPanel Orientation="Vertical">
         <Menu x:Name="BarraMenu" DockPanel.Dock="Top" >
             <MenuItem Header="_File">

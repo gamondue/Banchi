@@ -5,56 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
-        Title="Gestione Computer" Height="450" Width="800"
-        Icon="Immagini\logoProgramma.ico"
+        Title="Gestione Computer" Height="420" Width="800"
         Style="{StaticResource StileFinestre}">
     <Grid Height="434" VerticalAlignment="Top" HorizontalAlignment="Center">
         <StackPanel>
-            <StackPanel>
+            <!--<StackPanel>
                 <Menu x:Name="menu" DockPanel.Dock="Top">
-                    <MenuItem Header="_Modifica" Click="ModificaComputer_Click">
-                    </MenuItem>
+                    --><!--<MenuItem Header="_Modifica" Click="ModificaComputer_Click">
+                    </MenuItem>--><!--
                 </Menu>
-            </StackPanel>
+            </StackPanel>-->
             <StackPanel Orientation="Horizontal">
-                <Image Width="150" Source="\Immagini\computer.png" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <StackPanel>
-                    <TextBlock Text="Nome:"></TextBlock>
+                <Image Width="150" Source="\Immagini\computer.png" Margin="0,-20, 4, 0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <StackPanel Width="50">
+                    <TextBlock Text="Nome"></TextBlock>
                     <TextBox x:Name="NomeDispositivoMod"  IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel>
                     <Separator Width="20" Background="Transparent">
                     </Separator>
                 </StackPanel>
-                
-                
                 <StackPanel>
-                    <TextBlock Text="Marca:"></TextBlock>
+                    <TextBlock Text="Marca"></TextBlock>
                     <TextBox x:Name="MarcaMod"  IsReadOnly="True"/>
                 </StackPanel>
-
-                
                 <StackPanel>
-                    <TextBlock Text="Processore(opz.):"></TextBlock>
+                    <TextBlock Text="Processore"></TextBlock>
                     <TextBox x:Name="ProcessoreMod"  IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel>
-                    <TextBlock Text="Tipo Sistema:"></TextBlock>
+                    <TextBlock Text="Tipo Sistema"></TextBlock>
                     <TextBox x:Name="TipoSistemaMod"  IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel>
-                    <TextBlock Text="indirizzo IP:"></TextBlock>
+                    <TextBlock Text="indirizzo IP"></TextBlock>
                     <TextBox x:Name="IPMod"  IsReadOnly="True"/>
                 </StackPanel>
-                
-               
-
-
             </StackPanel>
-               
             <StackPanel Orientation="Vertical">
                 <Label Content="note" HorizontalAlignment="Center"></Label>
-                <TextBox x:Name="NotaComputer"  TextChanged="nota_TextChanged" IsReadOnly="True"></TextBox>
+                <TextBox x:Name="NotaComputer" Height="140" TextWrapping="Wrap" 
+                         AcceptsReturn="True" VerticalScrollBarVisibility="Visible"
+                         TextChanged="nota_TextChanged" IsReadOnly="False"></TextBox>
             </StackPanel>
         </StackPanel>
         <Button x:Name="SalvaButton" Height="40" Margin="634,323,84,71" Content="salva" Click="SalvaButton_Click"/>

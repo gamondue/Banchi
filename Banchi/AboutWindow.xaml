@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
         Title="About" Height="494" Width="800"
-        Icon="Immagini\logoProgramma.ico"
         Style="{StaticResource StileFinestre}">
     <Grid >
         <Image x:Name="logoIstituto" Source="Immagini\logoIstituto.jpg" Margin="597,51,45,296"/>
