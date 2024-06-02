@@ -15,7 +15,22 @@ namespace Banchi
         public int? DirezioneNord { get; set; }
         // la classe che usa questa aula, non si usa sempre 
         public Classe Classe { get; set; }
-
+        private Cartiglio cartiglio;
+        public Cartiglio Cartiglio
+        {
+            get
+            {
+                return cartiglio;
+            }
+            set
+            {
+                cartiglio = value;
+                if (cartiglio != null)
+                {
+                    cartiglio.FattoreDiScala = FattoreDiScala;
+                }
+            }
+        }
         private bool graficaInizializzata = false;
         private Label graficaAula;
         public Label GraficaAula
@@ -83,6 +98,8 @@ namespace Banchi
         {
             MettiInScalaAula();
             MettiInScalaBanchi();
+            if (cartiglio != null)
+                cartiglio.FattoreDiScala = FattoreDiScala;
         }
         private void MettiInScalaAula()
         {

@@ -28,7 +28,6 @@ namespace Banchi
 
         List<Aula> listaAuleUtente;
         List<Classe> listaClassiUtente;
-
         List<Aula> listaAuleModello;
         List<Classe> listaClassiModello;
         List<Computer> listaComputer;
@@ -110,11 +109,7 @@ namespace Banchi
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
             // evento che viene lanciato alla fine del caricamento della finestra 
-            // metodo di prova che crea un'intera aula con pochi banchi 
-            //aula = CreaAulaDiProva();
-            //aula.MettiInScalaAulaEBanchi();
         }
         internal void ClickSuCartiglio(object sender, MouseButtonEventArgs e)
         {
@@ -165,15 +160,17 @@ namespace Banchi
         {
             try
             {
+                //string workingDirectory = @"Z:\banchi\Banchi\Banchi\bin\Debug\net7.0-windows"; // Imposta la tua directory di lavoro qui
                 string workingDirectory = @"Z:\banchi\Banchi\Banchi\bin\Debug\net7.0-windows"; // Imposta la tua directory di lavoro qui
 
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
+                    // TODO: cambiare il percorso del file index.html usandolo come risorsa (???? incorporata ????)
+                    //FileName = "Banchi\\bin\\Debug\\net7.0-windows\\HelpHTML\\index.html", // Specifica il percorso del file da avviare
                     FileName = "Banchi\\bin\\Debug\\net7.0-windows\\HelpHTML\\index.html", // Specifica il percorso del file da avviare
                     UseShellExecute = true,
                     WorkingDirectory = workingDirectory // Imposta la directory di lavoro
                 };
-
                 Process.Start(startInfo);
             }
             catch (Exception ex)
@@ -182,7 +179,6 @@ namespace Banchi
             }
             System.Diagnostics.Process.Start(new ProcessStartInfo
             {
-
                 FileName = "..\\..\\..\\HelpHTML\\index.html",
                 UseShellExecute = true
             });
@@ -515,36 +511,36 @@ namespace Banchi
         //}
         private void chkCartiglio_Checked(object sender, RoutedEventArgs e)
         {
-            graficaCartiglio = new();
-            AreaDisegno.Children.Add(graficaCartiglio);
-            aulaCorrente = (Aula)(cmbModelliAule.SelectedItem);
+            //aulaCorrente = (Aula)(cmbModelliAule.SelectedItem);
             if (aulaCorrente == null)
             {
-                MessageBox.Show("Selezionare un aula, se si vuole avere il cartiglio");
+                MessageBox.Show("Selezionare un'aula, se si vuole avere il cartiglio");
                 chkCartiglio.IsChecked = false;
+                return;
             }
-            classeCorrente = (Classe)(cmbModelliClasse.SelectedItem);
-            if (classeCorrente == null)
-            {
-                MessageBox.Show("Selezionare una classe, se si vuole avere il cartiglio");
-                chkCartiglio.IsChecked = false;
-            }
-            if (chkCartiglio.IsChecked == true)
-            {
-                cartiglio = new Cartiglio(graficaCartiglio, aulaCorrente, classeCorrente, Utente.Username);
+            //classeCorrente = (Classe)(cmbModelliClasse.SelectedItem);
+            //if (classeCorrente == null)
+            //{
+            //    MessageBox.Show("Selezionare una classe, se si vuole avere il cartiglio");
+            //    chkCartiglio.IsChecked = false;
+            //    return;
+            //}
 
-                //cartiglio.cartiglioIsChecked = true;
-                //cartiglioIsCheckedMainWindow = cartiglio.cartiglioIsChecked;
+            graficaCartiglio = new();
+            // metodi delegati per gestione drag and drop del cartiglio
+            graficaCartiglio.MouseDown += ClickSuCartiglio;
+            graficaCartiglio.MouseMove += MovimentoSuCartiglio;
+            graficaCartiglio.MouseUp += MouseUpSuCartiglio;
+            AreaDisegno.Children.Add(graficaCartiglio);
 
-                graficaCartiglio.MouseDown += ClickSuCartiglio;
-                graficaCartiglio.MouseMove += MovimentoSuCartiglio;
-                graficaCartiglio.MouseUp += MouseUpSuCartiglio;
-            }
+            cartiglio = new Cartiglio(aulaCorrente, classeCorrente, Utente.Username, graficaCartiglio);
+            aulaCorrente.Cartiglio = cartiglio;
         }
         private void chkCartiglio_Unchecked(object sender, RoutedEventArgs e)
         {
-            cartiglio = null;
+            AreaDisegno.Children.Remove(graficaCartiglio);
             graficaCartiglio = null;
+            cartiglio = null;
         }
         private void lstStudenti_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

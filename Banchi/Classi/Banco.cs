@@ -29,7 +29,6 @@ namespace Banchi
         private Label graficaBanco;
         private bool graficaInizializzata = false;
 
-
         public Label GraficaBanco
         {
             get
@@ -66,6 +65,7 @@ namespace Banchi
                 Canvas.SetTop(GraficaBanco, posizioneYInPixel);
             }
         }
+        // lo studente che (eventualmente) sta nel banco
         public Studente Studente { get; set; } = null;
         // il computer che (eventualmente) sta nel banco
         public Computer Computer { get; set; }

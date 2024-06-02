@@ -1,12 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Banchi.Classi
 {
-    internal class Cartiglio
+    public class Cartiglio
     {
         public string Aula { get; set; }
         public string Classe { get; set; }
@@ -14,10 +12,8 @@ namespace Banchi.Classi
         double fattoreDiScala = 0.1;
         public double PosizioneXInCentimetri { get; set; }
         public double PosizioneYInCentimetri { get; set; }
-        private static double posizioneStartX = 0;
-        private static double posizioneStartY = 0;
-        public double BaseInCentimetri = 180;
-        public double AltezzaInCentimetri = 60;
+        public double BaseInCentimetri { get; set; } = 180;
+        public double AltezzaInCentimetri { get; set; } = 60;
         private bool graficaInizializzata = false;
         private double posizioneXInPixel;
         private double posizioneYInPixel;
@@ -43,17 +39,24 @@ namespace Banchi.Classi
             {
                 return fattoreDiScala;
             }
-            // quando cambia il fattore di scala cambiano le dimensioni del banco
+            // quando cambia il fattore di scala cambiano le dimensioni del cartiglio
             set
             {
                 fattoreDiScala = value;
-                GraficaCartiglio.Height = fattoreDiScala * AltezzaInCentimetri;
-                GraficaCartiglio.Width = fattoreDiScala * BaseInCentimetri;
+                // calcolo della posizione in pixel
+                posizioneXInPixel = fattoreDiScala * PosizioneXInCentimetri;
+                posizioneYInPixel = fattoreDiScala * PosizioneYInCentimetri;
+                // impostazione della dimensione della grafica del cartiglio
+                graficaCartiglio.Width = fattoreDiScala * BaseInCentimetri;
+                graficaCartiglio.Height = fattoreDiScala * AltezzaInCentimetri;
+                // impostazione della posizione della grafica del cartiglio
+                Canvas.SetLeft(graficaCartiglio, posizioneXInPixel);
+                Canvas.SetTop(graficaCartiglio, posizioneYInPixel);
             }
         }
-        public Cartiglio(Label graficaCartiglio, Aula aula, Classe classe, string utente)
+        public Cartiglio(Aula aula, Classe classe, string utente, Label GraficaCartiglio)
         {
-            //GraficaCartiglio = graficaCartiglio;
+            this.graficaCartiglio = GraficaCartiglio;
 
             if (aula != null && aula.NomeAula != null)
                 Aula = aula.NomeAula;
@@ -65,38 +68,17 @@ namespace Banchi.Classi
                 Classe = "++++";
             Utente = utente;
 
-            if (PosizioneXInCentimetri == null || PosizioneXInCentimetri == 0)
-            {
-                posizioneXInPixel = posizioneStartX;
-                posizioneStartX += 10;
-            }
-            else
-            {
-                posizioneXInPixel = aula.FattoreDiScala * PosizioneXInCentimetri;
-            }
-            if (PosizioneYInCentimetri == null || PosizioneYInCentimetri == 0)
-            {
-                posizioneYInPixel = posizioneStartY;
-                posizioneStartY += 10;
-            }
-            else
-            {
-                posizioneYInPixel = aula.FattoreDiScala * PosizioneYInCentimetri;
-            }
-            // impostazione della posizione della grafica del banco
-            Canvas.SetLeft(graficaCartiglio, posizioneXInPixel);
-            Canvas.SetTop(graficaCartiglio, posizioneYInPixel);
-            // impostazione della dimensione della grafica del banco
-            graficaCartiglio.Width = aula.FattoreDiScala * BaseInCentimetri;
-            graficaCartiglio.Height = aula.FattoreDiScala * AltezzaInCentimetri;
-        }
+            posizioneXInPixel = 20;
+            posizioneYInPixel = 20;
 
+            InizializzaGraficaCartiglio();
+            fattoreDiScala = 1;
+        }
         private void InizializzaGraficaCartiglio()
-        {     
+        {
             if (GraficaCartiglio != null)
             {
                 graficaInizializzata = true;
-                //GraficaCartiglio = graficaCartiglio;
                 GraficaCartiglio.HorizontalContentAlignment = HorizontalAlignment.Center;
                 GraficaCartiglio.VerticalContentAlignment = VerticalAlignment.Center;
                 GraficaCartiglio.BorderThickness = new Thickness(1);
@@ -106,31 +88,11 @@ namespace Banchi.Classi
                 GraficaCartiglio.Background = Brushes.White;
                 GraficaCartiglio.FontWeight = FontWeights.DemiBold;
 
-                GraficaCartiglio.Height = 60;
-                GraficaCartiglio.Width = 180;
+                // il cartiglio sta sopra a tutto il resto
                 Panel.SetZIndex(GraficaCartiglio, 5000);
-                AggiungiTestoAGrafica();
-                // posizione di default a tutti i banchi diversa,
-                // in modo che non si sovrappongano completamente
 
-                if (PosizioneXInCentimetri == null || PosizioneXInCentimetri == 0)
-                {
-                    posizioneXInPixel = posizioneStartX;
-                    posizioneStartX += 10;
-                }
-                else
-                {
-                    posizioneXInPixel = FattoreDiScala * PosizioneXInCentimetri;
-                }
-                if (PosizioneYInCentimetri == null || PosizioneYInCentimetri == 0)
-                {
-                    posizioneYInPixel = posizioneStartY;
-                    posizioneStartY += 10;
-                }
-                else
-                {
-                    posizioneYInPixel = FattoreDiScala * PosizioneYInCentimetri;
-                }
+                AggiungiTestoAGrafica();
+
                 // impostazione della posizione della grafica del banco
                 Canvas.SetLeft(GraficaCartiglio, posizioneXInPixel);
                 Canvas.SetTop(GraficaCartiglio, posizioneYInPixel);
@@ -141,25 +103,23 @@ namespace Banchi.Classi
         }
         public void AggiungiTestoAGrafica()
         {
-            
+            Viewbox viewBoxLabel = new Viewbox()
+            {
+                StretchDirection = StretchDirection.Both
+            };
+            GraficaCartiglio.Content = viewBoxLabel;
             TextBlock tb = new TextBlock();
             tb.HorizontalAlignment = HorizontalAlignment.Center;
             tb.VerticalAlignment = VerticalAlignment.Center;
             tb.TextAlignment = TextAlignment.Center;
             tb.TextWrapping = TextWrapping.WrapWithOverflow;
-            tb.Inlines.Add("Aula: " + Aula);
-            tb.Inlines.Add(new LineBreak());
-            //tb.Inlines.Add(new Run("-----"));
-            //tb.Inlines.Add(new LineBreak());
-            tb.Inlines.Add("Classe: " + Classe);
-            tb.Inlines.Add(new LineBreak());
-            //tb.Inlines.Add(new Run("-----"));
-            //tb.Inlines.Add(new LineBreak());
-            tb.Inlines.Add(Utente);
-            GraficaCartiglio.Content = tb;
-            Canvas.SetLeft(GraficaCartiglio, 10);
-            Canvas.SetTop(GraficaCartiglio, 10);
-            
+            string testo = "Aula: " + Aula.ToString();
+            //testo += "\n-----\n";
+            testo += "\nClasse: " + Classe.ToString();
+            testo += "\n" + Utente;
+            tb.Inlines.Add(testo);
+
+            viewBoxLabel.Child = tb;
         }
     }
 }
