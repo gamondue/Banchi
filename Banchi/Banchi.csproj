@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="HelpHTML\Help.css" />
     <None Remove="HelpHTML\index.html" />
     <None Remove="Immagini\baldi104.jpg" />
     <None Remove="Immagini\computer.png" />
@@ -30,6 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Immagini\logoProgramma.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="HelpHTML\index.html" />
   </ItemGroup>
 
@@ -38,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="HelpHTML\Help.css" />
     <Resource Include="Immagini\baldi104.jpg" />
     <Resource Include="Immagini\computer.png" />
     <Resource Include="Immagini\logo.jpg" />

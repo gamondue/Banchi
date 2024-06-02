@@ -107,7 +107,6 @@ namespace Banchi
             {
                 lstComputer.Items.Add(c);
             }
-            Panel.SetZIndex(lstComputer, 10000);
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -221,6 +220,12 @@ namespace Banchi
         }
         private void btn_SalvataggioCondivisi_Click(object sender, RoutedEventArgs e)
         {
+            if (classeCorrente == null || aulaCorrente == null)
+            {
+                MessageBox.Show("Selezionare una classe e un'aula", "Errore",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             BusinessLayer.ScriviAulaEClasse(aulaCorrente, classeCorrente);
         }
         private void cmbModelliClasse_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -260,21 +265,14 @@ namespace Banchi
             else
                 aula.GraficaAula = GraficaAula;
             // creazione di tutti i nuovi banchi grafici
-            int zIndexBanco = 100;
             foreach (Banco b in aula.Banchi)
             {
                 Label GraficaBanco = new();
                 // metodo delegato per gestione click
                 GraficaBanco.MouseDown += ClickSuBanco;
-                AreaDisegno.Children.Add(GraficaBanco);
                 b.GraficaBanco = GraficaBanco;
+                AreaDisegno.Children.Add(GraficaBanco);
                 b.AggiungiTestoAGrafica();
-                //Banco bancoNuovo = new Banco(false, b.BaseInCentimetri,
-                //    b.AltezzaInCentimetri, b.PosizioneXInPixel, b.PosizioneYInPixel, GraficaBanco);
-                //// aggiunta del banco appena fatto all'aula
-                //aula.Banchi.Add(bancoNuovo);
-                Panel.SetZIndex(GraficaBanco, zIndexBanco);
-                zIndexBanco++;
             }
         }
         private void chkStudenti_Checked(object sender, RoutedEventArgs e)
@@ -371,6 +369,8 @@ namespace Banchi
         private void ClickSuBanco(object sender, RoutedEventArgs e)
         {
             labelSelezionata = (Label)sender;
+            if (aulaCorrente == null)
+                return;
             // cerca nei banchi dell'aula quello che è stato cliccato
             foreach (Banco b in aulaCorrente.Banchi)
             {
@@ -381,12 +381,20 @@ namespace Banchi
                     if (b.Studente != null)
                     {
                         studenteCorrente = b.Studente;
-                        txtStudente.Text = studenteCorrente.Cognome + " " + studenteCorrente.Nome;
+                        txtStudente.Text = studenteCorrente.ToString();
+                    }
+                    else
+                    {
+                        txtStudente.Text = "";
                     }
                     if (b.Computer != null)
                     {
                         computerCorrente = b.Computer;
                         txtComputer.Text = computerCorrente.NomeDispositivo;
+                    }
+                    else
+                    {
+                        txtComputer.Text = "";
                     }
                 }
                 else
@@ -544,7 +552,7 @@ namespace Banchi
             if (lb.SelectedItem != null)
             {
                 studenteCorrente = (Studente)lb.SelectedItem;
-                txtStudente.Text = studenteCorrente.Cognome + " " + studenteCorrente.Nome;
+                txtStudente.Text = studenteCorrente.ToString();
             }
         }
         private void lstComputer_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -555,6 +563,14 @@ namespace Banchi
                 computerCorrente = (Computer)lb.SelectedItem;
                 txtComputer.Text = computerCorrente.NomeDispositivo;
             }
+        }
+        private void cmbClasseUtente_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            classeCorrente = (Classe)cmbClasseUtente.SelectedItem;
+        }
+        private void cmbAuleUtente_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            aulaCorrente = (Aula)cmbAuleUtente.SelectedItem;
         }
     }
 }

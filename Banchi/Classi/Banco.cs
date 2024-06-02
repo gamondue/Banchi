@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace Banchi
@@ -98,16 +97,16 @@ namespace Banchi
                 if (!IsCattedra)
                 {
                     GraficaBanco.BorderThickness = new Thickness(2);
+                    GraficaBanco.Background = Brushes.BurlyWood;
                 }
                 else
                 {
-                    GraficaBanco.BorderThickness = new Thickness(4);
-                    GraficaBanco.BorderBrush = Brushes.Red;
+                    GraficaBanco.BorderThickness = new Thickness(5);
+                    GraficaBanco.Background = Brushes.PaleGreen;
                 }
                 GraficaBanco.BorderBrush = Brushes.Black;
                 GraficaBanco.HorizontalAlignment = HorizontalAlignment.Left;
                 GraficaBanco.VerticalAlignment = VerticalAlignment.Center;
-                GraficaBanco.Background = Brushes.BurlyWood;
                 GraficaBanco.FontWeight = FontWeights.Bold;
                 AggiungiTestoAGrafica();
                 // posizione di default a tutti i banchi diversa,
@@ -142,23 +141,33 @@ namespace Banchi
         }
         public void AggiungiTestoAGrafica()
         {
+            Viewbox viewBoxLabel = new Viewbox()
+            {
+                StretchDirection = StretchDirection.Both
+            };
+            GraficaBanco.Content = viewBoxLabel;
             TextBlock tb = new TextBlock();
             tb.HorizontalAlignment = HorizontalAlignment.Center;
             tb.VerticalAlignment = VerticalAlignment.Center;
             tb.TextAlignment = TextAlignment.Center;
             tb.TextWrapping = TextWrapping.WrapWithOverflow;
+            string testo;
             if (Computer != null && Computer.NomeDispositivo != null)
-                tb.Inlines.Add(new Run(Computer.NomeDispositivo));
+                testo = Computer.NomeDispositivo;
             else
-                tb.Inlines.Add("---");
-            tb.Inlines.Add(new LineBreak());
-            tb.Inlines.Add(new Run("-----"));
-            tb.Inlines.Add(new LineBreak());
-            if (Studente != null && Studente.Cognome != null && Studente.Nome != null)
-                tb.Inlines.Add(new Run(Studente.Cognome + " " + Studente.Nome));
+                testo = "---";
+            testo += "\n-----\n";
+            if (Studente != null && Studente.Cognome != null)
+                testo += Studente.Cognome;
             else
-                tb.Inlines.Add("---");
-            GraficaBanco.Content = tb;
+                testo += "---";
+            if (Studente != null && Studente.Nome != null)
+                testo += "\n" + Studente.Nome;
+            else
+                testo += "\n---";
+            tb.Inlines.Add(testo);
+
+            viewBoxLabel.Child = tb;
         }
     }
 }

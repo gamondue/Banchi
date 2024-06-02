@@ -8,7 +8,7 @@
         public string CodiceClasse { get; set; }
         public double Voto { get; internal set; }
 
-        public Studente(string Nome, string Cognome, string CodiceClasse)
+        public Studente(string Cognome, string Nome, string CodiceClasse)
         {
             // inizializzazione delle proprietà
             this.Nome = Nome;

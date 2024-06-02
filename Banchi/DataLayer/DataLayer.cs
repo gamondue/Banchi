@@ -169,7 +169,7 @@ namespace Banchi
                 string[] split = stringheLette[i].Split("\t");
                 if (split[3] == classe.CodiceClasse)
                 {
-                    Studente s = new Studente(split[2], split[1], split[3]);
+                    Studente s = new Studente(split[1], split[2], split[3]);
                     listaStudenti.Add(s);
                 }
             }
@@ -260,7 +260,7 @@ namespace Banchi
             string[] arraySupporto = new string[aula.Banchi.Count + 3];
             arraySupporto[0] = "NomeAula\tBase\tAltezza\tDirezioneNord\tClasse";
             arraySupporto[1] = "vuoto\tCodiceBanco\tIsCattedra\tBaseInCentimetri\tAltezzaInCentimetri" +
-                "\tPosizioneX\tPosizioneY\tStudente\tComputer";
+                "\tPosizioneX\tPosizioneY\tCognome Studente\tNome Studente\tComputer";
             arraySupporto[2] = aula.NomeAula + "\t" + aula.BaseInCentimetri + "\t" + aula.AltezzaInCentimetri
                 + "\t" + aula.DirezioneNord + "\t" + classe.CodiceClasse;
             int i = 3;
@@ -269,7 +269,8 @@ namespace Banchi
                 arraySupporto[i] = "\t" + b.CodiceBanco + "\t" + b.IsCattedra + "\t"
                 + b.BaseInCentimetri + "\t" + b.AltezzaInCentimetri
                 + "\t" + b.PosizioneXInCentimetri + "\t" + b.PosizioneYInCentimetri
-                + "\t" + b.Studente + "\t" + b.Computer;
+                + "\t" + b.Studente.Cognome + "\t" + b.Studente.Nome
+                + "\t" + b.Computer;
                 i++;
             }
             File.WriteAllLines(FileSalvaAuleEClasse, arraySupporto);
@@ -277,17 +278,16 @@ namespace Banchi
         internal static List<Aula> LeggiTutteLeAuleEClassi()
         {
             List<Aula> listaAule = new List<Aula>();
-            // cerca tutti i file che iniziano con AC_ e legge le aule e le classi
+            // cerca tutti i file tsv che iniziano con AC_ e legge le aule e le classi
             // che ci sono dentro
-            string[] fileAC = Directory.GetFiles(PathDatiUtente, "AC_*.tsv");
-            foreach (string file in fileAC)
+            string[] filesAC = Directory.GetFiles(PathDatiUtente, "AC_*.tsv");
+            foreach (string file in filesAC)
             {
                 string[] righeLette = File.ReadAllLines(file);
                 string[] split = righeLette[2].Split("\t");
                 Aula a = new Aula(split[0], Convert.ToDouble(split[1]), Convert.ToDouble(split[2]),
                     null, Convert.ToInt32(split[3]));
                 a.Classe = new Classe(split[4]);
-                split = righeLette[1].Split("\t");
                 // alla riga successiva arrivano i banchi (se ci sono), che hanno un tab come primo campo
                 int nRiga = 3;
                 split = righeLette[nRiga].Split("\t");
@@ -295,7 +295,16 @@ namespace Banchi
                 while (split[0] == "" && nRiga < righeLette.Length)
                 {
                     Banco b = new Banco(Convert.ToBoolean(split[2]), Convert.ToDouble(split[3]),
-                        Convert.ToDouble(split[4]), Convert.ToDouble(split[5]), Convert.ToDouble(split[6]), null);
+                        Convert.ToDouble(split[4]),
+                        Convert.ToDouble(split[5]), Convert.ToDouble(split[6]), null);
+                    if (split.Length > 6 && split[7] != "")
+                    {
+                        b.Studente = new Studente(split[7], split[8], a.Classe.CodiceClasse);
+                    }
+                    if (split.Length > 8 && split[9] != "")
+                    {
+                        b.Computer = new Computer(split[9]);
+                    }
                     a.Banchi.Add(b);
                     nRiga++;
                     if (nRiga < righeLette.Length)

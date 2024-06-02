@@ -8,7 +8,8 @@
         public string NoteComputer { get; set; }
         public string Processore { get; set; }
         public string TipoSistema { get; set; }
-        public Computer(string NomeDispositivo, string MarcaComputer, string IndirizzoIPComputer, string NoteComputer,
+        public Computer(string NomeDispositivo, string MarcaComputer = null,
+            string IndirizzoIPComputer = null, string NoteComputer = null,
             string Processore = null, string TipoSistema = null)
         {
             // inizializzazione delle proprietà

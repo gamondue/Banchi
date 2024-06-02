@@ -100,7 +100,7 @@ namespace Banchi
             // il fattore di scala è il rapporto fra le dimensioni in pixel della Window
             // e la dimensione in centimetri dell'aula
             // tolgo ai pixel nelle Y il numero di pixel delle barre superiori 
-            double fattoreDiScalaY = (finestraContenitore.ActualHeight - 193) / AltezzaInCentimetri;
+            double fattoreDiScalaY = (finestraContenitore.ActualHeight - 204) / AltezzaInCentimetri;
             double fattoreDiScalaX = finestraContenitore.ActualWidth / BaseInCentimetri;
             // il fattore di scala che adotto per i disegno è il più piccolo dei due, così ci sta tutto 
             if (fattoreDiScalaX > fattoreDiScalaY)

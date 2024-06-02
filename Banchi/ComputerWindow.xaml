@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
         Title="Gestione Computer" Height="450" Width="800"
+        Icon="Immagini\logoProgramma.ico"
         Style="{StaticResource StileFinestre}">
     <Grid Height="434" VerticalAlignment="Top" HorizontalAlignment="Center">
         <StackPanel>
