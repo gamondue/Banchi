@@ -571,11 +571,14 @@ namespace Banchi
         private void btnStampa_Click(object sender, RoutedEventArgs e)
         {
             PrintDialog printDlg = new PrintDialog();
-            printDlg.ShowDialog();
-            printDlg.PageRangeSelection = PageRangeSelection.AllPages;
-            printDlg.UserPageRangeEnabled = true;
-
-            printDlg.PrintVisual(this, "User Control Printing.");
+            if (printDlg.ShowDialog() == true)
+            {
+                Size pageSize = new Size(printDlg.PrintableAreaWidth, printDlg.PrintableAreaHeight);
+                Size s = new Size(aulaCorrente.BaseInCentimetri * aulaCorrente.FattoreDiScala,
+                    aulaCorrente.AltezzaInCentimetri * aulaCorrente.FattoreDiScala);
+                AreaDisegno.Arrange(new Rect(s));
+                printDlg.PrintVisual(AreaDisegno, "Stampa Aule e Banchi");
+            }
         }
     }
 }

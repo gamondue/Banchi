@@ -81,7 +81,7 @@ namespace Banchi.Classi
                 graficaInizializzata = true;
                 GraficaCartiglio.HorizontalContentAlignment = HorizontalAlignment.Center;
                 GraficaCartiglio.VerticalContentAlignment = VerticalAlignment.Center;
-                GraficaCartiglio.BorderThickness = new Thickness(1);
+                GraficaCartiglio.BorderThickness = new Thickness(2);
                 GraficaCartiglio.BorderBrush = Brushes.Black;
                 GraficaCartiglio.HorizontalAlignment = HorizontalAlignment.Left;
                 GraficaCartiglio.VerticalAlignment = VerticalAlignment.Center;

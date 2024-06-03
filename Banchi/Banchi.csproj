@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="HelpHTML\AltraPagina.html" />
     <None Remove="HelpHTML\Help.css" />
     <None Remove="HelpHTML\index.html" />
     <None Remove="Immagini\baldi104.jpg" />
@@ -35,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="HelpHTML\AltraPagina.html" />
     <EmbeddedResource Include="HelpHTML\index.html" />
   </ItemGroup>
 
@@ -43,7 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="HelpHTML\Help.css" />
+    <EmbeddedResource Include="HelpHTML\Help.css" />
     <Resource Include="Immagini\baldi104.jpg" />
     <Resource Include="Immagini\computer.png" />
     <Resource Include="Immagini\logo.jpg" />
