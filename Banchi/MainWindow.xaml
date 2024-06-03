@@ -17,6 +17,7 @@
                 <MenuItem Header="Nuova _classe in aula"/>
                 <MenuItem Header="_Importazione di tutti i dati"/>
                 <MenuItem Header="_Esportazione"/>
+                <MenuItem Header="_Stampa" Click="btnStampa_Click"/>
                 <MenuItem Header="_Uscita"/>
             </MenuItem>
             <MenuItem Header="_Modifica">

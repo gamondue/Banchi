@@ -568,5 +568,14 @@ namespace Banchi
         {
             aulaCorrente = (Aula)cmbAuleUtente.SelectedItem;
         }
+        private void btnStampa_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDlg = new PrintDialog();
+            printDlg.ShowDialog();
+            printDlg.PageRangeSelection = PageRangeSelection.AllPages;
+            printDlg.UserPageRangeEnabled = true;
+
+            printDlg.PrintVisual(this, "User Control Printing.");
+        }
     }
 }
