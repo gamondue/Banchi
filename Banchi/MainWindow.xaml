@@ -107,10 +107,13 @@
         </StackPanel>
         <DockPanel x:Name="AreaPrincipale">
             <ListBox DockPanel.Dock="Left" Width="160" x:Name="lstStudenti" SelectionChanged="lstStudenti_SelectionChanged" 
-                     Visibility="Collapsed" BorderBrush="Black"/>
+                     Visibility="Collapsed" BorderBrush="Black"
+                     />
             <StackPanel Orientation="Vertical" DockPanel.Dock="Right">
+                <TextBlock>Filtro di selezione</TextBlock>
                 <TextBox x:Name="txtFiltroComputer" TextChanged="txtFiltroComputer_TextChanged"/>
-                <ListBox  Width="160" x:Name="lstComputer" SelectionChanged="lstComputer_SelectionChanged" Visibility="Collapsed" BorderBrush="Black"/>
+                <ListBox Width="160" x:Name="lstComputer" SelectionChanged="lstComputer_SelectionChanged" 
+                         Visibility="Collapsed" Panel.ZIndex="1000" BorderBrush="Black"/>
             </StackPanel>
             <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" Background="White">
                 <!-- disegno di un banco per prova. Da cancellare quando si disegnerà tutta l'aula-->
