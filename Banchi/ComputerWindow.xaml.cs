@@ -1,5 +1,4 @@
-﻿using System.DirectoryServices.ActiveDirectory;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Banchi
 {
@@ -27,7 +26,7 @@ namespace Banchi
             InitializeComponent();
 
             currentComputer = computer;
-             
+
             if (computer != null)
             {
                 IPMod.IsReadOnly = false;
@@ -52,7 +51,7 @@ namespace Banchi
             TipoSistemaMod.Text = computer.TipoSistema;
             IPMod.Text = computer.IndirizzoIPComputer;
             NoteComputer.Text = computer.NoteComputer;
-            StatoComputer.SelectedText = computer.Stato;
+            StatoComputer.SelectedValue = (string)computer.Stato;
         }
         private Computer FromUiToComputer()
         {
@@ -62,16 +61,16 @@ namespace Banchi
             computer.TipoSistema = TipoSistemaMod.Text;
             computer.IndirizzoIPComputer = IPMod.Text;
             computer.NoteComputer = NoteComputer.Text;
-            computer.Stato = StatoComputer.SelectedText;
+            computer.Stato = (string)StatoComputer.SelectedValue;
             return computer;
         }
         private void SegnalazioneWindow_click(object sender, RoutedEventArgs e)
         {
             SegnalazioneWindow wnd = new SegnalazioneWindow(computer);
-            if (result == MessageBoxResult.Yes) 
+            if (result == MessageBoxResult.Yes)
             {
                 wnd.Show();
-            }     
+            }
         }
         private void ModificaComputer_Click(object sender, RoutedEventArgs e)
         {
@@ -81,7 +80,7 @@ namespace Banchi
             ProcessoreMod.IsReadOnly = false;
             ProcessoreMod.IsReadOnly = false;
             TipoSistemaMod.IsReadOnly = false;
-            StatoComputer.SelectedText = "In uso";
+            StatoComputer.SelectedValue = "In uso";
         }
         private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
@@ -105,12 +104,12 @@ namespace Banchi
             Computer tempComputer = FromUiToComputer();
 
             List<Computer> listaNuoviAula = BusinessLayer.GeneraComputer(txtSchemaNome.Text, tempComputer,
-                txtNumeroComputerInizio.Text, txtNumeroComputerFine.Text);
+                Convert.ToInt32(txtNumeroComputerInizio.Text), Convert.ToInt32(txtNumeroComputerFine.Text));
             lstComputerLab.ItemsSource = listaNuoviAula;
         }
         private void ComputerGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            currentComputer = ComputerGrid.SelectedItem;
+            currentComputer = (Computer)ComputerGrid.SelectedItem;
             FromObjectToUi(currentComputer);
             //DataContext = null;
             //DataContext = currentComputer;
@@ -121,7 +120,7 @@ namespace Banchi
         }
         private void AggiungiComputer_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 }

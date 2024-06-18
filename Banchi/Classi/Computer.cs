@@ -11,7 +11,7 @@
         public string Stato { get; set; }
         public Computer(string NomeDispositivo, string MarcaComputer = null,
             string IndirizzoIPComputer = null, string NoteComputer = null,
-            string Processore = null, string TipoSistema = null, 
+            string Processore = null, string TipoSistema = null,
             string Stato = null)
         {
             // inizializzazione delle proprietà
