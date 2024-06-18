@@ -205,5 +205,22 @@ namespace Banchi
         {
             return DataLayer.LeggiTutteLeAuleEClassi();
         }
+        internal static List<Computer> GeneraComputer(string SchemaPerGenerazioneNome, 
+            Computer DatiComputer, int NumeroIniziale, int NumeroFinale)
+        {
+            List<Computer> listaComputer = new List<Computer>();
+            for (int i = NumeroIniziale; i <= NumeroFinale; i++)
+            {
+                Computer computer = new Computer(SchemaPerGenerazioneNome.Replace("*", i.ToString())); 
+                computer.MarcaComputer = DatiComputer.MarcaComputer;
+                computer.Processore = DatiComputer.Processore;
+                computer.TipoSistema = DatiComputer.TipoSistema;
+                computer.IndirizzoIPComputer = DatiComputer.IndirizzoIPComputer.Replace("*", i.ToString());
+                computer.NoteComputer = DatiComputer.NoteComputer;
+                computer.Stato = DatiComputer.Stato;
+                listaComputer.Add(computer);
+            }   
+            return listaComputer;
+        }
     }
 }

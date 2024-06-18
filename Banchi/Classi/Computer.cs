@@ -8,9 +8,11 @@
         public string NoteComputer { get; set; }
         public string Processore { get; set; }
         public string TipoSistema { get; set; }
+        public string Stato { get; set; }
         public Computer(string NomeDispositivo, string MarcaComputer = null,
             string IndirizzoIPComputer = null, string NoteComputer = null,
-            string Processore = null, string TipoSistema = null)
+            string Processore = null, string TipoSistema = null, 
+            string Stato = null)
         {
             // inizializzazione delle proprietà
             this.NomeDispositivo = NomeDispositivo;
@@ -19,6 +21,7 @@
             this.NoteComputer = NoteComputer;
             this.Processore = Processore;
             this.TipoSistema = TipoSistema;
+            this.Stato = Stato;
         }
         public override string ToString()
         {

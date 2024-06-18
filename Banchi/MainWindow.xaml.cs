@@ -420,7 +420,7 @@ namespace Banchi
         {
             if (listaDistribuzioneBanco != null && aulaCorrente != null)
             {
-                ////questi commenti servono a vedere se l'ordinamento voti funziona
+                ////queste righe commentate servono a vedere se l'ordinamento voti funziona
                 //listaDistribuzioneBanco[0].Voto = 0.0;
                 //listaDistribuzioneBanco[1].Voto = 1.0;
                 //listaDistribuzioneBanco[2].Voto = 2.0;
@@ -448,14 +448,18 @@ namespace Banchi
                     else
                         listaDistribuzioneBanco = BusinessLayer.OrdinamentoVotoListaStudenti(listaDistribuzioneBanco);
                 }
-
+                // distribuzione degli studenti nei banchi
                 int minimoLunghezzaListe = aulaCorrente.Banchi.Count();
                 if (listaDistribuzioneBanco.Count() < minimoLunghezzaListe)
                     minimoLunghezzaListe = listaDistribuzioneBanco.Count();
                 for (int i = 0; i < minimoLunghezzaListe; i++)
                 {
-                    aulaCorrente.Banchi[i].Studente = listaDistribuzioneBanco[i];
-                    aulaCorrente.Banchi[i].AggiungiTestoAGrafica();
+                    // non mettiamo studenti nelle cattedre..
+                    if (!aulaCorrente.Banchi[i].IsCattedra)
+                    {
+                        aulaCorrente.Banchi[i].Studente = listaDistribuzioneBanco[i];
+                        aulaCorrente.Banchi[i].AggiungiTestoAGrafica();
+                    }
                 }
             }
         }
