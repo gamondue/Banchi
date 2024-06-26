@@ -8,7 +8,7 @@
         Title="Banchi: ho perso lo studente" Height="600" Width="1070"
         Padding="3" 
         Style="{StaticResource StileFinestre}"
-        Loaded="Window_Loaded" SizeChanged="Window_SizeChanged"
+        Loaded="Window_Loaded" SizeChanged="Window_SizeChanged" Icon="/IconaBanchi_Bianca.png"
         >
     <StackPanel Orientation="Vertical">
         <Menu x:Name="BarraMenu" DockPanel.Dock="Top" >
@@ -49,9 +49,11 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Content=""/>
                     <Label Content="Aule" />
-                    <ComboBox x:Name="cmbAuleUtente" Width="90" IsEditable="False" SelectionChanged="cmbAuleUtente_SelectionChanged"/>
+                    <ComboBox x:Name="cmbAuleUtente" Width="90" IsEditable="False" VerticalContentAlignment="Center"
+                              SelectionChanged="cmbAuleUtente_SelectionChanged"/>
                     <Label Content="Classi" />
-                    <ComboBox x:Name="cmbClasseUtente" Width="90" IsEditable="False" SelectionChanged="cmbClasseUtente_SelectionChanged" />
+                    <ComboBox x:Name="cmbClasseUtente" Width="90" IsEditable="False" VerticalContentAlignment="Center"
+                              SelectionChanged="cmbClasseUtente_SelectionChanged" />
                     <Button x:Name="btn_SalvaUtente" Content="Salva" Click="btn_SalvataggioUtente_Click" 
                             Style="{StaticResource StileBottoni}"/>
                 </StackPanel>
@@ -63,11 +65,14 @@
                 </GroupBox.Header>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Aule" />
-                    <ComboBox x:Name="cmbModelliAule" Width="60" IsEditable="False" SelectionChanged="cmbModelliAule_SelectionChanged"/>
+                    <ComboBox x:Name="cmbModelliAule" Width="60" IsEditable="False" VerticalContentAlignment="Center"
+                              SelectionChanged="cmbModelliAule_SelectionChanged"/>
                     <Label Content="Classi" />
-                    <ComboBox x:Name="cmbModelliClasse" Width="60" IsEditable="False" SelectionChanged="cmbModelliClasse_SelectionChanged"/>
+                    <ComboBox x:Name="cmbModelliClasse" Width="60" IsEditable="False" VerticalContentAlignment="Center"
+                              SelectionChanged="cmbModelliClasse_SelectionChanged"/>
                     <Label Content="Aule con studenti" />
-                    <ComboBox x:Name="cmbAulaEClasse" Width="100" IsEditable="False" SelectionChanged="cmbAulaEClasse_SelectionChanged"/>
+                    <ComboBox x:Name="cmbAulaEClasse" Width="100" IsEditable="False" VerticalContentAlignment="Center"
+                              SelectionChanged="cmbAulaEClasse_SelectionChanged"/>
                     <Button x:Name="btn_Salva" Content="Salva" Click="btn_SalvataggioCondivisi_Click" 
                                 Style="{StaticResource StileBottoni}"/>
                 </StackPanel>

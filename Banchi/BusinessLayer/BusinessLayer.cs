@@ -1,5 +1,6 @@
 ﻿using Banchi.Classi;
 using System.IO;
+using System.Windows.Controls;
 
 namespace Banchi
 {
@@ -90,9 +91,9 @@ namespace Banchi
         {
             return DataLayer.LeggiTutteLeClassiUtente();
         }
-        internal static void SalvaComputer()
+        internal static void SalvaComputer(Computer computer)
         {
-            DataLayer.SalvaComputer();
+            DataLayer.SalvaComputer(computer);
         }
         internal static List<Computer>? LeggiTuttiIComputer()
         {
@@ -188,7 +189,6 @@ namespace Banchi
                             indiceVotoSort = j;
                         }
                     }
-
                     Studente supporto = listaStudenti[i];
                     listaStudenti[i] = listaStudenti[indiceVotoSort];
                     listaStudenti[indiceVotoSort] = supporto;
@@ -200,7 +200,6 @@ namespace Banchi
         {
             DataLayer.ScriviAulaEClasse(aula, classe);
         }
-
         internal static List<Aula> LeggiTutteLeAuleEClassi()
         {
             return DataLayer.LeggiTutteLeAuleEClassi();
@@ -211,16 +210,26 @@ namespace Banchi
             List<Computer> listaComputer = new List<Computer>();
             for (int i = NumeroIniziale; i <= NumeroFinale; i++)
             {
-                Computer computer = new Computer(SchemaPerGenerazioneNome.Replace("*", i.ToString())); 
+                Computer computer = new Computer(SchemaPerGenerazioneNome.Replace("*", i.ToString("##"))); 
                 computer.MarcaComputer = DatiComputer.MarcaComputer;
                 computer.Processore = DatiComputer.Processore;
                 computer.TipoSistema = DatiComputer.TipoSistema;
-                computer.IndirizzoIPComputer = DatiComputer.IndirizzoIPComputer.Replace("*", i.ToString());
+                string[] indirizzoIP = DatiComputer.IndirizzoIPComputer.Split('.');
+                computer.IndirizzoIPComputer = DatiComputer.IndirizzoIPComputer.Replace(
+                    "*", i.ToString("##"));
                 computer.NoteComputer = DatiComputer.NoteComputer;
                 computer.Stato = DatiComputer.Stato;
                 listaComputer.Add(computer);
             }   
             return listaComputer;
+        }
+        internal static Computer CercaComputer(string nomeDispositivo, List<Computer> lista)
+        {
+            return DataLayer.CercaComputer(nomeDispositivo, lista);
+        }
+        internal static void AggiungiComputers(List<Computer> lista)
+        {
+            DataLayer.AggiungiComputers(lista);
         }
     }
 }

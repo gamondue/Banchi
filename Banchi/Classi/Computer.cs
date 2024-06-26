@@ -2,17 +2,27 @@
 {
     public class Computer
     {
+        public enum StatoComputer
+        {
+            NonDefinito,
+            InUso,
+            Funzionante,
+            DaRiparare,
+            DaRitirare,
+        }
         public string NomeDispositivo { get; set; }
         public string MarcaComputer { get; set; }
         public string IndirizzoIPComputer { get; set; }
         public string NoteComputer { get; set; }
         public string Processore { get; set; }
         public string TipoSistema { get; set; }
-        public string Stato { get; set; }
+        public StatoComputer Stato { get; set; }
         public Computer(string NomeDispositivo, string MarcaComputer = null,
-            string IndirizzoIPComputer = null, string NoteComputer = null,
-            string Processore = null, string TipoSistema = null,
-            string Stato = null)
+            string Processore = null, string TipoSistema = null, 
+            string IndirizzoIPComputer = null, 
+            StatoComputer Stato = StatoComputer.NonDefinito, 
+            string NoteComputer = null
+            )
         {
             // inizializzazione delle proprietà
             this.NomeDispositivo = NomeDispositivo;

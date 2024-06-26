@@ -178,41 +178,53 @@ namespace Banchi
         }
         public static void ScriviTuttiComputer(List<Computer> listaComputer)
         {
-            // array di appoggio della dimesione giusta
+            // array di appoggio della dimensione giusta
             string[] arraySupporto = new string[listaComputer.Count + 1];
-            for (int i = 0; i < listaComputer.Count; i++)
+            // ordina la lista per NomeDispositivo
+            listaComputer.Sort((x, y) => x.NomeDispositivo.CompareTo(y.NomeDispositivo));
+            // prima riga di intestazione
+            arraySupporto[0] = "NomeDispositivo\tMarca\tProcessore\tSistema\tIndirizzo IP\tStato\tNote\r\n"; 
+            for (int i = 1; i < listaComputer.Count - 1; i++)
             {
-                arraySupporto[i] = listaComputer[i].NomeDispositivo.ToString() + "\t" + listaComputer[i].MarcaComputer.ToString() + "\t" + listaComputer[i].IndirizzoIPComputer.ToString() + "\t" + listaComputer[i].NoteComputer.ToString() + "\t" + listaComputer[i].Processore.ToString() + "\t" + listaComputer[i].TipoSistema.ToString();
+                arraySupporto[i] = listaComputer[i].NomeDispositivo.ToString()
+                    + "\t" + listaComputer[i].MarcaComputer.ToString()
+                    + "\t" + listaComputer[i].Processore.ToString()
+                    + "\t" + listaComputer[i].TipoSistema.ToString()
+                    + "\t" + listaComputer[i].IndirizzoIPComputer.ToString()
+                    + "\t" + (int)listaComputer[i].Stato
+                    + "\t" + listaComputer[i].NoteComputer.ToString(); 
             }
-            File.AppendAllLines(FileClassi, arraySupporto);
+            File.WriteAllLines(FileComputer, arraySupporto);
         }
         public static List<Computer> LeggiTuttiComputer()
         {
             List<Computer> listaComputer = new List<Computer>();
             string[] stringheLette = File.ReadAllLines(FileComputer);
             string[] split = new string[6];
-            for (int i = 1; i < stringheLette.Length; i++)
+            for (int i = 1; i < stringheLette.Length - 1; i++)
             {
                 split = stringheLette[i].Split("\t");
-                Computer c = new Computer(split[0], split[1], split[2], split[3], split[4], split[5]);
-                listaComputer.Add(c);
+                if (split.Length > 1)
+                {
+                    Computer c = new Computer(split[0], split[1], split[2], split[3],
+                        split[4], (Computer.StatoComputer)Convert.ToInt32(split[5]),
+                        split[6]);
+                    listaComputer.Add(c);
+                }
             }
             return listaComputer;
         }
-        public static Computer LeggiComputerRichiesto(int NomeDispositivo)
+        public static Computer LeggiComputerRichiesto(string NomeDispositivo)
         {
-            Computer computerRichiesto = null;
-            string[] stringheLette = File.ReadAllLines(FileComputer);
-            for (int i = 1; i < stringheLette.Length; i++)
+            List<Computer> tutti = LeggiTuttiComputer();
+            foreach (Computer c in tutti)
             {
-                string[] split = stringheLette[i].Split("\t");
-                if (split[0] == NomeDispositivo.ToString())
+                if (c.NomeDispositivo == NomeDispositivo)
                 {
-                    computerRichiesto = new(split[0], split[1], split[2], split[3], split[4], split[5]);
-                    break;
+                    return c;
                 }
             }
-            return computerRichiesto;
+            return null;
         }
         public static void ScriviTuttiBanchi(List<Banco> listaBanco)
         {
@@ -318,21 +330,63 @@ namespace Banchi
         {
             return null;
         }
-        internal static void SalvaComputer()
-        {
-
-        }
         internal static List<Classe> LeggiTutteLeClassiUtente()
         {
             return null;
         }
         internal static void ScriviBanchiDellAula(List<Banco> banchi, Aula aula)
         {
-
+            throw new NotImplementedException();
         }
         internal static List<Banco> LeggiBanchiDellAula(Aula aula)
         {
             return null;
+        }
+        internal static void SalvaComputer(Computer computerDaSalvare)
+        {
+            List<Computer> listaTutti = LeggiTuttiComputer();
+            Computer trovato = CercaComputer(computerDaSalvare.NomeDispositivo, listaTutti);
+            if (trovato == null)
+            {
+                listaTutti.Add(computerDaSalvare);
+            }
+            else
+            {
+                listaTutti.Remove(trovato);
+                listaTutti.Add(computerDaSalvare);
+            }
+            ScriviTuttiComputer(listaTutti);
+        }
+        internal static Computer CercaComputer(string nomeDispositivo, List<Computer> lista)
+        {
+            foreach (Computer c in lista)
+            {
+                if (c.NomeDispositivo == nomeDispositivo)
+                {
+                    return c;
+                }
+            }
+            return null;
+        }
+        internal static void AggiungiComputers(List<Computer> lista)
+        {
+            List<Computer> listaTutti = LeggiTuttiComputer();
+            foreach (Computer c in lista)
+            {
+                Computer trovato = CercaComputer(c.NomeDispositivo, listaTutti); 
+                if (trovato == null)
+                {
+                    // aggiungo il computer alla lista, perchè non c'era
+                    listaTutti.Add(c);
+                }
+                else
+                {
+                    // siccome c'era già, lo sostituisco
+                    listaTutti.Remove(trovato);
+                    listaTutti.Add(c);
+                }
+            }
+            ScriviTuttiComputer(listaTutti);
         }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Banchi"
         mc:Ignorable="d"
         Title="Gestione Classe" Height="450" Width="800"
-        Style="{StaticResource StileFinestre}">
+        Style="{StaticResource StileFinestre}" Icon="/IconaBanchi_Trasparente.png">
     <Grid>
         
     </Grid>
