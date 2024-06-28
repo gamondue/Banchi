@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Banchi"
         Title="Gestione Computer" Height="550" Width="700"
-        Style="{StaticResource StileFinestre}" Icon="/IconaBanchi_Trasparente.png">
+        Loaded="Window_Loaded"
+        Style="{StaticResource StileFinestre}" Icon="/IconaBanchi_Trasparente.png"
+        SizeToContent="WidthAndHeight">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="165"/>
@@ -33,6 +35,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,0,0,0">
                 <TextBlock Text="Nome" />
@@ -43,14 +46,18 @@
                 <TextBox x:Name="MarcaMod"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="2" Margin="5,0,0,0">
+                <TextBlock Text="Modello"/>
+                <TextBox x:Name="Modello"/>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="3" Margin="5,0,0,0">
                 <TextBlock Text="Processore"/>
                 <TextBox x:Name="ProcessoreMod" />
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="3" Margin="5,0,0,0">
+            <StackPanel Grid.Row="0" Grid.Column="4" Margin="5,0,0,0">
                 <TextBlock Text="Tipo Sistema"/>
                 <TextBox x:Name="TipoSistemaMod"/>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="4" Margin="5,0,0,0">
+            <StackPanel Grid.Row="0" Grid.Column="6" Margin="5,0,0,0">
                 <TextBlock Text="Indirizzo IP"/>
                 <TextBox x:Name="IPMod"/>
             </StackPanel>
@@ -65,7 +72,7 @@
             <Label Content="Note" HorizontalAlignment="Center"></Label>
             <TextBox x:Name="NoteComputer" Height="140" TextWrapping="Wrap" Margin="5"
                          AcceptsReturn="True" VerticalScrollBarVisibility="Visible"
-                         TextChanged="nota_TextChanged" IsReadOnly="False"></TextBox>
+                         TextChanged="Nota_TextChanged" IsReadOnly="False"></TextBox>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
             <Button x:Name="SegnalaButton" Height="40" Width="90" Content="Segnala" 
@@ -82,45 +89,56 @@
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Margin="5,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="65"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="65"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0" 
-                        HorizontalAlignment="Stretch" Margin="5,0,0,0">
-                <TextBlock Text="Schema per nome"/>
-                <TextBox x:Name="txtSchemaNome" TextChanged="txtSchemaNome_TextChanged"/>
+                        Orientation="Vertical" DockPanel.Dock="Right">
+                <TextBlock>Filtro visual.</TextBlock>
+                <TextBox x:Name="txtFiltroComputer" TextChanged="txtFiltroComputer_TextChanged"/>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="1">
+            <StackPanel Grid.Row="0" Grid.Column="1" 
+                        HorizontalAlignment="Stretch" Margin="5,0,0,0">
+                <TextBlock Text="Schema generazione"/>
+                <TextBox x:Name="txtSchemaNome" TextChanged="txtSchemaNome_TextChanged"
+                         ToolTip="Schema in cui il '*' verrà sostituito dal numero"/>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="2">
                 <TextBlock Text="Da" HorizontalAlignment="Center"/>
                 <TextBox x:Name="txtNumeroComputerInizio" Width="50" HorizontalContentAlignment="Center"
                          TextChanged="txtSchemaNome_TextChanged"/>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="2" >
+            <StackPanel Grid.Row="0" Grid.Column="3" >
                 <TextBlock Text="A" HorizontalAlignment="Center" 
                         Margin="5,0,0,0"/>
                 <TextBox x:Name="txtNumeroComputerFine" Width="50" HorizontalContentAlignment="Center"
                          TextChanged="txtSchemaNome_TextChanged"/>
             </StackPanel>
-            <Button Grid.Row="0" Grid.Column="3" Height="40" Width="90" Content="Crea Lab." 
+            <Button Grid.Row="0" Grid.Column="4" Height="40" Width="90" Content="Crea Lab." 
                     Click="GeneraComputer_Click" Margin="5"/>
         </Grid>
         <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="160"/>
             </Grid.ColumnDefinitions>
             <DataGrid Grid.Row="0" Grid.Column="0" x:Name="ComputerGrid" 
-                  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
-                  CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
-                  CanUserSortColumns="False" IsReadOnly="True" SelectionMode="Single"
-                  SelectionUnit="FullRow" SelectionChanged="ComputerGrid_SelectionChanged"
-                  Margin="5,5,0,0">
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                      CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
+                      CanUserSortColumns="False" IsReadOnly="True" SelectionMode="Single"
+                      SelectionUnit="FullRow" SelectionChanged="ComputerGrid_SelectionChanged"
+                      VerticalScrollBarVisibility="Auto" Margin="5,5,0,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nome" Binding="{Binding NomeDispositivo}"/>
                     <DataGridTextColumn Header="Marca" Binding="{Binding MarcaComputer}"/>
+                    <DataGridTextColumn Header="Modello" Binding="{Binding Modello}"/>
                     <DataGridTextColumn Header="Processore" Binding="{Binding Processore}"/>
                     <DataGridTextColumn Header="Tipo Sistema" Binding="{Binding TipoSistema}"/>
                     <DataGridTextColumn Header="Indirizzo IP" Binding="{Binding IndirizzoIPComputer}"/>
@@ -128,10 +146,14 @@
                     <DataGridTextColumn Header="Note" Binding="{Binding NoteComputer}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" Width="Auto">
-                <Label Content="Computer da creare" Background="White"/>
-                <ListBox x:Name="lstComputerLab" />
-            </StackPanel>
+            <Grid Grid.Row="0" Grid.Column="1" Width="Auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Computer da creare" Background="White"/>
+                <ListBox Grid.Row="1" x:Name="lstComputerLab" />
+            </Grid>
         </Grid>
     </Grid>
 </Window>

@@ -1,0 +1,8 @@
+NomeAula	Base	Altezza	DirezioneNord	Classe
+vuoto	CodiceBanco	IsCattedra	BaseInCentimetri	AltezzaInCentimetri	PosizioneX	PosizioneY	Cognome Studente	Nome Studente	Computer
+P12	800	600	90	3N
+	6	True	120	70	250	350	MAGI	SAMUELE	PCAULE02
+	7	False	100	70	10	190	SAVORELLI	SIMONE	
+	8	False	80	80	100	190	BLASI	SAMUELE	
+	9	False	100	70	190	190	BERTACCINI	FILIPPO	
+	10	False	80	80	280	190	IMPAGNATIELLO	MICHELE	

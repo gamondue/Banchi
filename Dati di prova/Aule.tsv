@@ -1,0 +1,20 @@
+NomeAula	Base	Altezza	DirezioneNord			
+	CodiceBanco	IsCattedra	BaseInCentimetri	AltezzaInCentimetri	PosizioneX	PosizioneY
+L13	500	700	180			
+	1	true	120	70	200	400
+	2	false	80	80	10	90
+	3	false	80	80	100	90
+	4	false	80	80	190	90
+	5	false	80	80	280	90
+P12	800	600	90			
+	1	true	120	70	250	350
+	2	false	100	70	10	190
+	3	false	80	80	100	190
+	4	false	100	70	190	190
+	5	false	80	80	280	190
+L10	700	500	189			
+	1	true	130	90	300	400
+	2	false	100	70	10	290
+	3	false	100	70	100	290
+	4	false	100	70	190	290
+	5	false	100	70	280	290

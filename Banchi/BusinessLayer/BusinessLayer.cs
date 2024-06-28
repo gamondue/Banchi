@@ -1,4 +1,6 @@
 ﻿using Banchi.Classi;
+using System.Collections;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Controls;
 
@@ -91,9 +93,9 @@ namespace Banchi
         {
             return DataLayer.LeggiTutteLeClassiUtente();
         }
-        internal static void SalvaComputer(Computer computer)
+        internal static void SalvaComputer(Computer computer, string chiave)
         {
-            DataLayer.SalvaComputer(computer);
+            DataLayer.SalvaComputer(computer, chiave);
         }
         internal static List<Computer>? LeggiTuttiIComputer()
         {
@@ -204,19 +206,20 @@ namespace Banchi
         {
             return DataLayer.LeggiTutteLeAuleEClassi();
         }
-        internal static List<Computer> GeneraComputer(string SchemaPerGenerazioneNome, 
+        internal static List<Computer> GeneraComputers(string SchemaPerGenerazioneNome, 
             Computer DatiComputer, int NumeroIniziale, int NumeroFinale)
         {
             List<Computer> listaComputer = new List<Computer>();
             for (int i = NumeroIniziale; i <= NumeroFinale; i++)
             {
-                Computer computer = new Computer(SchemaPerGenerazioneNome.Replace("*", i.ToString("##"))); 
+                Computer computer = new Computer(SchemaPerGenerazioneNome.Replace("*", i.ToString("00")));
                 computer.MarcaComputer = DatiComputer.MarcaComputer;
+                computer.Modello = DatiComputer.Modello;
                 computer.Processore = DatiComputer.Processore;
                 computer.TipoSistema = DatiComputer.TipoSistema;
                 string[] indirizzoIP = DatiComputer.IndirizzoIPComputer.Split('.');
-                computer.IndirizzoIPComputer = DatiComputer.IndirizzoIPComputer.Replace(
-                    "*", i.ToString("##"));
+                computer.IndirizzoIPComputer = indirizzoIP[0] + "." + indirizzoIP[1] + "." 
+                    + indirizzoIP[2] + "." + i.ToString();
                 computer.NoteComputer = DatiComputer.NoteComputer;
                 computer.Stato = DatiComputer.Stato;
                 listaComputer.Add(computer);
@@ -230,6 +233,26 @@ namespace Banchi
         internal static void AggiungiComputers(List<Computer> lista)
         {
             DataLayer.AggiungiComputers(lista);
+        }
+        internal static List<Computer> ComputerFiltrati(string filtro, List<Computer> listaComputer)
+        {
+            // filtraggio dei computer 
+            filtro = filtro.ToLower(); // Converti in minuscolo per confronto case-insensitive
+            List<Computer> listaFiltrati = new (); 
+            // metti nella lista solo gli elementi che corrispondono alla stringa di filtro 
+            foreach (Computer item in listaComputer)
+            {
+                if (item.ToString().ToLower().Contains(filtro))
+                {
+                    // Aggiungi solo gli elementi che corrispondono al filtro
+                    listaFiltrati.Add(item); 
+                }
+            }
+            return listaFiltrati; 
+        }
+        internal static void EliminaComputer(string codiceComputer)
+        {
+            DataLayer.EliminaComputer(codiceComputer);
         }
     }
 }

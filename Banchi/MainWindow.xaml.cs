@@ -1,4 +1,5 @@
 ﻿using Banchi.Classi;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -99,14 +100,20 @@ namespace Banchi
             {
                 cmbAulaEClasse.Items.Add(a);
             }
-
-            listaComputer = BusinessLayer.LeggiTuttiIComputer();
-            // riempimento del ComboBox con i computer appena letti
-            foreach (Computer c in listaComputer)
+            listaComputer = (List<Computer>) BusinessLayer.LeggiTuttiIComputer();
+            // riempimento del listbox con i computer appena letti
+            riempiListBoxComputer(listaComputer);
+        }
+        private void riempiListBoxComputer(List<Computer> lista)
+        {
+            lstComputer.Items.Clear(); 
+            // riempimento del listbox con i computer che stanno in listaCorrenteComputer
+            foreach (Computer c in lista)
             {
                 lstComputer.Items.Add(c);
-            }
+            };
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // evento che viene lanciato alla fine del caricamento della finestra 
@@ -465,17 +472,8 @@ namespace Banchi
         }
         private void txtFiltroComputer_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // filtraggio dei computer 
-            string filterText = txtFiltroComputer.Text.ToLower(); // Converti in minuscolo per confronto case-insensitive
-            lstComputer.Items.Clear(); // Rimuovi tutti gli elementi dalla ListBox
-            // metti nella ListBox solo gli elementi che corrispondono alla stringa di filtro 
-            foreach (Computer item in listaComputer)
-            {
-                if (item.ToString().ToLower().Contains(filterText))
-                {
-                    lstComputer.Items.Add(item); // Aggiungi solo gli elementi che corrispondono al filtro
-                }
-            }
+            List<Computer> listaFiltrati = BusinessLayer.ComputerFiltrati(txtFiltroComputer.Text, listaComputer);
+            riempiListBoxComputer(listaFiltrati); 
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {

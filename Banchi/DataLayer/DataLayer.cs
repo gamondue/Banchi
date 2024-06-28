@@ -1,4 +1,6 @@
 ﻿using Banchi.Classi;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Controls;
 
@@ -183,11 +185,12 @@ namespace Banchi
             // ordina la lista per NomeDispositivo
             listaComputer.Sort((x, y) => x.NomeDispositivo.CompareTo(y.NomeDispositivo));
             // prima riga di intestazione
-            arraySupporto[0] = "NomeDispositivo\tMarca\tProcessore\tSistema\tIndirizzo IP\tStato\tNote\r\n"; 
-            for (int i = 1; i < listaComputer.Count - 1; i++)
+            arraySupporto[0] = "NomeDispositivo\tMarca\tModello\tProcessore\tSistema\tIndirizzo IP\tStato\tNote\r\n"; 
+            for (int i = 0; i < listaComputer.Count; i++)
             {
-                arraySupporto[i] = listaComputer[i].NomeDispositivo.ToString()
+                arraySupporto[i + 1] = listaComputer[i].NomeDispositivo.ToString()
                     + "\t" + listaComputer[i].MarcaComputer.ToString()
+                    + "\t" + listaComputer[i].Modello.ToString()
                     + "\t" + listaComputer[i].Processore.ToString()
                     + "\t" + listaComputer[i].TipoSistema.ToString()
                     + "\t" + listaComputer[i].IndirizzoIPComputer.ToString()
@@ -201,14 +204,14 @@ namespace Banchi
             List<Computer> listaComputer = new List<Computer>();
             string[] stringheLette = File.ReadAllLines(FileComputer);
             string[] split = new string[6];
-            for (int i = 1; i < stringheLette.Length - 1; i++)
+            for (int i = 1; i < stringheLette.Length; i++)
             {
                 split = stringheLette[i].Split("\t");
                 if (split.Length > 1)
                 {
-                    Computer c = new Computer(split[0], split[1], split[2], split[3],
-                        split[4], (Computer.StatoComputer)Convert.ToInt32(split[5]),
-                        split[6]);
+                    Computer c = new Computer(split[0], split[1], split[2], split[3], split[4],
+                        split[5], (Computer.StatoComputer)Convert.ToInt32(split[6]),
+                        split[7]);
                     listaComputer.Add(c);
                 }
             }
@@ -342,10 +345,10 @@ namespace Banchi
         {
             return null;
         }
-        internal static void SalvaComputer(Computer computerDaSalvare)
+        internal static void SalvaComputer(Computer computerDaSalvare, string chiave)
         {
             List<Computer> listaTutti = LeggiTuttiComputer();
-            Computer trovato = CercaComputer(computerDaSalvare.NomeDispositivo, listaTutti);
+            Computer trovato = CercaComputer(chiave, listaTutti);
             if (trovato == null)
             {
                 listaTutti.Add(computerDaSalvare);
@@ -384,6 +387,20 @@ namespace Banchi
                     // siccome c'era già, lo sostituisco
                     listaTutti.Remove(trovato);
                     listaTutti.Add(c);
+                }
+            }
+            ScriviTuttiComputer(listaTutti);
+        }
+        internal static void EliminaComputer(string codiceComputer)
+        {
+            List<Computer> listaTutti = LeggiTuttiComputer();
+            for (int i = 0; i < listaTutti.Count; i++)
+            {
+                Computer trovato = CercaComputer(listaTutti[i].NomeDispositivo, listaTutti);
+                if (trovato != null && trovato.NomeDispositivo == codiceComputer)
+                {
+                    // tolgo il computer alla lista
+                    listaTutti.Remove(listaTutti[i]);
                 }
             }
             ScriviTuttiComputer(listaTutti);

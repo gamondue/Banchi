@@ -1,0 +1,8 @@
+NomeAula	Base	Altezza	DirezioneNord	Classe
+vuoto	CodiceBanco	IsCattedra	BaseInCentimetri	AltezzaInCentimetri	PosizioneX	PosizioneY	Cognome Studente	Nome Studente	Computer
+L10	700	500	189	3N
+	11	True	130	90	300	400	BARBOZZI	ANDREA	PC1001
+	12	False	100	70	10	290	BELLAVISTA	RICCARDO	PC1005
+	13	False	100	70	100	290	ZAMAGNI	EDOARDO	PC1004
+	14	False	100	70	190	290	PASINI	GIULIO	PC1003
+	15	False	100	70	280	290	BERTACCINI	FILIPPO	PC1002

@@ -8,10 +8,16 @@
         Title="Banchi: ho perso lo studente" Height="600" Width="1070"
         Padding="3" 
         Style="{StaticResource StileFinestre}"
-        Loaded="Window_Loaded" SizeChanged="Window_SizeChanged" Icon="/IconaBanchi_Bianca.png"
-        >
-    <StackPanel Orientation="Vertical">
-        <Menu x:Name="BarraMenu" DockPanel.Dock="Top" >
+        Loaded="Window_Loaded" SizeChanged="Window_SizeChanged" Icon="/IconaBanchi_Bianca.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" x:Name="BarraMenu" DockPanel.Dock="Top" >
             <MenuItem Header="_File">
                 <MenuItem Header="_Nuova aula" />
                 <MenuItem Header="Nuova _classe in aula"/>
@@ -29,7 +35,7 @@
                 <MenuItem Header="About" x:Name="MenuAbout" Click="MenuAbout_Click"/>
             </MenuItem>
         </Menu>
-        <StackPanel x:Name="BarraBottoni" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" x:Name="BarraBottoni" Orientation="Horizontal">
             <!--barra delle icone e dei pulsanti -->
             <Button x:Name="btn_Banchi" Content="Gestione banchi" Click="btn_Banchi_Click" Style="{StaticResource StileBottoni}"/>
             <Button x:Name="btn_Aula" Content="Gestione aula" Click="btn_Aula_Click" Style="{StaticResource StileBottoni}"/>
@@ -39,7 +45,7 @@
             <Button x:Name="btn_AssociaComputer" Content="Computer in banco" Click="btn_AssociaComputer_Click" Style="{StaticResource StileBottoni}"/>
             <Button x:Name="btn_DistribuisciStudenti" Content="Distribuz.stud." Click="btn_DistribuisciStudenti_Click" Style="{StaticResource StileBottoni}"/>
         </StackPanel>
-        <StackPanel x:Name="BarraComboBox" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" x:Name="BarraComboBox" Orientation="Horizontal">
             <!-- barra dei combo box -->
             <!--combo per i dati personali dell'utente-->
             <GroupBox x:Name="grpDatiUtente" BorderThickness="2" >
@@ -78,7 +84,7 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
-        <StackPanel x:Name="BarraCheckBox" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" x:Name="BarraCheckBox" Orientation="Horizontal">
             <CheckBox x:Name="chkStudenti" Content="Studenti" IsChecked="False"
                       VerticalAlignment="Center"
                       Style="{StaticResource StileCheckbox}"
@@ -110,16 +116,21 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
-        <DockPanel x:Name="AreaPrincipale">
+        <DockPanel Grid.Row="4" x:Name="AreaPrincipale">
             <ListBox DockPanel.Dock="Left" Width="160" x:Name="lstStudenti" SelectionChanged="lstStudenti_SelectionChanged" 
                      Visibility="Collapsed" BorderBrush="Black"
                      />
-            <StackPanel Orientation="Vertical" DockPanel.Dock="Right">
-                <TextBlock>Filtro di selezione</TextBlock>
-                <TextBox x:Name="txtFiltroComputer" TextChanged="txtFiltroComputer_TextChanged"/>
-                <ListBox Width="160" x:Name="lstComputer" SelectionChanged="lstComputer_SelectionChanged" 
+            <Grid DockPanel.Dock="Right">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0">Filtro di selezione</TextBlock>
+                <TextBox Grid.Row="1"  x:Name="txtFiltroComputer" TextChanged="txtFiltroComputer_TextChanged"/>
+                <ListBox Grid.Row="2" Width="160" x:Name="lstComputer" SelectionChanged="lstComputer_SelectionChanged" 
                          Visibility="Collapsed" Panel.ZIndex="1000" BorderBrush="Black"/>
-            </StackPanel>
+            </Grid>
             <Canvas x:Name="AreaDisegno" VerticalAlignment="Top" Background="White">
                 <!-- disegno di un banco per prova. Da cancellare quando si disegnerà tutta l'aula-->
                 <!--<Label x:Name="bancoDiProva" Background="PaleGreen" 
@@ -141,5 +152,5 @@
                 </Label>-->
             </Canvas>
         </DockPanel>
-    </StackPanel>
+    </Grid>
 </Window>
