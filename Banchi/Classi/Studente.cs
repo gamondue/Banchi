@@ -5,9 +5,10 @@
         public int CodiceStudente { get; set; }
         public string Cognome { get; set; }
         public string Nome { get; set; }
+        DateTime DataNascita { get; set; }
         public string CodiceClasse { get; set; }
-        public double Voto { get; internal set; }
-
+        public double Media { get; internal set; }
+        public List<double> Voti { get; set; } 
         public Studente(string Cognome, string Nome, string CodiceClasse)
         {
             // inizializzazione delle proprietà

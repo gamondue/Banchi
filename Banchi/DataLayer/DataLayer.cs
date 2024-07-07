@@ -8,10 +8,11 @@ namespace Banchi
 {
     public static partial class DataLayer
     {
+        // campi statici che contengono i dati di configurazione del programma
         // posizione dove si trova il file
         public static string PathDatiUtente;
+        public static string PathDatiConfigurazione;
         public static string PathDatiCondivisa;
-        public static string PathDatiModelli;
 
         // creazione nome del file in cui salviamo i dati
         public static string FileAule;
@@ -19,29 +20,32 @@ namespace Banchi
         public static string FileStudenti;
         public static string FileBanchi;
         public static string FileComputer;
+        public static string FileConfigurazione;
 
         public static void Inizializzazioni()
         {
-            // 
+            // path dove si trovano i dati dell'utente, deve essere in una cartella cui l'utente ha accesso
+            // in scrittura, per essere sicuri la mettiamo dentro la cartella Documenti, in una cartella "Banchi"
             PathDatiUtente = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 "Banchi");
-            // path da aggiungere in seguito
-            PathDatiCondivisa = PathDatiUtente;
-            // path da aggiungere in seguito
-            //PathDatiModelli = PathDatiUtente;
-            PathDatiModelli = "non esiste";
+            // i dati di configurazione del programma saranno in una sottocartella "config"
+            PathDatiConfigurazione = Path.Combine(PathDatiUtente, "Config");
+            // a regime la cartella condivisa starà sul della scuola server, ma per le prove la mettiamo in locale
+            PathDatiCondivisa = @"C:\Banchi\DatiCondivisi";
+
             CreaCartelleSeNonEsistono();
             FileAule = Path.Combine(PathDatiUtente, "Aule.tsv");
             FileClassi = Path.Combine(PathDatiUtente, "Classi.tsv");
             FileStudenti = Path.Combine(PathDatiUtente, "Studenti.tsv");
             FileBanchi = Path.Combine(PathDatiUtente, "Banchi.tsv");
             FileComputer = Path.Combine(PathDatiUtente, "Computer.tsv");
-
+            FileConfigurazione = Path.Combine(PathDatiConfigurazione, "Configurazione.tsv");
             CreaFileSeNonEsiste(FileAule);
             CreaFileSeNonEsiste(FileClassi);
             CreaFileSeNonEsiste(FileStudenti);
             CreaFileSeNonEsiste(FileBanchi);
             CreaFileSeNonEsiste(FileComputer);
+            CreaFileSeNonEsiste(FileConfigurazione);
         }
         private static void CreaCartelleSeNonEsistono()
         {
@@ -49,14 +53,13 @@ namespace Banchi
             {
                 Directory.CreateDirectory(PathDatiUtente);
             }
+            if (!Directory.Exists(PathDatiConfigurazione))
+            {
+                Directory.CreateDirectory(PathDatiConfigurazione);
+            }
             if (!Directory.Exists(PathDatiCondivisa))
             {
                 Directory.CreateDirectory(PathDatiCondivisa);
-            }
-            if (!Directory.Exists(PathDatiModelli) ||
-                Utente.Accesso != Utente.RuoloUtente.ModificheAiModelli)
-            {
-                Directory.CreateDirectory(PathDatiModelli);
             }
         }
         private static void CreaFileSeNonEsiste(string nomeFile)
@@ -152,15 +155,16 @@ namespace Banchi
         }
         public static void ScriviTuttiGliStudenti(List<Studente> listaStudenti)
         {
-            // array di appoggio della dimesione giusta
+            // array di appoggio della dimensione giusta
             string[] arraySupporto = new string[listaStudenti.Count + 1];
             for (int i = 0; i < listaStudenti.Count; i++)
             {
-                arraySupporto[i] = listaStudenti[i].Nome.ToString() + "\t" + listaStudenti[i].Cognome.ToString() + "\t" + listaStudenti[i].CodiceClasse.ToString();
+                arraySupporto[i] = listaStudenti[i].Nome.ToString() + "\t" + listaStudenti[i].Cognome.ToString() + "\t" + 
+                    listaStudenti[i].CodiceClasse.ToString() + listaStudenti[i].Media;
             }
             File.AppendAllLines(FileStudenti, arraySupporto);
         }
-        public static List<Studente> LeggiStudentiClasse(Classe classe)
+        public static List<Studente> LeggiStudentiDiUnaClasse(Classe classe)
         {
             // legge dal file Studenti.tsv tutti gli studenti della classe passata come parametro
             // e li mette nella lista che è inclusa dentro il tipo Classe

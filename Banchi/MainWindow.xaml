@@ -19,19 +19,22 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" x:Name="BarraMenu" DockPanel.Dock="Top" >
             <MenuItem Header="_File">
-                <MenuItem Header="_Nuova aula" />
-                <MenuItem Header="Nuova _classe in aula"/>
-                <MenuItem Header="_Importazione di tutti i dati"/>
-                <MenuItem Header="_Esportazione"/>
+                <MenuItem Header="Nuova _aula" Click="MenuNuovaAula_Click"/>
+                <MenuItem Header="Nuova _classe" Click="MenuNuovaClasse_Click"/>
+                <MenuItem Header="Nuovo c_omputer" Click="MenuNuovoComputer_Click"/>
+                <MenuItem Header="_Importazione di tutti i dati" Click="MenuImportExport_Click"/>
+                <MenuItem Header="_Esportazione" Click="MenuImportExport_Click"/>
                 <MenuItem Header="_Stampa" Click="btnStampa_Click"/>
-                <MenuItem Header="_Uscita"/>
+                <MenuItem Header="_Esci" Click="MenuEsci_Click"/>
             </MenuItem>
             <MenuItem Header="_Modifica">
-                <MenuItem Header="Nuova _aula" x:Name="MenuAula" Click="MenuAula_Click"/>
                 <MenuItem Header="_Posizionare i banchi" IsCheckable="True" IsChecked="True"/>
             </MenuItem>
+            <MenuItem Header="_Strumenti">
+                <MenuItem Header="_Configurazione programma" x:Name="MenuConfigurazione" Click="MenuConfigurazione_Click"/>
+            </MenuItem>
             <MenuItem x:Name="MenuHelp" Header="_Help">
-                <MenuItem Header="Help" x:Name="MenuHelp1" Click="MenuHelp1_Click"/>
+                <MenuItem Header="Help" x:Name="MenuHelp1" Click="MenuHelp_Click"/>
                 <MenuItem Header="About" x:Name="MenuAbout" Click="MenuAbout_Click"/>
             </MenuItem>
         </Menu>

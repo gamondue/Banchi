@@ -43,7 +43,9 @@ namespace Banchi
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            txtFiltroComputer.Text = computerCorrente.NomeDispositivo.Substring(0, 4); 
+            if (computerCorrente != null &&
+                computerCorrente.NomeDispositivo != null && computerCorrente.NomeDispositivo.Length > 3)
+                txtFiltroComputer.Text = computerCorrente.NomeDispositivo.Substring(0, 4); 
         }
         private void FromObjectToUi(Computer computer)
         {

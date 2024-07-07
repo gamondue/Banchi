@@ -29,7 +29,7 @@ namespace Banchi
         private static bool PuòModificareModelli()
         {
             // restituisce true se l'utente può modificare i modelli
-            string nomeFileProva = Path.Combine(DataLayer.PathDatiModelli, "TestFile.txt");
+            string nomeFileProva = Path.Combine(DataLayer.PathDatiCondivisa, "TestFile.txt");
             string contenuto = new Random().Next(100000).ToString();
             try
             {
@@ -64,7 +64,7 @@ namespace Banchi
         }
         public static List<Studente> LeggiStudentiClasse(Classe classe)
         {
-            return DataLayer.LeggiStudentiClasse(classe);
+            return DataLayer.LeggiStudentiDiUnaClasse(classe);
         }
         public static void ScriviTutteLeAule(List<Aula> listaAule)
         {
@@ -180,14 +180,14 @@ namespace Banchi
             {
                 for (int i = 0; i < listaStudenti.Count() - 1; i++)
                 {
-                    double votoSort = listaStudenti[i].Voto;
+                    double votoSort = listaStudenti[i].Media;
                     int indiceVotoSort = i;
 
                     for (int j = i; j < listaStudenti.Count(); j++)
                     {
-                        if (listaStudenti[j].Voto > votoSort)
+                        if (listaStudenti[j].Media > votoSort)
                         {
-                            votoSort = listaStudenti[j].Voto;
+                            votoSort = listaStudenti[j].Media;
                             indiceVotoSort = j;
                         }
                     }

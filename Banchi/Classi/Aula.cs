@@ -103,9 +103,10 @@ namespace Banchi
         }
         private void MettiInScalaAula()
         {
-            // facciamo in modo che il lato più lungo stia lungo le X 
             double temp;
-            if (AltezzaInCentimetri > BaseInCentimetri)
+            // nella seguente if, se mettiamo il segno > il lato più lungo sta lungo le X 
+            // della UI, se mettiamo il segno <, è il lato più corto che sta lungo le X 
+            if (AltezzaInCentimetri < BaseInCentimetri)
             {
                 // scambio fra base ed altezza 
                 temp = BaseInCentimetri;
@@ -134,7 +135,7 @@ namespace Banchi
         }
         private void MettiInScalaBanchi()
         {
-            //  cambia il FattoreDiScala ad ogni banco, per visualizzarlo nelle giuste dimensioni
+            // cambia il FattoreDiScala ad ogni banco, per visualizzarlo nelle giuste dimensioni
             // e nel giusto posto, prende lo stesso fattore di scala dell'aula
             foreach (Banco b in Banchi)
             {
@@ -143,7 +144,7 @@ namespace Banchi
         }
         public override string ToString()
         {
-            // per riempire il ComboBox con il nome dell'aula
+            // per riempire il controllo WPF con il nome dell'aula
             if (Classe == null)
                 return NomeAula;
             else
