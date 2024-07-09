@@ -37,13 +37,20 @@
         </Menu>
         <StackPanel Grid.Row="1" x:Name="BarraBottoni" Orientation="Horizontal">
             <!--barra delle icone e dei pulsanti -->
-            <Button x:Name="btn_Banchi" Content="Gestione banchi" Click="btn_Banchi_Click" Style="{StaticResource StileBottoni}"/>
-            <Button x:Name="btn_Aula" Content="Gestione aula" Click="btn_Aula_Click" Style="{StaticResource StileBottoni}"/>
-            <Button x:Name="btn_Computer" Content="Gestione computer" Click="btn_Computer_Click" Style="{StaticResource StileBottoni}"/>
-            <Button x:Name="btn_Classe" Content="Gestione classe" Click="btn_Classe_Click" Style="{StaticResource StileBottoni}"/>
-            <Button x:Name="btn_AssociaStudente" Content="Studente in banco" Click="btn_AssociaStudente_Click" Style="{StaticResource StileBottoni}"/>
-            <Button x:Name="btn_AssociaComputer" Content="Computer in banco" Click="btn_AssociaComputer_Click" Style="{StaticResource StileBottoni}"/>
-            <Button x:Name="btn_DistribuisciStudenti" Content="Distribuz.stud." Click="btn_DistribuisciStudenti_Click" Style="{StaticResource StileBottoni}"/>
+            <Button x:Name="btn_Banchi" Content="Gestione banchi" Click="btn_Banchi_Click" Style="{StaticResource StileBottoni}"
+                    ToolTip="Apre la finestra che fa posizionare i banchi in un'aula"/>
+            <Button x:Name="btn_Aula" Content="Gestione aula" Click="btn_Aula_Click" Style="{StaticResource StileBottoni}"
+                    ToolTip="Apre la finestra che fa configurare le dimensioni ed i serramenti di un'aula"/>
+            <Button x:Name="btn_Computer" Content="Gestione computer" Click="btn_Computer_Click" Style="{StaticResource StileBottoni}"
+                    ToolTip="Apre la finestra che permette di gestire i computer della scuola"/>
+            <Button x:Name="btn_Classe" Content="Gestione classe" Click="btn_Classe_Click" Style="{StaticResource StileBottoni}"
+                    ToolTip="Apre la finestra che permette di gestire le classi della scuola"/>
+            <Button x:Name="btn_AssociaStudente" Content="Studente in banco" Click="btn_AssociaStudente_Click" Style="{StaticResource StileBottoni}"
+                    ToolTip="Associa lo studente selezionato al banco selezionato"/>
+            <Button x:Name="btn_AssociaComputer" Content="Computer in banco" Click="btn_AssociaComputer_Click" Style="{StaticResource StileBottoni}"
+                    ToolTip="Associa il computer selezionato al banco selezionato"/>
+            <Button x:Name="btn_DistribuisciStudenti" Content="Distribuz.stud." Click="btn_DistribuisciStudenti_Click" Style="{StaticResource StileBottoni}"
+                    ToolTip="Distribuisce automaticamente gli studenti nei banchi, secondo il criterio indicato sotto "/>
         </StackPanel>
         <StackPanel Grid.Row="2" x:Name="BarraComboBox" Orientation="Horizontal">
             <!-- barra dei combo box -->
@@ -53,56 +60,73 @@
                     <TextBlock FontWeight="Bold">Dati dell'utente</TextBlock>
                 </GroupBox.Header>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content=""/>
-                    <Label Content="Aule" />
+                    <Label Content="Aule" VerticalAlignment="Center"/>
                     <ComboBox x:Name="cmbAuleUtente" Width="90" IsEditable="False" VerticalContentAlignment="Center"
-                              SelectionChanged="cmbAuleUtente_SelectionChanged"/>
-                    <Label Content="Classi" />
+                              SelectionChanged="cmbAuleUtente_SelectionChanged"
+                              Style="{StaticResource StileComboBox}"
+                              ToolTip="Aule salvate da questo utente"/>
+                    <Label Content="Classi" VerticalAlignment="Center"/>
                     <ComboBox x:Name="cmbClasseUtente" Width="90" IsEditable="False" VerticalContentAlignment="Center"
-                              SelectionChanged="cmbClasseUtente_SelectionChanged" />
-                    <Button x:Name="btn_SalvaUtente" Content="Salva" Click="btn_SalvataggioUtente_Click" 
-                            Style="{StaticResource StileBottoni}"/>
+                              SelectionChanged="cmbClasseUtente_SelectionChanged" 
+                              Style="{StaticResource StileComboBox}"
+                              ToolTip="Classi salvate da questo utente"/>
+                    <Button x:Name="btn_SalvataggioUtente" Content="Salva" Click="btn_SalvataggioUtente_Click" 
+                            Style="{StaticResource StileBottoni}"
+                            ToolTip="Salvataggio di una combinazione Aula-Classe"/>
                 </StackPanel>
             </GroupBox>
             <!--combo per i dati condivisi, che potranno essere usati da tutti gli utenti-->
             <GroupBox x:Name="grpDatiCondivisi" BorderThickness="2" >
-                <GroupBox.Header>
+                <GroupBox.Header >
                     <TextBlock FontWeight="Bold">Dati condivisi</TextBlock>
                 </GroupBox.Header>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Aule" />
+                    <Label Content="Aule" VerticalAlignment="Center"
+                           ToolTip="Aule della scuola"/>
                     <ComboBox x:Name="cmbModelliAule" Width="60" IsEditable="False" VerticalContentAlignment="Center"
-                              SelectionChanged="cmbModelliAule_SelectionChanged"/>
-                    <Label Content="Classi" />
+                              SelectionChanged="cmbModelliAule_SelectionChanged"
+                              Style="{StaticResource StileComboBox}"
+                              ToolTip="Elenco di tutte le aule della classe"/>
+                    <Label Content="Classi" VerticalAlignment="Center"/>
                     <ComboBox x:Name="cmbModelliClasse" Width="60" IsEditable="False" VerticalContentAlignment="Center"
-                              SelectionChanged="cmbModelliClasse_SelectionChanged"/>
-                    <Label Content="Aule con studenti" />
+                              SelectionChanged="cmbModelliClasse_SelectionChanged"
+                              Style="{StaticResource StileComboBox}"
+                              ToolTip="Elenco di tutte le classi delle scuola"/>
+                    <Label Content="Aule con studenti" VerticalAlignment="Center"/>
                     <ComboBox x:Name="cmbAulaEClasse" Width="100" IsEditable="False" VerticalContentAlignment="Center"
-                              SelectionChanged="cmbAulaEClasse_SelectionChanged"/>
-                    <Button x:Name="btn_Salva" Content="Salva" Click="btn_SalvataggioCondivisi_Click" 
-                                Style="{StaticResource StileBottoni}"/>
+                              SelectionChanged="cmbAulaEClasse_SelectionChanged"
+                              Style="{StaticResource StileComboBox}"
+                              ToolTip="Elenco delle posizioni di una classe in un'aula"/>
+                    <Button x:Name="btn_SalvataggioAulaClasseCondivise" Content="Salva" Click="btn_SalvataggioAulaClasse_Click" 
+                            Style="{StaticResource StileBottoni}"
+                            ToolTip="Salva fra i condivisi le posizioni degli studenti nei banchi dell'aula"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
         <StackPanel Grid.Row="3" x:Name="BarraCheckBox" Orientation="Horizontal">
             <CheckBox x:Name="chkStudenti" Content="Studenti" IsChecked="False"
                       VerticalAlignment="Center"
-                      Style="{StaticResource StileCheckbox}"
-                      Checked="chkStudenti_Checked" Unchecked="chkStudenti_Unchecked"/>
+                      Style="{StaticResource StileCheckBox}"
+                      Checked="chkStudenti_Checked" Unchecked="chkStudenti_Unchecked"
+                      ToolTip="Visualizzazione dell'elenco degli studenti della classe selezionata"/>
             <CheckBox x:Name="chkComputer" Content="Computer" IsChecked="False" 
                       VerticalAlignment="Center"
-                      Style="{StaticResource StileCheckbox}"
-                      Checked="chkComputer_Checked" Unchecked="chkComputer_Unchecked"/>
+                      Style="{StaticResource StileCheckBox}"
+                      Checked="chkComputer_Checked" Unchecked="chkComputer_Unchecked"
+                      ToolTip="Visualizzazione dell'elenco dei computer della scuola"/>
             <CheckBox x:Name="chkCartiglio" Content="Cartiglio" IsChecked="False" 
                       VerticalAlignment="Center"
-                      Style="{StaticResource StileCheckbox}"
-                      Checked="chkCartiglio_Checked" Unchecked="chkCartiglio_Unchecked"/>
+                      Style="{StaticResource StileCheckBox}"
+                      Checked="chkCartiglio_Checked" Unchecked="chkCartiglio_Unchecked"
+                      ToolTip="Visualizzazione di un cartiglio indicante aula, classe ed utente, che si potrà trascinare nell'aula"/>
             <GroupBox>
                 <StackPanel Orientation="Horizontal">
                     <Label VerticalAlignment="Center">Studente</Label>
-                    <TextBlock x:Name="txtStudente" Width="210" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtStudente" Width="210" VerticalAlignment="Center"
+                               ToolTip="Cognome e Nome dello studente selezionato"/>
                     <Label VerticalAlignment="Center">Computer</Label>
-                    <TextBlock x:Name="txtComputer" Width="70" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtComputer" Width="70" VerticalAlignment="Center"
+                               ToolTip="Nome di rete del computer selezionato"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="grpOpzioniDistibuzione" BorderThickness="1" >
@@ -110,9 +134,18 @@
                     <TextBlock FontWeight="Bold">Opzioni per la distribuzione allievi</TextBlock>
                 </GroupBox.Header>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <RadioButton x:Name="rdbCasuale" IsChecked="true" Style="{StaticResource StileRadioButton}">Casuale</RadioButton>
-                    <RadioButton x:Name="rdbAlfabetico" Style="{StaticResource StileRadioButton}">Alfabetico</RadioButton>
-                    <RadioButton x:Name="rdbPerVoto" Style="{StaticResource StileRadioButton}">Per voto</RadioButton>
+                    <RadioButton x:Name="rdbCasuale" IsChecked="true" Style="{StaticResource StileRadioButton}"
+                                 ToolTip="Ordinamento casuale nei banchi quando si preme 'Distribuz.stud.'">
+                        Casuale
+                    </RadioButton>
+                    <RadioButton x:Name="rdbAlfabetico" Style="{StaticResource StileRadioButton}"
+                                 ToolTip="Ordinamento alfabetico nei banchi quando si preme 'Distribuz.stud.'">
+                        Alfabetico
+                    </RadioButton>
+                    <RadioButton x:Name="rdbPerVoto" Style="{StaticResource StileRadioButton}"
+                                 ToolTip="Ordinamento per voto nei banchi quando si preme 'Distribuz.stud.'">
+                        Per voto
+                    </RadioButton>
                 </StackPanel>
             </GroupBox>
         </StackPanel>

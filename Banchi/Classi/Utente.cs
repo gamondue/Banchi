@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Banchi.Classi
+﻿namespace Banchi.Classi
 {
     public static class Utente
     {

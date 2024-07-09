@@ -1,5 +1,4 @@
 ﻿using Banchi.Classi;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,7 +32,6 @@ namespace Banchi
         List<Classe> listaClassiModello;
         List<Computer> listaComputer;
         List<Aula> listaAuleEClassi;
-
         List<Studente> listaDistribuzioneBanco;
 
         bool cartiglioIsCheckedMainWindow = false;
@@ -45,11 +43,6 @@ namespace Banchi
             InitializeComponent();
             BusinessLayer.Inizializzazioni();
 
-            if (Utente.Accesso != Utente.RuoloUtente.ModificheAiModelli)
-            {
-                btn_Salva.Visibility = Visibility.Hidden;
-            }
-
             // legge tutte le aule dal "database" e le mette in una lista
             listaAuleUtente = BusinessLayer.LeggiTutteLeAuleUtente();
             // riempimento del ComboBox con le aule appena lette
@@ -60,7 +53,6 @@ namespace Banchi
                     // devo implementare il metodo ToString() dentro listaAuleUtente classe Aule
                     cmbAuleUtente.Items.Add(a);
                 }
-
             listaClassiUtente = BusinessLayer.LeggiTutteLeClassiUtente();
             if (listaAuleUtente != null)
                 foreach (Classe a in listaClassiUtente)
@@ -93,30 +85,48 @@ namespace Banchi
             }
             //cmbModelliClasse.SelectedIndex = 1;
             //cmbModelliClasse.SelectedItem = cmbClasseUtente.Items[1];
-
             listaAuleEClassi = BusinessLayer.LeggiTutteLeAuleEClassi();
             // riempimento del ComboBox con le aule appena lette
             foreach (Aula a in listaAuleEClassi)
             {
                 cmbAulaEClasse.Items.Add(a);
             }
-            listaComputer = (List<Computer>) BusinessLayer.LeggiTuttiIComputer();
+            listaComputer = (List<Computer>)BusinessLayer.LeggiTuttiIComputer();
             // riempimento del listbox con i computer appena letti
             riempiListBoxComputer(listaComputer);
         }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // evento che viene lanciato alla fine del caricamento della finestra 
+            // e quindi quando tutti i controlli sono pronti
+
+            // oscura i controlli che non si possono usare, in base ai diritti dell'utente
+            if (Utente.Accesso != Utente.RuoloUtente.ModificheAiModelli)
+            {
+                // cancella i controlli che permettono di modificare i modelli
+                // e che permettono di salvare i dati
+
+                // queste cancellazioni corrispondono al diritto "ModifichePersonali"
+                btn_Banchi.Visibility = Visibility.Hidden;
+                btn_Aula.Visibility = Visibility.Hidden;
+                btn_Computer.Visibility = Visibility.Hidden;
+                btn_Classe.Visibility = Visibility.Hidden;
+                btn_SalvataggioAulaClasseCondivise.Visibility = Visibility.Hidden;
+                if (Utente.Accesso != Utente.RuoloUtente.SolaLettura)
+                {
+                    // se è sola lettura cancella il salvataggio dei dati personali
+                    btn_SalvataggioUtente.Visibility = Visibility.Hidden;
+                }
+            }
+        }
         private void riempiListBoxComputer(List<Computer> lista)
         {
-            lstComputer.Items.Clear(); 
+            lstComputer.Items.Clear();
             // riempimento del listbox con i computer che stanno in listaCorrenteComputer
             foreach (Computer c in lista)
             {
                 lstComputer.Items.Add(c);
             };
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            // evento che viene lanciato alla fine del caricamento della finestra 
         }
         internal void ClickSuCartiglio(object sender, MouseButtonEventArgs e)
         {
@@ -147,6 +157,7 @@ namespace Banchi
         // evento per terminare il drag and drop, quando il tasto del mouse viene rilasciato
         internal void MouseUpSuCartiglio(object sender, MouseButtonEventArgs e)
         {
+            // lascio il cartiglio lì dove è
             Label label = (Label)sender;
             if (isDragging)
             {
@@ -221,7 +232,7 @@ namespace Banchi
             AulaWindow wnd = new AulaWindow(aulaCorrente);
             wnd.Show();
         }
-        private void btn_SalvataggioCondivisi_Click(object sender, RoutedEventArgs e)
+        private void btn_SalvataggioAulaClasse_Click(object sender, RoutedEventArgs e)
         {
             if (classeCorrente == null || aulaCorrente == null)
             {
@@ -473,7 +484,7 @@ namespace Banchi
         private void txtFiltroComputer_TextChanged(object sender, TextChangedEventArgs e)
         {
             List<Computer> listaFiltrati = BusinessLayer.ComputerFiltrati(txtFiltroComputer.Text, listaComputer);
-            riempiListBoxComputer(listaFiltrati); 
+            riempiListBoxComputer(listaFiltrati);
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {

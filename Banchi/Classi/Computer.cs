@@ -2,7 +2,7 @@
 {
     public class Computer
     {
-        public enum StatoComputer
+        public enum cmbStatoComputer
         {
             NonDefinito,
             InUso,
@@ -17,12 +17,12 @@
         public string NoteComputer { get; set; }
         public string Processore { get; set; }
         public string TipoSistema { get; set; }
-        public StatoComputer Stato { get; set; }
+        public cmbStatoComputer Stato { get; set; }
         public Computer(string NomeDispositivo, string MarcaComputer = null,
             string Modello = null,
             string Processore = null, string TipoSistema = null, 
             string IndirizzoIPComputer = null, 
-            StatoComputer Stato = StatoComputer.NonDefinito, 
+            cmbStatoComputer Stato = cmbStatoComputer.NonDefinito, 
             string NoteComputer = null
             )
         {

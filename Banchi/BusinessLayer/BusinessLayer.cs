@@ -1,8 +1,5 @@
 ﻿using Banchi.Classi;
-using System.Collections;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows.Controls;
 
 namespace Banchi
 {
@@ -29,7 +26,7 @@ namespace Banchi
         private static bool PuòModificareModelli()
         {
             // restituisce true se l'utente può modificare i modelli
-            string nomeFileProva = Path.Combine(DataLayer.PathDatiModelli, "TestFile.txt");
+            string nomeFileProva = Path.Combine(DataLayer.PathDatiCondivisi, "TestFile.txt");
             string contenuto = new Random().Next(100000).ToString();
             try
             {
@@ -206,7 +203,7 @@ namespace Banchi
         {
             return DataLayer.LeggiTutteLeAuleEClassi();
         }
-        internal static List<Computer> GeneraComputers(string SchemaPerGenerazioneNome, 
+        internal static List<Computer> GeneraComputers(string SchemaPerGenerazioneNome,
             Computer DatiComputer, int NumeroIniziale, int NumeroFinale)
         {
             List<Computer> listaComputer = new List<Computer>();
@@ -218,12 +215,12 @@ namespace Banchi
                 computer.Processore = DatiComputer.Processore;
                 computer.TipoSistema = DatiComputer.TipoSistema;
                 string[] indirizzoIP = DatiComputer.IndirizzoIPComputer.Split('.');
-                computer.IndirizzoIPComputer = indirizzoIP[0] + "." + indirizzoIP[1] + "." 
+                computer.IndirizzoIPComputer = indirizzoIP[0] + "." + indirizzoIP[1] + "."
                     + indirizzoIP[2] + "." + i.ToString();
                 computer.NoteComputer = DatiComputer.NoteComputer;
                 computer.Stato = DatiComputer.Stato;
                 listaComputer.Add(computer);
-            }   
+            }
             return listaComputer;
         }
         internal static Computer CercaComputer(string nomeDispositivo, List<Computer> lista)
@@ -238,17 +235,17 @@ namespace Banchi
         {
             // filtraggio dei computer 
             filtro = filtro.ToLower(); // Converti in minuscolo per confronto case-insensitive
-            List<Computer> listaFiltrati = new (); 
+            List<Computer> listaFiltrati = new();
             // metti nella lista solo gli elementi che corrispondono alla stringa di filtro 
             foreach (Computer item in listaComputer)
             {
                 if (item.ToString().ToLower().Contains(filtro))
                 {
                     // Aggiungi solo gli elementi che corrispondono al filtro
-                    listaFiltrati.Add(item); 
+                    listaFiltrati.Add(item);
                 }
             }
-            return listaFiltrati; 
+            return listaFiltrati;
         }
         internal static void EliminaComputer(string codiceComputer)
         {

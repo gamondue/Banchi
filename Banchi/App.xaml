@@ -16,9 +16,12 @@
             <Setter Property="Margin" Value="5" />
             <Setter Property="Padding" Value="5" />
         </Style>
-        <Style x:Key="StileCheckbox" TargetType="{x:Type CheckBox}">
+        <Style x:Key="StileCheckBox" TargetType="{x:Type CheckBox}">
             <Setter Property="Margin" Value="5" />
             <Setter Property="Padding" Value="5" />
+        </Style>
+        <Style x:Key="StileComboBox" TargetType="{x:Type ComboBox}">
+            <Setter Property="Height" Value="28" />
         </Style>
         <Style x:Key="StileRadioButton" TargetType="{x:Type RadioButton}">
             <Setter Property="Margin" Value="5" />

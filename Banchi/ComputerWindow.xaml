@@ -39,50 +39,56 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,0,0,0">
                 <TextBlock Text="Nome" />
-                <TextBox x:Name="NomeDispositivoMod" />
+                <TextBox x:Name="txtNomeDispositivo" ToolTip="Nome che viene usato in rete per il computer"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="1" Margin="5,0,0,0">
                 <TextBlock Text="Marca"/>
-                <TextBox x:Name="MarcaMod"/>
+                <TextBox x:Name="txtMarca" ToolTip="Marca del computer"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="2" Margin="5,0,0,0">
                 <TextBlock Text="Modello"/>
-                <TextBox x:Name="Modello"/>
+                <TextBox x:Name="txtModello" ToolTip="Modello del computer"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="3" Margin="5,0,0,0">
                 <TextBlock Text="Processore"/>
-                <TextBox x:Name="ProcessoreMod" />
+                <TextBox x:Name="txtProcessore" ToolTip="Modello del microprocessore del computer"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="4" Margin="5,0,0,0">
                 <TextBlock Text="Tipo Sistema"/>
-                <TextBox x:Name="TipoSistemaMod"/>
+                <TextBox x:Name="txtSistema" ToolTip="Sistema operativo usato dal computer"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="6" Margin="5,0,0,0">
                 <TextBlock Text="Indirizzo IP"/>
-                <TextBox x:Name="IPMod"/>
+                <TextBox x:Name="txtIndirizzoIp" ToolTip="Indirizzo IP statico del computer"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal"
                     Margin="5,0,5,0">
                 <Label Content="Stato" HorizontalAlignment="Center" Margin="5"></Label>
-                <ComboBox x:Name="StatoComputer" Width="120" VerticalContentAlignment="Center"/>
+                <ComboBox x:Name="cmbStatoComputer" Width="120" VerticalContentAlignment="Center"
+                          ToolTip="Condizione attuale del computer (scegliere)
+                          "/>
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical"
                     Margin="5,0,5,0">
             <Label Content="Note" HorizontalAlignment="Center"></Label>
-            <TextBox x:Name="NoteComputer" Height="140" TextWrapping="Wrap" Margin="5"
+            <TextBox x:Name="txtNoteComputer" Height="140" TextWrapping="Wrap" Margin="5"
                          AcceptsReturn="True" VerticalScrollBarVisibility="Visible"
-                         TextChanged="Nota_TextChanged" IsReadOnly="False"></TextBox>
+                         TextChanged="Nota_TextChanged" IsReadOnly="False" ToolTip="Note sul computer">
+            </TextBox>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
             <Button x:Name="SegnalaButton" Height="40" Width="90" Content="Segnala" 
-                    Click="SegnalazioneWindow_click" Margin="5"/>
+                    Click="SegnalazioneWindow_click" Margin="5"
+                    ToolTip="Segnalazione di un problema al computer (NON FUNZIONA la spedizione emai!)"/>
             <Button x:Name="SalvaButton" Height="40" Width="90" Content="Salva" 
-                    Click="SalvaButton_Click" Margin="5"/>
+                    Click="SalvaButton_Click" Margin="5" ToolTip="Salva i dati del computer indiati nella parte alta"/>
             <Button Grid.Row="0" Grid.Column="4" Height="40" Width="90" Content="+" 
-                    HorizontalAlignment="Right" Click="AggiungiComputer_Click" Margin="5"/>
+                    HorizontalAlignment="Right" Click="AggiungiComputer_Click" Margin="5"
+                    ToolTip="Aggiunge un nuovo computer all'elenco dei computer"/>
             <Button Grid.Row="0" Grid.Column="5" Height="40" Width="90" Content="-" 
-                    HorizontalAlignment="Right" Click="RimuoviComputer_Click" Margin="5"/>
+                    HorizontalAlignment="Right" Click="RimuoviComputer_Click" Margin="5"
+                    ToolTip="Elimina il computer con il nome indicato in altro dall'elenco dei computer"/>
             <!--<Button x:Name="GestisciComputer" Height="40" Width="120" Content="Gestisci Lab"
                     Click="GestisciLab_Click" Margin="5"/>-->
         </StackPanel>
@@ -98,27 +104,32 @@
             <StackPanel Grid.Row="0" Grid.Column="0" 
                         Orientation="Vertical" DockPanel.Dock="Right">
                 <TextBlock>Filtro visual.</TextBlock>
-                <TextBox x:Name="txtFiltroComputer" TextChanged="txtFiltroComputer_TextChanged"/>
+                <TextBox x:Name="txtFiltroComputer" TextChanged="txtFiltroComputer_TextChanged"
+                         ToolTip="Lettere che devono far parte dei nomi dei computer visualizzati"
+                         />
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="1" 
                         HorizontalAlignment="Stretch" Margin="5,0,0,0">
                 <TextBlock Text="Schema generazione"/>
                 <TextBox x:Name="txtSchemaNome" TextChanged="txtSchemaNome_TextChanged"
-                         ToolTip="Schema in cui il '*' verrà sostituito dal numero"/>
+                         ToolTip="Schema in cui il '*' verrà sostituito dal numero, per la generazione dei computer"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="2">
                 <TextBlock Text="Da" HorizontalAlignment="Center"/>
                 <TextBox x:Name="txtNumeroComputerInizio" Width="50" HorizontalContentAlignment="Center"
-                         TextChanged="txtSchemaNome_TextChanged"/>
+                         TextChanged="txtSchemaNome_TextChanged"
+                         ToolTip="Primo numero di computer generato automaticamente"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="3" >
                 <TextBlock Text="A" HorizontalAlignment="Center" 
                         Margin="5,0,0,0"/>
                 <TextBox x:Name="txtNumeroComputerFine" Width="50" HorizontalContentAlignment="Center"
-                         TextChanged="txtSchemaNome_TextChanged"/>
+                         TextChanged="txtSchemaNome_TextChanged"
+                         ToolTip="Ultimo numero di computer generato automaticamente"/>
             </StackPanel>
             <Button Grid.Row="0" Grid.Column="4" Height="40" Width="90" Content="Crea Lab." 
-                    Click="GeneraComputer_Click" Margin="5"/>
+                    Click="GeneraComputer_Click" Margin="5"
+                    ToolTip="Crea tutti i computer indicati dallo 'Schema generazione'"/>
         </Grid>
         <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
             <Grid.RowDefinitions>
@@ -134,7 +145,8 @@
                       CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
                       CanUserSortColumns="False" IsReadOnly="True" SelectionMode="Single"
                       SelectionUnit="FullRow" SelectionChanged="ComputerGrid_SelectionChanged"
-                      VerticalScrollBarVisibility="Auto" Margin="5,5,0,0">
+                      VerticalScrollBarVisibility="Auto" Margin="5,5,0,0"
+                      ToolTip="Elenco filtrato dei computer">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nome" Binding="{Binding NomeDispositivo}"/>
                     <DataGridTextColumn Header="Marca" Binding="{Binding MarcaComputer}"/>
@@ -152,7 +164,8 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Content="Computer da creare" Background="White"/>
-                <ListBox Grid.Row="1" x:Name="lstComputerLab" />
+                <ListBox Grid.Row="1" x:Name="lstComputerLab" 
+                         ToolTip="Elenco dei nomi dei computer che verranno generati allpressione del bottone 'Crea Lab.'"/>
             </Grid>
         </Grid>
     </Grid>

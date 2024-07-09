@@ -1,6 +1,4 @@
 ﻿using Banchi.Classi;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Controls;
 
@@ -10,38 +8,36 @@ namespace Banchi
     {
         // posizione dove si trova il file
         public static string PathDatiUtente;
-        public static string PathDatiCondivisa;
-        public static string PathDatiModelli;
+        public static string PathDatiCondivisi;
 
         // creazione nome del file in cui salviamo i dati
-        public static string FileAule;
-        public static string FileClassi;
-        public static string FileStudenti;
-        public static string FileBanchi;
-        public static string FileComputer;
+        public static string FileAuleCondiviso;
+        public static string FileClassiCondiviso;
+        public static string FileStudentiCondiviso;
+        public static string FileBanchiCondiviso;
+        public static string FileComputerCondiviso;
 
         public static void Inizializzazioni()
         {
-            // 
+            // path all'interno della cartella banchi in 'Documenti' dell'utente corrente
             PathDatiUtente = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 "Banchi");
-            // path da aggiungere in seguito
-            PathDatiCondivisa = PathDatiUtente;
-            // path da aggiungere in seguito
-            //PathDatiModelli = PathDatiUtente;
-            PathDatiModelli = "non esiste";
-            CreaCartelleSeNonEsistono();
-            FileAule = Path.Combine(PathDatiUtente, "Aule.tsv");
-            FileClassi = Path.Combine(PathDatiUtente, "Classi.tsv");
-            FileStudenti = Path.Combine(PathDatiUtente, "Studenti.tsv");
-            FileBanchi = Path.Combine(PathDatiUtente, "Banchi.tsv");
-            FileComputer = Path.Combine(PathDatiUtente, "Computer.tsv");
 
-            CreaFileSeNonEsiste(FileAule);
-            CreaFileSeNonEsiste(FileClassi);
-            CreaFileSeNonEsiste(FileStudenti);
-            CreaFileSeNonEsiste(FileBanchi);
-            CreaFileSeNonEsiste(FileComputer);
+            // path vera da aggiungere in seguito
+            PathDatiCondivisi = PathDatiUtente;
+
+            CreaCartelleSeNonEsistono();
+            FileAuleCondiviso = Path.Combine(PathDatiCondivisi, "Aule.tsv");
+            FileClassiCondiviso = Path.Combine(PathDatiCondivisi, "Classi.tsv");
+            FileStudentiCondiviso = Path.Combine(PathDatiCondivisi, "Studenti.tsv");
+            FileBanchiCondiviso = Path.Combine(PathDatiCondivisi, "Banchi.tsv");
+            FileComputerCondiviso = Path.Combine(PathDatiCondivisi, "Computer.tsv");
+
+            CreaFileSeNonEsiste(FileAuleCondiviso);
+            CreaFileSeNonEsiste(FileClassiCondiviso);
+            CreaFileSeNonEsiste(FileStudentiCondiviso);
+            CreaFileSeNonEsiste(FileBanchiCondiviso);
+            CreaFileSeNonEsiste(FileComputerCondiviso);
         }
         private static void CreaCartelleSeNonEsistono()
         {
@@ -49,14 +45,10 @@ namespace Banchi
             {
                 Directory.CreateDirectory(PathDatiUtente);
             }
-            if (!Directory.Exists(PathDatiCondivisa))
-            {
-                Directory.CreateDirectory(PathDatiCondivisa);
-            }
-            if (!Directory.Exists(PathDatiModelli) ||
+            if (!Directory.Exists(PathDatiCondivisi) ||
                 Utente.Accesso != Utente.RuoloUtente.ModificheAiModelli)
             {
-                Directory.CreateDirectory(PathDatiModelli);
+                Directory.CreateDirectory(PathDatiCondivisi);
             }
         }
         private static void CreaFileSeNonEsiste(string nomeFile)
@@ -70,7 +62,7 @@ namespace Banchi
         {
             List<Aula> listaAule = new List<Aula>();
             // lettura di tutte le righe del file 
-            string[] righeLette = File.ReadAllLines(FileAule);
+            string[] righeLette = File.ReadAllLines(FileAuleCondiviso);
             string[] split;
             int nRiga = 2; // salto le prime due righe, che sono di descrizione 
             split = righeLette[nRiga].Split("\t");
@@ -112,12 +104,12 @@ namespace Banchi
                 arraySupporto[i + 1] = listaAule[i].NomeAula.ToString() + "\t" +
                     listaAule[i].BaseInCentimetri.ToString() + "\t" + listaAule[i].AltezzaInCentimetri.ToString();
             }
-            File.WriteAllLines(FileAule, arraySupporto);
+            File.WriteAllLines(FileAuleCondiviso, arraySupporto);
         }
         public static List<Classe> LeggiTutteLeClassi()
         {
             List<Classe> listaClassi = new List<Classe>();
-            string[] stringheLette = File.ReadAllLines(FileClassi);
+            string[] stringheLette = File.ReadAllLines(FileClassiCondiviso);
             string[] split = new string[2];
             for (int i = 1; i < stringheLette.Length; i++)
             {
@@ -135,12 +127,12 @@ namespace Banchi
             {
                 arraySupporto[i] = listaClassi[i].CodiceClasse.ToString() + "\t" + listaClassi[i].AnnoScolastico.ToString();
             }
-            File.AppendAllLines(FileClassi, arraySupporto);
+            File.AppendAllLines(FileClassiCondiviso, arraySupporto);
         }
         public static List<Studente> LeggiTuttiGliStudenti()
         {
             List<Studente> listaStudenti = new List<Studente>();
-            string[] stringheLette = File.ReadAllLines(FileStudenti);
+            string[] stringheLette = File.ReadAllLines(FileStudentiCondiviso);
             string[] split = new string[3];
             for (int i = 1; i < stringheLette.Length; i++)
             {
@@ -158,14 +150,14 @@ namespace Banchi
             {
                 arraySupporto[i] = listaStudenti[i].Nome.ToString() + "\t" + listaStudenti[i].Cognome.ToString() + "\t" + listaStudenti[i].CodiceClasse.ToString();
             }
-            File.AppendAllLines(FileStudenti, arraySupporto);
+            File.AppendAllLines(FileStudentiCondiviso, arraySupporto);
         }
         public static List<Studente> LeggiStudentiClasse(Classe classe)
         {
             // legge dal file Studenti.tsv tutti gli studenti della classe passata come parametro
             // e li mette nella lista che è inclusa dentro il tipo Classe
             List<Studente> listaStudenti = new List<Studente>();
-            string[] stringheLette = File.ReadAllLines(FileStudenti);
+            string[] stringheLette = File.ReadAllLines(FileStudentiCondiviso);
             for (int i = 1; i < stringheLette.Length; i++)
             {
                 string[] split = stringheLette[i].Split("\t");
@@ -185,7 +177,7 @@ namespace Banchi
             // ordina la lista per NomeDispositivo
             listaComputer.Sort((x, y) => x.NomeDispositivo.CompareTo(y.NomeDispositivo));
             // prima riga di intestazione
-            arraySupporto[0] = "NomeDispositivo\tMarca\tModello\tProcessore\tSistema\tIndirizzo IP\tStato\tNote\r\n"; 
+            arraySupporto[0] = "NomeDispositivo\tMarca\tModello\tProcessore\tSistema\tIndirizzo IP\tStato\tNote\r\n";
             for (int i = 0; i < listaComputer.Count; i++)
             {
                 arraySupporto[i + 1] = listaComputer[i].NomeDispositivo.ToString()
@@ -195,14 +187,14 @@ namespace Banchi
                     + "\t" + listaComputer[i].TipoSistema.ToString()
                     + "\t" + listaComputer[i].IndirizzoIPComputer.ToString()
                     + "\t" + (int)listaComputer[i].Stato
-                    + "\t" + listaComputer[i].NoteComputer.ToString(); 
+                    + "\t" + listaComputer[i].NoteComputer.ToString();
             }
-            File.WriteAllLines(FileComputer, arraySupporto);
+            File.WriteAllLines(FileComputerCondiviso, arraySupporto);
         }
         public static List<Computer> LeggiTuttiComputer()
         {
             List<Computer> listaComputer = new List<Computer>();
-            string[] stringheLette = File.ReadAllLines(FileComputer);
+            string[] stringheLette = File.ReadAllLines(FileComputerCondiviso);
             string[] split = new string[6];
             for (int i = 1; i < stringheLette.Length; i++)
             {
@@ -210,7 +202,7 @@ namespace Banchi
                 if (split.Length > 1)
                 {
                     Computer c = new Computer(split[0], split[1], split[2], split[3], split[4],
-                        split[5], (Computer.StatoComputer)Convert.ToInt32(split[6]),
+                        split[5], (Computer.cmbStatoComputer)Convert.ToInt32(split[6]),
                         split[7]);
                     listaComputer.Add(c);
                 }
@@ -246,12 +238,12 @@ namespace Banchi
                     + "\t" + listaBanchi[i].PosizioneXInCentimetri.ToString()
                     + "\t" + listaBanchi[i].PosizioneYInCentimetri.ToString();
             }
-            File.AppendAllLines(FileBanchi, arraySupporto);
+            File.AppendAllLines(FileBanchiCondiviso, arraySupporto);
         }
         public static List<Banco> LeggiTuttiBanchi()
         {
             List<Banco> listaBanchi = new List<Banco>();
-            string[] stringheLette = File.ReadAllLines(FileBanchi);
+            string[] stringheLette = File.ReadAllLines(FileBanchiCondiviso);
             for (int i = 1; i < stringheLette.Length; i++)
             {
                 string[] split = stringheLette[i].Split("\t");
@@ -376,7 +368,7 @@ namespace Banchi
             List<Computer> listaTutti = LeggiTuttiComputer();
             foreach (Computer c in lista)
             {
-                Computer trovato = CercaComputer(c.NomeDispositivo, listaTutti); 
+                Computer trovato = CercaComputer(c.NomeDispositivo, listaTutti);
                 if (trovato == null)
                 {
                     // aggiungo il computer alla lista, perchè non c'era
