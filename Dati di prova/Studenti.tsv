@@ -1,4 +1,4 @@
-CodiceStudente	Cognome e Nome	CodiceClasse
+CodiceStudente	Cognome	Nome	CodiceClasse
 1	BARBOZZI	ANDREA	3N
 2	BECCANTI	FRANCESCO	3N
 3	BELLAVISTA	RICCARDO	3N
@@ -17,3 +17,7 @@ CodiceStudente	Cognome e Nome	CodiceClasse
 16	SHALA	ALBIN	3N
 17	ZAMAGNI	EDOARDO	3N
 18	Paolino	Paperino	1P
+19	Qui	Paperino	1P
+20	Quo	Paperino	1P
+21	Qua	Paperino	1P
+22	Paperone	Paperino	1P

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Banchi
 {
@@ -152,22 +153,38 @@ namespace Banchi
             tb.TextAlignment = TextAlignment.Center;
             tb.TextWrapping = TextWrapping.WrapWithOverflow;
             string testo;
-            if (Computer != null && Computer.NomeDispositivo != null)
-                testo = Computer.NomeDispositivo;
+            // nome del computer
+            if (Computer == null)
+                testo = TroncaStringa(null); 
             else
-                testo = "---";
-            testo += "\n-----\n";
-            if (Studente != null && Studente.Cognome != null)
-                testo += Studente.Cognome;
+                testo = TroncaStringa(Computer.NomeDispositivo); 
+            // riga in mezzo
+            // (commentare o meno la prossima istruzione se si vuole mettere la riga in mezzo)
+            //testo += "\n-----";
+            testo += "\n";
+            // cognome dello studente
+            if (Studente == null)
+                testo += TroncaStringa(null);
             else
-                testo += "---";
-            if (Studente != null && Studente.Nome != null)
-                testo += "\n" + Studente.Nome;
+                testo += TroncaStringa(Studente.Cognome);
+            testo += "\n";
+            // nome dello studente
+            if (Studente == null)
+                testo += TroncaStringa(null);
             else
-                testo += "\n---";
+                testo += TroncaStringa(Studente.Nome);
+            // aggiunge il testo alla label
             tb.Inlines.Add(testo);
-
             viewBoxLabel.Child = tb;
+        }
+        private string TroncaStringa(string stringa)
+        {
+            if (stringa == null)
+                stringa = "---";
+            if (stringa.Length > 10)
+                return stringa.Substring(0, 9) + ".";
+            else
+                return stringa;
         }
     }
 }

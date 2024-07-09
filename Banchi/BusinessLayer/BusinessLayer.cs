@@ -1,5 +1,8 @@
 ﻿using Banchi.Classi;
+using System.Collections;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Controls;
 
 namespace Banchi
 {
@@ -61,7 +64,7 @@ namespace Banchi
         }
         public static List<Studente> LeggiStudentiClasse(Classe classe)
         {
-            return DataLayer.LeggiStudentiClasse(classe);
+            return DataLayer.LeggiStudentiDiUnaClasse(classe);
         }
         public static void ScriviTutteLeAule(List<Aula> listaAule)
         {
@@ -177,14 +180,14 @@ namespace Banchi
             {
                 for (int i = 0; i < listaStudenti.Count() - 1; i++)
                 {
-                    double votoSort = listaStudenti[i].Voto;
+                    double votoSort = listaStudenti[i].Media;
                     int indiceVotoSort = i;
 
                     for (int j = i; j < listaStudenti.Count(); j++)
                     {
-                        if (listaStudenti[j].Voto > votoSort)
+                        if (listaStudenti[j].Media > votoSort)
                         {
-                            votoSort = listaStudenti[j].Voto;
+                            votoSort = listaStudenti[j].Media;
                             indiceVotoSort = j;
                         }
                     }

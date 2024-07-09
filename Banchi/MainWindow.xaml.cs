@@ -1,4 +1,5 @@
 ﻿using Banchi.Classi;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,10 @@ namespace Banchi
     /// </summary>
     public partial class MainWindow : Window
     {
+        // il sorgente aggiornato del programma Banchi è su GitHub a: 
+        // https://github.com/gamondue/Banchi
+        // Banchi è Free Software con licenza GPL
+
         private Aula aulaCorrente; // aula selezionata nella ListBox o impostata manualmente
         private Banco bancoCorrente; // banco selezionato nella ListBoxo o impostato manualmente
         private Classe classeCorrente; // classe selezionata nella ListBox o impostata manualmente
@@ -43,6 +48,11 @@ namespace Banchi
             InitializeComponent();
             BusinessLayer.Inizializzazioni();
 
+            if (Utente.Accesso != Utente.RuoloUtente.ModificheAiModelli)
+            {
+                btn_Salva.Visibility = Visibility.Hidden;
+            }
+
             // legge tutte le aule dal "database" e le mette in una lista
             listaAuleUtente = BusinessLayer.LeggiTutteLeAuleUtente();
             // riempimento del ComboBox con le aule appena lette
@@ -53,6 +63,7 @@ namespace Banchi
                     // devo implementare il metodo ToString() dentro listaAuleUtente classe Aule
                     cmbAuleUtente.Items.Add(a);
                 }
+
             listaClassiUtente = BusinessLayer.LeggiTutteLeClassiUtente();
             if (listaAuleUtente != null)
                 foreach (Classe a in listaClassiUtente)
@@ -85,6 +96,7 @@ namespace Banchi
             }
             //cmbModelliClasse.SelectedIndex = 1;
             //cmbModelliClasse.SelectedItem = cmbClasseUtente.Items[1];
+
             listaAuleEClassi = BusinessLayer.LeggiTutteLeAuleEClassi();
             // riempimento del ComboBox con le aule appena lette
             foreach (Aula a in listaAuleEClassi)
@@ -121,12 +133,16 @@ namespace Banchi
         }
         private void riempiListBoxComputer(List<Computer> lista)
         {
-            lstComputer.Items.Clear();
+            lstComputer.Items.Clear(); 
             // riempimento del listbox con i computer che stanno in listaCorrenteComputer
             foreach (Computer c in lista)
             {
                 lstComputer.Items.Add(c);
             };
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // evento che viene lanciato alla fine del caricamento della finestra 
         }
         internal void ClickSuCartiglio(object sender, MouseButtonEventArgs e)
         {
@@ -167,14 +183,14 @@ namespace Banchi
         }
         private void MenuAula_Click(object sender, RoutedEventArgs e)
         {
-            ApriFinestraAula();
+            ApriFinestraAula(null);
         }
         private void MenuAbout_Click(object sender, RoutedEventArgs e)
         {
             AboutWindow wnd = new AboutWindow();
             wnd.Show();
         }
-        private void MenuHelp1_Click(object sender, RoutedEventArgs e)
+        private void MenuHelp_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -202,9 +218,10 @@ namespace Banchi
             });
 
         }
-        private void btn_Banchi_Click(object sender, RoutedEventArgs e)
+        private void MenuConfigurazione_Click(object sender, RoutedEventArgs e)
         {
-            ApriFinestraBanchi();
+            ConfigurazioniWindow wnd = new ConfigurazioniWindow();
+            wnd.Show();
         }
         private void ApriFinestraBanchi()
         {
@@ -217,11 +234,19 @@ namespace Banchi
             BanchiWindow wnd = new BanchiWindow((Aula)cmbModelliAule.SelectedItem);
             wnd.Show();
         }
-        private void btn_Aula_Click(object sender, RoutedEventArgs e)
+        private void ApriFinestraClasse(Classe classe)
         {
-            ApriFinestraAula();
+            //if (cmbModelliAule.SelectedItem == null)
+            //{
+            //    MessageBox.Show("Selezionare un'aula fra i dati condivisi", "Errore",
+            //        MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return;
+            //}
+            // se non c'è nulla di selezionato, la finestra aperta dovrà creare una nuova classe 
+            ClasseWindow wnd = new ClasseWindow(classe);
+            wnd.Show();
         }
-        private void ApriFinestraAula()
+        private void ApriFinestraAula(Aula aula)
         {
             //if (cmbModelliAule.SelectedItem == null)
             //{
@@ -232,7 +257,7 @@ namespace Banchi
             AulaWindow wnd = new AulaWindow(aulaCorrente);
             wnd.Show();
         }
-        private void btn_SalvataggioAulaClasse_Click(object sender, RoutedEventArgs e)
+        private void btn_SalvataggioCondivisi_Click(object sender, RoutedEventArgs e)
         {
             if (classeCorrente == null || aulaCorrente == null)
             {
@@ -241,6 +266,10 @@ namespace Banchi
                 return;
             }
             BusinessLayer.ScriviAulaEClasse(aulaCorrente, classeCorrente);
+        }
+        private void btn_Banchi_Click(object sender, RoutedEventArgs e)
+        {
+            ApriFinestraBanchi();
         }
         private void cmbModelliClasse_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -311,9 +340,9 @@ namespace Banchi
         }
         private void btn_Computer_Click(object sender, RoutedEventArgs e)
         {
-            ApriFinestraComputer();
+            ApriFinestraComputer((Aula)cmbModelliAule.SelectedItem, (Computer)lstComputer.SelectedItem);
         }
-        private void ApriFinestraComputer()
+        private void ApriFinestraComputer(Aula aula, Computer computer)
         {
             //if (cmbModelliAule.SelectedItem == null)
             //{
@@ -321,30 +350,31 @@ namespace Banchi
             //        MessageBoxButton.OK, MessageBoxImage.Error);
             //    return;
             //}
-            Computer computer;
-            computer = (Computer)lstComputer.SelectedItem;
+
+            //Computer computer;
+            //computer = (Computer)lstComputer.SelectedItem;
 
             MessageBoxButton bottone = MessageBoxButton.YesNo;
             MessageBoxResult result;
-            ComputerWindow wnd = new ComputerWindow((Aula)cmbModelliAule.SelectedItem, (Computer)lstComputer.SelectedItem);
+            ComputerWindow wnd = new ComputerWindow(aula, computer);
+            wnd.Show();
+
             string messageboxtext = "Non hai selezionato un computer, vuoi crearne uno nuovo?";
             string messageboxcaption = "errore";
 
             MessageBoxImage messageBoxImage = MessageBoxImage.Question;
-
-            if (computer == null)
-            {
-                result = MessageBox.Show(messageboxtext, messageboxcaption, bottone, messageBoxImage, MessageBoxResult.No);
-                if (result == MessageBoxResult.Yes)
-                {
-                    wnd.Show();
-                }
-            }
-
-            if (computer != null)
-            {
-                wnd.Show();
-            }
+            //if (computer == null)
+            //{
+            //    result = MessageBox.Show(messageboxtext, messageboxcaption, bottone, messageBoxImage, MessageBoxResult.No);
+            //    if (result == MessageBoxResult.Yes)
+            //    {
+            //        wnd.Show();
+            //    }
+            //}
+            //if (computer != null)
+            //{
+                //wnd.Show();
+            //}
         }
         private void btn_Classe_Click(object sender, RoutedEventArgs e)
         {
@@ -439,23 +469,23 @@ namespace Banchi
             if (listaDistribuzioneBanco != null && aulaCorrente != null)
             {
                 ////queste righe commentate servono a vedere se l'ordinamento voti funziona
-                //listaDistribuzioneBanco[0].Voto = 0.0;
-                //listaDistribuzioneBanco[1].Voto = 1.0;
-                //listaDistribuzioneBanco[2].Voto = 2.0;
-                //listaDistribuzioneBanco[3].Voto = 3.0;
-                //listaDistribuzioneBanco[4].Voto = 4.0;
-                //listaDistribuzioneBanco[5].Voto = 5.0;
-                //listaDistribuzioneBanco[6].Voto = 6.0;
-                //listaDistribuzioneBanco[7].Voto = 7.0;
-                //listaDistribuzioneBanco[8].Voto = 8.0;
-                //listaDistribuzioneBanco[9].Voto = 9.0;
-                //listaDistribuzioneBanco[10].Voto = 10.0;
-                //listaDistribuzioneBanco[11].Voto = 11.0;
-                //listaDistribuzioneBanco[12].Voto = 12.0;
-                //listaDistribuzioneBanco[13].Voto = 13.0;
-                //listaDistribuzioneBanco[14].Voto = 14.0;
-                //listaDistribuzioneBanco[15].Voto = 15.0;
-                //listaDistribuzioneBanco[16].Voto = 16.0;
+                //listaDistribuzioneBanco[0].Media = 0.0;
+                //listaDistribuzioneBanco[1].Media = 1.0;
+                //listaDistribuzioneBanco[2].Media = 2.0;
+                //listaDistribuzioneBanco[3].Media = 3.0;
+                //listaDistribuzioneBanco[4].Media = 4.0;
+                //listaDistribuzioneBanco[5].Media = 5.0;
+                //listaDistribuzioneBanco[6].Media = 6.0;
+                //listaDistribuzioneBanco[7].Media = 7.0;
+                //listaDistribuzioneBanco[8].Media = 8.0;
+                //listaDistribuzioneBanco[9].Media = 9.0;
+                //listaDistribuzioneBanco[10].Media = 10.0;
+                //listaDistribuzioneBanco[11].Media = 11.0;
+                //listaDistribuzioneBanco[12].Media = 12.0;
+                //listaDistribuzioneBanco[13].Media = 13.0;
+                //listaDistribuzioneBanco[14].Media = 14.0;
+                //listaDistribuzioneBanco[15].Media = 15.0;
+                //listaDistribuzioneBanco[16].Media = 16.0;
 
                 if (rdbCasuale.IsChecked == true)
                     listaDistribuzioneBanco = BusinessLayer.OrdinamentoCasualeListaStudenti(listaDistribuzioneBanco);
@@ -484,7 +514,7 @@ namespace Banchi
         private void txtFiltroComputer_TextChanged(object sender, TextChangedEventArgs e)
         {
             List<Computer> listaFiltrati = BusinessLayer.ComputerFiltrati(txtFiltroComputer.Text, listaComputer);
-            riempiListBoxComputer(listaFiltrati);
+            riempiListBoxComputer(listaFiltrati); 
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -592,6 +622,28 @@ namespace Banchi
                 AreaDisegno.Arrange(new Rect(s));
                 printDlg.PrintVisual(AreaDisegno, "Stampa Aule e Banchi");
             }
+        }
+        private void MenuEsci_Click(object sender, RoutedEventArgs e)
+        {
+            // Chiude l'applicazione
+            Application.Current.Shutdown();
+        }
+        private void MenuImportExport_Click(object sender, RoutedEventArgs e)
+        {
+            ImportExportWindow wnd = new ImportExportWindow();
+            wnd.Show();
+        }
+        private void MenuNuovaAula_Click(object sender, RoutedEventArgs e)
+        {
+            ApriFinestraAula(null);
+        }
+        private void MenuNuovaClasse_Click(object sender, RoutedEventArgs e)
+        {
+            ApriFinestraClasse(null); 
+        }
+        private void MenuNuovoComputer_Click(object sender, RoutedEventArgs e)
+        {
+            ApriFinestraComputer(null, null);
         }
     }
 }
