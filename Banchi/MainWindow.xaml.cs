@@ -1,10 +1,8 @@
 ﻿using Banchi.Classi;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using Label = System.Windows.Controls.Label;
 
 namespace Banchi
@@ -25,7 +23,7 @@ namespace Banchi
         private Computer computerCorrente; // computer selezionato nella ListBox o impostato manualmente
 
         bool isDragging = false;
-        private Point startPosition;
+        private System.Windows.Point startPosition;
 
         //private Studente studenteCorrente;
 
@@ -33,8 +31,8 @@ namespace Banchi
 
         List<Aula> listaAuleUtente;
         List<Classe> listaClassiUtente;
-        List<Aula> listaAuleModello;
-        List<Classe> listaClassiModello;
+        List<Aula> listaAuleCondivise;
+        List<Classe> listaClassiCondivise;
         List<Computer> listaComputer;
         List<Aula> listaAuleEClassi;
         List<Studente> listaDistribuzioneBanco;
@@ -42,6 +40,8 @@ namespace Banchi
         bool cartiglioIsCheckedMainWindow = false;
         private Cartiglio cartiglio;
         private Label graficaCartiglio;
+        //private RosaDeiVenti rosaDeiVenti;
+        private Image graficaRosaDeiVenti;
 
         public MainWindow()
         {
@@ -50,9 +50,8 @@ namespace Banchi
 
             if (Utente.Accesso != Utente.RuoloUtente.ModificheAiModelli)
             {
-                btn_Salva.Visibility = Visibility.Hidden;
+                btn_SalvataggioAulaClasseCondivise.Visibility = Visibility.Hidden;
             }
-
             // legge tutte le aule dal "database" e le mette in una lista
             listaAuleUtente = BusinessLayer.LeggiTutteLeAuleUtente();
             // riempimento del ComboBox con le aule appena lette
@@ -63,7 +62,6 @@ namespace Banchi
                     // devo implementare il metodo ToString() dentro listaAuleUtente classe Aule
                     cmbAuleUtente.Items.Add(a);
                 }
-
             listaClassiUtente = BusinessLayer.LeggiTutteLeClassiUtente();
             if (listaAuleUtente != null)
                 foreach (Classe a in listaClassiUtente)
@@ -71,9 +69,9 @@ namespace Banchi
                     cmbClasseUtente.Items.Add(a);
                 }
             // riempio i combobox dei modelli
-            listaAuleModello = BusinessLayer.LeggiTutteLeAule();
+            listaAuleCondivise = BusinessLayer.LeggiTutteLeAule();
             // riempimento del ComboBox con le aule appena lette
-            foreach (Aula a in listaAuleModello)
+            foreach (Aula a in listaAuleCondivise)
             {
                 // un combo può contenere oggetti di qualsiasi tipo, però per vederci qualcosa dentro
                 // devo implementare il metodo ToString() dentro listaAuleUtente classe Aule
@@ -86,9 +84,9 @@ namespace Banchi
             //string aulaSelezionata = ((Aula)cmbAule.SelectedItem).NomeAula;
             // recupera l'altezza dell'aula selezionata
             //double altezzaAula = ((Aula)cmbAule.SelectedItem).AltezzaInCentimetri;
-            listaClassiModello = BusinessLayer.LeggiTutteLeClassi();
+            listaClassiCondivise = BusinessLayer.LeggiTutteLeClassi();
             // riempimento del ComboBox con le aule appena lette
-            foreach (Classe c in listaClassiModello)
+            foreach (Classe c in listaClassiCondivise)
             {
                 // un combo può contenere oggetti di qualsiasi tipo, però per vederci qualcosa dentro
                 // devo implementare il metodo ToString() dentro listaAuleUtente classe Aule
@@ -126,23 +124,19 @@ namespace Banchi
                 btn_SalvataggioAulaClasseCondivise.Visibility = Visibility.Hidden;
                 if (Utente.Accesso != Utente.RuoloUtente.SolaLettura)
                 {
-                    // se è sola lettura cancella il salvataggio dei dati personali
+                    // se è sola lettura cancella anche il salvataggio dei dati personali
                     btn_SalvataggioUtente.Visibility = Visibility.Hidden;
                 }
             }
         }
         private void riempiListBoxComputer(List<Computer> lista)
         {
-            lstComputer.Items.Clear(); 
+            lstComputer.Items.Clear();
             // riempimento del listbox con i computer che stanno in listaCorrenteComputer
             foreach (Computer c in lista)
             {
                 lstComputer.Items.Add(c);
             };
-        }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            // evento che viene lanciato alla fine del caricamento della finestra 
         }
         internal void ClickSuCartiglio(object sender, MouseButtonEventArgs e)
         {
@@ -160,7 +154,7 @@ namespace Banchi
             Label label = (Label)sender;
             if (isDragging)
             {
-                Point currentPosition = e.GetPosition((IInputElement)this);
+                System.Windows.Point currentPosition = e.GetPosition((IInputElement)this);
                 double offsetX = currentPosition.X - startPosition.X;
                 double offsetY = currentPosition.Y - startPosition.Y;
 
@@ -234,17 +228,9 @@ namespace Banchi
             BanchiWindow wnd = new BanchiWindow((Aula)cmbModelliAule.SelectedItem);
             wnd.Show();
         }
-        private void ApriFinestraClasse(Classe classe)
+        private void btn_Aula_Click(object sender, RoutedEventArgs e)
         {
-            //if (cmbModelliAule.SelectedItem == null)
-            //{
-            //    MessageBox.Show("Selezionare un'aula fra i dati condivisi", "Errore",
-            //        MessageBoxButton.OK, MessageBoxImage.Error);
-            //    return;
-            //}
-            // se non c'è nulla di selezionato, la finestra aperta dovrà creare una nuova classe 
-            ClasseWindow wnd = new ClasseWindow(classe);
-            wnd.Show();
+            ApriFinestraAula(aulaCorrente);
         }
         private void ApriFinestraAula(Aula aula)
         {
@@ -257,7 +243,7 @@ namespace Banchi
             AulaWindow wnd = new AulaWindow(aulaCorrente);
             wnd.Show();
         }
-        private void btn_SalvataggioCondivisi_Click(object sender, RoutedEventArgs e)
+        private void btn_SalvataggioAulaClasse_Click(object sender, RoutedEventArgs e)
         {
             if (classeCorrente == null || aulaCorrente == null)
             {
@@ -277,7 +263,7 @@ namespace Banchi
             {
                 if (cmbModelliClasse.SelectedItem != null)
                 {
-                    List<Studente> listaStudenti = BusinessLayer.LeggiStudentiClasse((Classe)cmbModelliClasse.SelectedItem);
+                    List<Studente> listaStudenti = BusinessLayer.LeggiStudentiDiUnaClasse((Classe)cmbModelliClasse.SelectedItem);
                     lstStudenti.ItemsSource = listaStudenti;
                     listaDistribuzioneBanco = listaStudenti;
                 }
@@ -295,7 +281,9 @@ namespace Banchi
             if (cmbModelliAule.SelectedItem != null)
             {
                 aulaCorrente = ((Aula)cmbModelliAule.SelectedItem);
+                // creazione dei muri dell'aula, dei banchi e della rosa dei venti
                 CreaAulaGrafica(aulaCorrente);
+                // aggiunta della rosa dei venti al Canvas
                 aulaCorrente.MettiInScalaAulaEBanchi();
             }
         }
@@ -304,9 +292,17 @@ namespace Banchi
             Label GraficaAula = new Label();
             AreaDisegno.Children.Add(GraficaAula);
             if (aula == null)
-                aula = new Aula("prova", 8000, 12000, GraficaAula);
+                aula = new Aula("prova", 8000, 12000, 60, null, null, GraficaAula);
             else
                 aula.GraficaAula = GraficaAula;
+            // se abbiamo un valore per la direzione del nord,
+            // creiamo la grafica della rosa dei venti
+            if (aula.DirezioneNord != null)
+            {
+                graficaRosaDeiVenti = new Image();
+                AreaDisegno.Children.Add(graficaRosaDeiVenti);
+                aula.RosaDeiVenti = new RosaDeiVenti((double)aula.DirezioneNord, graficaRosaDeiVenti);
+            }
             // creazione di tutti i nuovi banchi grafici
             foreach (Banco b in aula.Banchi)
             {
@@ -316,6 +312,11 @@ namespace Banchi
                 b.GraficaBanco = GraficaBanco;
                 AreaDisegno.Children.Add(GraficaBanco);
                 b.AggiungiTestoAGrafica();
+                if (b.IsCattedra && aula.RosaDeiVentiX == null && aula.RosaDeiVentiY == null)
+                {
+                    aula.RosaDeiVenti.PosizioneXInCentimetri = b.PosizioneXInCentimetri + 200;
+                    aula.RosaDeiVenti.PosizioneYInCentimetri = b.PosizioneYInCentimetri + 50;
+                }
             }
         }
         private void chkStudenti_Checked(object sender, RoutedEventArgs e)
@@ -373,14 +374,14 @@ namespace Banchi
             //}
             //if (computer != null)
             //{
-                //wnd.Show();
+            //wnd.Show();
             //}
         }
         private void btn_Classe_Click(object sender, RoutedEventArgs e)
         {
-            ApriFinestraClasse();
+            ApriFinestraClasse((Classe)cmbModelliClasse.SelectedItem);
         }
-        private void ApriFinestraClasse()
+        private void ApriFinestraClasse(Classe classe)
         {
             //if (cmbModelliAule.SelectedItem == null)
             //{
@@ -389,7 +390,7 @@ namespace Banchi
             //    return;
             //}
             // se non c'è nulla di selezionato, la finestra aperta dovrà creare una nuova classe 
-            ClasseWindow wnd = new ClasseWindow((Classe)cmbModelliClasse.SelectedItem);
+            ClasseWindow wnd = new ClasseWindow(classe);
             wnd.Show();
         }
         private void btn_AssociaStudente_Click(object sender, RoutedEventArgs e)
@@ -398,7 +399,7 @@ namespace Banchi
             {
                 bancoCorrente.Studente = (Studente)lstStudenti.SelectedItem;
                 bancoCorrente.AggiungiTestoAGrafica();
-                bancoCorrente.GraficaBanco.BorderBrush = Brushes.LightCoral;
+                bancoCorrente.GraficaBanco.BorderBrush = System.Windows.Media.Brushes.LightCoral;
             }
         }
         private void btn_AssociaComputer_Click(object sender, RoutedEventArgs e)
@@ -407,7 +408,7 @@ namespace Banchi
             {
                 bancoCorrente.Computer = (Computer)lstComputer.SelectedItem;
                 bancoCorrente.AggiungiTestoAGrafica();
-                bancoCorrente.GraficaBanco.BorderBrush = Brushes.LightCoral;
+                bancoCorrente.GraficaBanco.BorderBrush = System.Windows.Media.Brushes.LightCoral;
             }
         }
         private void ClickSuBanco(object sender, RoutedEventArgs e)
@@ -421,7 +422,7 @@ namespace Banchi
                 if (b.GraficaBanco == labelSelezionata)
                 {
                     bancoCorrente = b;
-                    labelSelezionata.BorderBrush = Brushes.Red;
+                    labelSelezionata.BorderBrush = System.Windows.Media.Brushes.Red;
                     if (b.Studente != null)
                     {
                         studenteCorrente = b.Studente;
@@ -443,7 +444,7 @@ namespace Banchi
                 }
                 else
                 {
-                    b.GraficaBanco.BorderBrush = Brushes.Black;
+                    b.GraficaBanco.BorderBrush = System.Windows.Media.Brushes.Black;
                 }
             }
         }
@@ -514,7 +515,7 @@ namespace Banchi
         private void txtFiltroComputer_TextChanged(object sender, TextChangedEventArgs e)
         {
             List<Computer> listaFiltrati = BusinessLayer.ComputerFiltrati(txtFiltroComputer.Text, listaComputer);
-            riempiListBoxComputer(listaFiltrati); 
+            riempiListBoxComputer(listaFiltrati);
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -616,8 +617,8 @@ namespace Banchi
             PrintDialog printDlg = new PrintDialog();
             if (printDlg.ShowDialog() == true)
             {
-                Size pageSize = new Size(printDlg.PrintableAreaWidth, printDlg.PrintableAreaHeight);
-                Size s = new Size(aulaCorrente.BaseInCentimetri * aulaCorrente.FattoreDiScala,
+                System.Windows.Size pageSize = new System.Windows.Size(printDlg.PrintableAreaWidth, printDlg.PrintableAreaHeight);
+                System.Windows.Size s = new System.Windows.Size(aulaCorrente.BaseInCentimetri * aulaCorrente.FattoreDiScala,
                     aulaCorrente.AltezzaInCentimetri * aulaCorrente.FattoreDiScala);
                 AreaDisegno.Arrange(new Rect(s));
                 printDlg.PrintVisual(AreaDisegno, "Stampa Aule e Banchi");
@@ -639,7 +640,7 @@ namespace Banchi
         }
         private void MenuNuovaClasse_Click(object sender, RoutedEventArgs e)
         {
-            ApriFinestraClasse(null); 
+            ApriFinestraClasse(null);
         }
         private void MenuNuovoComputer_Click(object sender, RoutedEventArgs e)
         {

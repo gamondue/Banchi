@@ -33,6 +33,7 @@
     <None Remove="Immagini\logoIstituto.jpg" />
     <None Remove="Immagini\logoProgramma.ico" />
     <None Remove="Immagini\logoProgramma.jpg" />
+    <None Remove="Immagini\RosaDeiVenti.png" />
     <None Remove="Immagini\RosaDeiVenti.svg" />
   </ItemGroup>
 
@@ -47,7 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="4.6.0" />
+    <PackageReference Include="MailKit" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +63,7 @@
     <Resource Include="Immagini\logoIstituto.jpg" />
     <Resource Include="Immagini\logoProgramma.ico" />
     <Resource Include="Immagini\logoProgramma.jpg" />
+    <Resource Include="Immagini\RosaDeiVenti.png" />
     <Resource Include="Immagini\RosaDeiVenti.svg" />
   </ItemGroup>
 </Project>

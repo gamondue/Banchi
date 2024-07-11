@@ -1,8 +1,5 @@
 ﻿using Banchi.Classi;
-using System.Collections;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows.Controls;
 
 namespace Banchi
 {
@@ -62,7 +59,7 @@ namespace Banchi
         {
             return DataLayer.LeggiTuttiGliStudenti();
         }
-        public static List<Studente> LeggiStudentiClasse(Classe classe)
+        public static List<Studente> LeggiStudentiDiUnaClasse(Classe classe)
         {
             return DataLayer.LeggiStudentiDiUnaClasse(classe);
         }
@@ -204,7 +201,7 @@ namespace Banchi
         }
         internal static List<Aula> LeggiTutteLeAuleEClassi()
         {
-            return DataLayer.LeggiTutteLeAuleEClassi();
+            return DataLayer.LeggiTutteLeAuleEClassiCondivise();
         }
         internal static List<Computer> GeneraComputers(string SchemaPerGenerazioneNome,
             Computer DatiComputer, int NumeroIniziale, int NumeroFinale)

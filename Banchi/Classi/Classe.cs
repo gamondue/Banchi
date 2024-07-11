@@ -11,7 +11,7 @@
             this.CodiceClasse = CodiceClasse;
             this.AnnoScolastico = AnnoScolastico;
             // lettura della lista degli studenti
-            Studenti = BusinessLayer.LeggiStudentiClasse(this);
+            Studenti = BusinessLayer.LeggiStudentiDiUnaClasse(this);
         }
         public override string ToString()
         {

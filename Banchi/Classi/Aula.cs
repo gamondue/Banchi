@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-
 namespace Banchi
 {
     public class Aula
@@ -31,8 +30,31 @@ namespace Banchi
                 }
             }
         }
+        private RosaDeiVenti rosaDeiVenti;
+        public RosaDeiVenti RosaDeiVenti
+        {
+            get
+            {
+                return rosaDeiVenti;
+            }
+            set
+            {
+                rosaDeiVenti = value;
+                if (rosaDeiVenti != null)
+                {
+                    rosaDeiVenti.FattoreDiScala = FattoreDiScala;
+                }
+            }
+        }
+        public double? RosaDeiVentiX { get; set; }
+        public double? RosaDeiVentiY { get; set; }
+
         private bool graficaInizializzata = false;
+        private bool rosaDeiVentiInizializzata = false;
         private Label graficaAula;
+        // GraficaAula è la Label che rappresenta l'aula nella finestra WPF
+        // la variabile incapsulata graficaAula viene gestita automaticamente 
+        // quando si cambia la proprietà GraficaAula
         public Label GraficaAula
         {
             get
@@ -48,9 +70,26 @@ namespace Banchi
                 }
             }
         }
-
+        private Image graficaRosaDeiVenti;
+        public Image GraficaRosaDeiVenti
+        {
+            get
+            {
+                return graficaRosaDeiVenti;
+            }
+            set
+            {
+                graficaRosaDeiVenti = value;
+                if (!rosaDeiVentiInizializzata)
+                {
+                    rosaDeiVenti = new RosaDeiVenti((double)DirezioneNord, graficaRosaDeiVenti);
+                    rosaDeiVentiInizializzata = true;
+                }
+            }
+        }
         // fattore di scala moltiplicativo, in [pixel/cm]
         public double FattoreDiScala = 0.1;
+
         // ci serve la lista dei banchi che stanno in questa aula
         public List<Banco> Banchi { get; set; }
         // NON serve la lista dei computer che stanno in questa aula, da esporre come proprietà 
@@ -62,19 +101,29 @@ namespace Banchi
         // angolo del Nord rispetto al lato 1, in gradi
 
         public Aula(string NomeAula, double AltezzaInCentimetri, double BaseInCentimetri,
-            Label GraficaAula = null, int? DirezioneNord = null)
+            double? direzioneNord = null, double? rosaDeiVentiX = null, double? rosaDeiVentiY = null,
+            Label graficaAula = null, Image graficaRosaDeiVenti = null)
         {
             // inizializzazione delle proprietà
             this.AltezzaInCentimetri = AltezzaInCentimetri;
             this.BaseInCentimetri = BaseInCentimetri;
             this.NomeAula = NomeAula;
 
-            if (GraficaAula != null)
+            if (graficaAula != null)
             {
                 InizializzaGraficaAula();
             }
-            if (DirezioneNord != null)
-                this.DirezioneNord = DirezioneNord;
+            if (direzioneNord != null)
+            {
+                this.DirezioneNord = (int)direzioneNord;
+                this.graficaRosaDeiVenti = graficaRosaDeiVenti;
+                RosaDeiVenti = new RosaDeiVenti((double)DirezioneNord, graficaRosaDeiVenti);
+                if (rosaDeiVentiX != null && rosaDeiVentiY != null)
+                {
+                    RosaDeiVentiX = rosaDeiVentiX;
+                    RosaDeiVentiY = rosaDeiVentiY;
+                }
+            }
             Banchi = new List<Banco>();
             Serramenti = new List<Serramento>();
         }
@@ -100,6 +149,8 @@ namespace Banchi
             MettiInScalaBanchi();
             if (cartiglio != null)
                 cartiglio.FattoreDiScala = FattoreDiScala;
+            if (rosaDeiVenti != null)
+                rosaDeiVenti.FattoreDiScala = FattoreDiScala;
         }
         private void MettiInScalaAula()
         {

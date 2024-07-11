@@ -10,7 +10,7 @@ namespace Banchi
     /// </summary>
     public partial class AulaWindow : Window
     {
-        Label grafica = new Label();
+        Label graficaAula = new Label();
         Aula a1;
 
         bool finestra = false;
@@ -31,16 +31,14 @@ namespace Banchi
             // se l'aula passata è nulla, la creo nuova, altrimenti me la tengo 
             if (aula == null)
             {
-                a1 = new Aula("", 930, 1900, grafica);    //max lenghth = 1268,height = 614
-                                                          //altezza*1,465
-                                                          //base*1,34
+                a1 = new Aula("", 930, 1900, 60, null, null, graficaAula);
             }
             else
             {
                 this.a1 = aula;
             }
 
-            canvasC.Children.Add(grafica);
+            canvasC.Children.Add(graficaAula);
 
             FinestrePorte.Visibility = Visibility.Hidden;
             canvasC.Visibility = Visibility.Visible;
@@ -113,11 +111,11 @@ namespace Banchi
         }
         private void txtAltezza_TextChanged(object sender, TextChangedEventArgs e)
         {
-            grafica.Height = Convert.ToDouble(txtAltezza.Text);
+            graficaAula.Height = Convert.ToDouble(txtAltezza.Text);
         }
         private void txtBase_TextChanged(object sender, TextChangedEventArgs e)
         {
-            grafica.Width = Convert.ToDouble(txtBase.Text);
+            graficaAula.Width = Convert.ToDouble(txtBase.Text);
         }
         private void txtDistanzaP_TextChanged(object sender, TextChangedEventArgs e)
         {

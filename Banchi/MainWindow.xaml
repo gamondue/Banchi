@@ -94,7 +94,7 @@
                     <ComboBox x:Name="cmbModelliClasse" Width="60" IsEditable="False" VerticalContentAlignment="Center"
                               SelectionChanged="cmbModelliClasse_SelectionChanged"
                               Style="{StaticResource StileComboBox}"
-                              ToolTip="Elenco di tutte le classi delle scuola"/>
+                              ToolTip="Elenco di tutte le classi della scuola"/>
                     <Label Content="Aule con studenti" VerticalAlignment="Center"/>
                     <ComboBox x:Name="cmbAulaEClasse" Width="100" IsEditable="False" VerticalContentAlignment="Center"
                               SelectionChanged="cmbAulaEClasse_SelectionChanged"
@@ -186,6 +186,10 @@
                         </TextBlock>
                     </Viewbox>
                 </Label>-->
+                <!--<Image x:Name="imgRosaDeiVenti" 
+                       Width="200" Height="200" 
+                       Source="\Immagini\RosaDeiVenti.png" 
+                       Canvas.Left="500"/>-->
             </Canvas>
         </DockPanel>
     </Grid>
