@@ -95,7 +95,7 @@ namespace Banchi
             //cmbModelliClasse.SelectedIndex = 1;
             //cmbModelliClasse.SelectedItem = cmbClasseUtente.Items[1];
 
-            listaAuleEClassi = BusinessLayer.LeggiTutteLeAuleEClassi();
+            listaAuleEClassi = BusinessLayer.LeggiTutteLeAuleConClasse();
             // riempimento del ComboBox con le aule appena lette
             foreach (Aula a in listaAuleEClassi)
             {
@@ -645,6 +645,12 @@ namespace Banchi
         private void MenuNuovoComputer_Click(object sender, RoutedEventArgs e)
         {
             ApriFinestraComputer(null, null);
+        }
+        private void MenuReport_Click(object sender, RoutedEventArgs e)
+        {
+            // spedisce la email aprendo il mailer 
+            Banchi.BusinessLayer.SpeditoreEmail.LancioDelMailerDiDefault("gamon@ingmonti.it", "Prova Oggetto",
+                "Corpo del messaggio solo testuale che sto provando a mandare.");
         }
     }
 }

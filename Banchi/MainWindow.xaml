@@ -36,6 +36,8 @@
             <MenuItem x:Name="MenuHelp" Header="_Help">
                 <MenuItem Header="Help" x:Name="MenuHelp1" Click="MenuHelp_Click"/>
                 <MenuItem Header="About" x:Name="MenuAbout" Click="MenuAbout_Click"/>
+                <MenuItem Header="Segnalazione errori e richiesta di aggiunte" x:Name="MenuReport" 
+                          Click="MenuReport_Click"/>
             </MenuItem>
         </Menu>
         <StackPanel Grid.Row="1" x:Name="BarraBottoni" Orientation="Horizontal">

@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using static Banchi.Computer;
 
 namespace Banchi
@@ -71,12 +70,12 @@ namespace Banchi
             computer.Stato = (cmbStatoComputer)cmbStatoComputer.SelectedItem;
             return computer;
         }
-        private void SegnalazioneWindow_click(object sender, RoutedEventArgs e)
+        private void SegnalazioneComputerWindow_Click(object sender, RoutedEventArgs e)
         {
-            SegnalazioneWindow wnd = new SegnalazioneWindow(computerCorrente);
+            SegnalazioneWindow wnd = new SegnalazioneWindow(FromUiToComputer());
+            wnd.ShowDialog();
             if (result == MessageBoxResult.Yes)
             {
-                wnd.Show();
             }
         }
         private void ModificaComputer_Click(object sender, RoutedEventArgs e)
@@ -99,7 +98,7 @@ namespace Banchi
         private void SalvaButton_Click(object sender, RoutedEventArgs e)
         {
             Computer computerNuovo = FromUiToComputer();
-            BusinessLayer.SalvaComputer(computerNuovo, computerCorrente.NomeDispositivo);
+            BusinessLayer.SalvaUnComputer(computerNuovo, computerCorrente.NomeDispositivo);
             ComputerGrid.ItemsSource = BusinessLayer.LeggiTuttiIComputer();
         }
         private void GestisciLab_Click(object sender, RoutedEventArgs e)
@@ -145,7 +144,7 @@ namespace Banchi
                 return;
             }
             Computer nuovo = FromUiToComputer();
-            BusinessLayer.SalvaComputer(nuovo, nuovo.NomeDispositivo);
+            BusinessLayer.SalvaUnComputer(nuovo, nuovo.NomeDispositivo);
             ComputerGrid.ItemsSource = BusinessLayer.ComputerFiltrati(txtFiltroComputer.Text, listaCorrenteComputer);
         }
         private void lstComputer_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

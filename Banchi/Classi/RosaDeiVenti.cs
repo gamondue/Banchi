@@ -48,25 +48,28 @@ namespace Banchi.Classi
                 // calcolo della posizione in pixel
                 posizioneXInPixel = fattoreDiScala * PosizioneXInCentimetri;
                 posizioneYInPixel = fattoreDiScala * PosizioneYInCentimetri;
-                // impostazione della dimensione della graficaAula della rosa dei venti
-                graficaRosaDeiVenti.Width = fattoreDiScala * BaseInCentimetri;
-                graficaRosaDeiVenti.Height = fattoreDiScala * AltezzaInCentimetri;
-                // impostazione della posizione della graficaAula della rosa dei venti
-                Canvas.SetLeft(graficaRosaDeiVenti, posizioneXInPixel);
-                Canvas.SetTop(graficaRosaDeiVenti, posizioneYInPixel);
+                if (graficaRosaDeiVenti != null)
+                {
+                    // impostazione della dimensione della graficaAula della rosa dei venti
+                    graficaRosaDeiVenti.Width = fattoreDiScala * BaseInCentimetri;
+                    graficaRosaDeiVenti.Height = fattoreDiScala * AltezzaInCentimetri;
+                    // impostazione della posizione della graficaAula della rosa dei venti
+                    Canvas.SetLeft(graficaRosaDeiVenti, posizioneXInPixel);
+                    Canvas.SetTop(graficaRosaDeiVenti, posizioneYInPixel);
 
-                // ruota e scala l'immagine
-                // Crea un TransformGroup per combinare le trasformazioni
-                TransformGroup transformGroup = new TransformGroup();
-                // Aggiungi la trasformazione di rotazione
-                RotateTransform rotateTransform = new RotateTransform(Angolo); // Angolo di rotazione in gradi
-                transformGroup.Children.Add(rotateTransform);
-                // Aggiungi la trasformazione di scalatura
-                // Fattore di scala 1 = non scala (già fatto a mano)
-                ScaleTransform scaleTransform = new ScaleTransform(1, 1);
-                transformGroup.Children.Add(scaleTransform);
-                // Applica le trasformazioni all'immagine
-                graficaRosaDeiVenti.RenderTransform = transformGroup;
+                    // ruota e scala l'immagine
+                    // Crea un TransformGroup per combinare le trasformazioni
+                    TransformGroup transformGroup = new TransformGroup();
+                    // Aggiungi la trasformazione di rotazione
+                    RotateTransform rotateTransform = new RotateTransform(Angolo); // Angolo di rotazione in gradi
+                    transformGroup.Children.Add(rotateTransform);
+                    // Aggiungi la trasformazione di scalatura
+                    // Fattore di scala 1 = non scala (già fatto a mano)
+                    ScaleTransform scaleTransform = new ScaleTransform(1, 1);
+                    transformGroup.Children.Add(scaleTransform);
+                    // Applica le trasformazioni all'immagine
+                    graficaRosaDeiVenti.RenderTransform = transformGroup;
+                }
             }
         }
     }

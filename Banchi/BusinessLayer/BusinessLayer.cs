@@ -90,7 +90,7 @@ namespace Banchi
         {
             return DataLayer.LeggiTutteLeClassiUtente();
         }
-        internal static void SalvaComputer(Computer computer, string chiave)
+        internal static void SalvaUnComputer(Computer computer, string chiave)
         {
             DataLayer.SalvaComputer(computer, chiave);
         }
@@ -199,7 +199,7 @@ namespace Banchi
         {
             DataLayer.ScriviAulaEClasse(aula, classe);
         }
-        internal static List<Aula> LeggiTutteLeAuleEClassi()
+        internal static List<Aula> LeggiTutteLeAuleConClasse()
         {
             return DataLayer.LeggiTutteLeAuleEClassiCondivise();
         }

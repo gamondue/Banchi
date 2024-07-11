@@ -79,7 +79,7 @@
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
             <Button x:Name="SegnalaButton" Height="40" Width="90" Content="Segnala" 
-                    Click="SegnalazioneWindow_click" Margin="5"
+                    Click="SegnalazioneComputerWindow_Click" Margin="5"
                     ToolTip="Segnalazione di un problema al computer (NON FUNZIONA la spedizione emai!)"/>
             <Button x:Name="SalvaButton" Height="40" Width="90" Content="Salva" 
                     Click="SalvaButton_Click" Margin="5" ToolTip="Salva i dati del computer indiati nella parte alta"/>
