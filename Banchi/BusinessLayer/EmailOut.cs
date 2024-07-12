@@ -3,13 +3,13 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
 
-namespace Banchi.BusinessLayer
+namespace Banchi
 {
-    internal static class SpeditoreEmail
+    internal static class EmailOut
     {
-        internal static void EmailSpedizioneDiretta(string destinatarioEmail, string oggettoDellEmail, string testoEmail)
+        internal static void SpedizioneDiretta(string destinatarioEmail, string oggettoDellEmail, string testoEmail)
         {
-            // metodo da aggiustare perché non funziona 
+            // !!!! TODO !!!! metodo da aggiustare perché non funziona 
             MailAddress to = new MailAddress(destinatarioEmail);
             MailAddress from = new MailAddress("sender.gamon@gmail.com");
 
@@ -23,7 +23,6 @@ namespace Banchi.BusinessLayer
             smtp.Credentials = new NetworkCredential("sender.gamon@gmail.com", "ciaoGamon");
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtp.EnableSsl = true;
-
             try
             {
                 smtp.Send(email);
@@ -43,8 +42,10 @@ namespace Banchi.BusinessLayer
             //    oraScelta + '\t' + classeScelta + '\t' + bancoScelto + '\t' +
             //    "Segnalazione di un problema su un computer");
         }
-        internal static void EmailMailkit(string destinatarioEmail, string oggettoDellEmail, string testoEmail)
+        internal static void MailKit(string destinatarioEmail, string oggettoDellEmail, string testoEmail)
         {
+            // !!!! TODO !!!! metodo da aggiustare perché non funziona 
+
             // uso di MailKit (da installare con NuGet)
             // vedi:  https://mailtrap.io/blog/csharp-send-email-gmail/
             var email = new MimeMessage();
@@ -91,7 +92,7 @@ namespace Banchi.BusinessLayer
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error l'apertura del mailer: " + ex.Message);
+                Console.WriteLine("Errore nell'apertura del mailer: " + ex.Message);
             }
         }
     }

@@ -210,14 +210,14 @@ namespace Banchi
             for (int i = NumeroIniziale; i <= NumeroFinale; i++)
             {
                 Computer computer = new Computer(SchemaPerGenerazioneNome.Replace("*", i.ToString("00")));
-                computer.MarcaComputer = DatiComputer.MarcaComputer;
+                computer.Marca = DatiComputer.Marca;
                 computer.Modello = DatiComputer.Modello;
                 computer.Processore = DatiComputer.Processore;
-                computer.TipoSistema = DatiComputer.TipoSistema;
-                string[] indirizzoIP = DatiComputer.IndirizzoIPComputer.Split('.');
-                computer.IndirizzoIPComputer = indirizzoIP[0] + "." + indirizzoIP[1] + "."
+                computer.SistemaOperativo = DatiComputer.SistemaOperativo;
+                string[] indirizzoIP = DatiComputer.IndirizzoIP.Split('.');
+                computer.IndirizzoIP = indirizzoIP[0] + "." + indirizzoIP[1] + "."
                     + indirizzoIP[2] + "." + i.ToString();
-                computer.NoteComputer = DatiComputer.NoteComputer;
+                computer.Note = DatiComputer.Note;
                 computer.Stato = DatiComputer.Stato;
                 listaComputer.Add(computer);
             }
@@ -250,6 +250,11 @@ namespace Banchi
         internal static void EliminaComputer(string codiceComputer)
         {
             DataLayer.EliminaComputer(codiceComputer);
+        }
+
+        internal static void SalvaSegnalazione(string messaggioCompleto)
+        {
+            DataLayer.SalvaSegnalazione(messaggioCompleto);
         }
     }
 }

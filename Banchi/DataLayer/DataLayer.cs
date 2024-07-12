@@ -83,7 +83,7 @@ namespace Banchi
                 a = new
                     (split[0], Convert.ToDouble(split[1]), Convert.ToDouble(split[2]),
                     Convert.ToInt32(split[3]), Convert.ToInt32(split[4]), Convert.ToInt32(split[5]));
-                // alla riga successiva arrivano i banchi (se ci sono), che hanno un tab come primo campo
+                // alla riga successiva arrivano i banchi (se ci sono), che hanno il primo campo vuoto
                 nRiga++;
                 // poi seguono i dati dei banchi, uno per riga
                 split = righeLette[nRiga].Split("\t");
@@ -191,20 +191,20 @@ namespace Banchi
         {
             // array di appoggio della dimensione giusta
             string[] arraySupporto = new string[listaComputer.Count + 1];
-            // ordina la lista per NomeDispositivo
-            listaComputer.Sort((x, y) => x.NomeDispositivo.CompareTo(y.NomeDispositivo));
+            // ordina la lista per Nome
+            listaComputer.Sort((x, y) => x.Nome.CompareTo(y.Nome));
             // prima riga di intestazione
             arraySupporto[0] = "NomeDispositivo\tMarca\tModello\tProcessore\tSistema\tIndirizzo IP\tStato\tNote\r\n";
             for (int i = 0; i < listaComputer.Count; i++)
             {
-                arraySupporto[i + 1] = listaComputer[i].NomeDispositivo.ToString()
-                    + "\t" + listaComputer[i].MarcaComputer.ToString()
+                arraySupporto[i + 1] = listaComputer[i].Nome.ToString()
+                    + "\t" + listaComputer[i].Marca.ToString()
                     + "\t" + listaComputer[i].Modello.ToString()
                     + "\t" + listaComputer[i].Processore.ToString()
-                    + "\t" + listaComputer[i].TipoSistema.ToString()
-                    + "\t" + listaComputer[i].IndirizzoIPComputer.ToString()
+                    + "\t" + listaComputer[i].SistemaOperativo.ToString()
+                    + "\t" + listaComputer[i].IndirizzoIP.ToString()
                     + "\t" + (int)listaComputer[i].Stato
-                    + "\t" + listaComputer[i].NoteComputer.ToString();
+                    + "\t" + listaComputer[i].Note.ToString();
             }
             File.WriteAllLines(FileComputerCondiviso, arraySupporto);
         }
@@ -223,7 +223,7 @@ namespace Banchi
                 if (split.Length > 1)
                 {
                     Computer c = new Computer(split[0], split[1], split[2], split[3], split[4],
-                        split[5], (Computer.cmbStatoComputer)Convert.ToInt32(split[6]),
+                        split[5], (Computer.StatoComputer)Convert.ToInt32(split[6]),
                         split[7]);
                     listaComputer.Add(c);
                 }
@@ -235,7 +235,7 @@ namespace Banchi
             List<Computer> tutti = LeggiTuttiComputer();
             foreach (Computer c in tutti)
             {
-                if (c.NomeDispositivo == NomeDispositivo)
+                if (c.Nome == NomeDispositivo)
                 {
                     return c;
                 }
@@ -377,7 +377,7 @@ namespace Banchi
         {
             foreach (Computer c in lista)
             {
-                if (c.NomeDispositivo == nomeDispositivo)
+                if (c.Nome == nomeDispositivo)
                 {
                     return c;
                 }
@@ -389,7 +389,7 @@ namespace Banchi
             List<Computer> listaTutti = LeggiTuttiComputer();
             foreach (Computer c in lista)
             {
-                Computer trovato = CercaComputer(c.NomeDispositivo, listaTutti);
+                Computer trovato = CercaComputer(c.Nome, listaTutti);
                 if (trovato == null)
                 {
                     // aggiungo il computer alla lista, perchè non c'era
@@ -409,14 +409,19 @@ namespace Banchi
             List<Computer> listaTutti = LeggiTuttiComputer();
             for (int i = 0; i < listaTutti.Count; i++)
             {
-                Computer trovato = CercaComputer(listaTutti[i].NomeDispositivo, listaTutti);
-                if (trovato != null && trovato.NomeDispositivo == codiceComputer)
+                Computer trovato = CercaComputer(listaTutti[i].Nome, listaTutti);
+                if (trovato != null && trovato.Nome == codiceComputer)
                 {
                     // tolgo il computer alla lista
                     listaTutti.Remove(listaTutti[i]);
                 }
             }
             ScriviTuttiComputer(listaTutti);
+        }
+        internal static void SalvaSegnalazione(string messaggioCompleto)
+        {
+            string pathEFile = Path.Combine(PathDatiUtente, "Segnalazioni.txt");
+            File.AppendAllText(pathEFile, messaggioCompleto + "\n\n");
         }
     }
 }

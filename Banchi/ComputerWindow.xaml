@@ -39,7 +39,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,0,0,0">
                 <TextBlock Text="Nome" />
-                <TextBox x:Name="txtNomeDispositivo" ToolTip="Nome che viene usato in rete per il computer"/>
+                <TextBox x:Name="txtNome" ToolTip="Nome che viene usato in rete per il computer"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="1" Margin="5,0,0,0">
                 <TextBlock Text="Marca"/>
@@ -55,7 +55,7 @@
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="4" Margin="5,0,0,0">
                 <TextBlock Text="Tipo Sistema"/>
-                <TextBox x:Name="txtSistema" ToolTip="Sistema operativo usato dal computer"/>
+                <TextBox x:Name="txtSistemaOperativo" ToolTip="Sistema operativo usato dal computer"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="6" Margin="5,0,0,0">
                 <TextBlock Text="Indirizzo IP"/>
@@ -64,7 +64,7 @@
             <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal"
                     Margin="5,0,5,0">
                 <Label Content="Stato" HorizontalAlignment="Center" Margin="5"></Label>
-                <ComboBox x:Name="cmbStatoComputer" Width="120" VerticalContentAlignment="Center"
+                <ComboBox x:Name="cmbStato" Width="120" VerticalContentAlignment="Center"
                           ToolTip="Condizione attuale del computer (scegliere)
                           "/>
             </StackPanel>
@@ -72,7 +72,7 @@
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical"
                     Margin="5,0,5,0">
             <Label Content="Note" HorizontalAlignment="Center"></Label>
-            <TextBox x:Name="txtNoteComputer" Height="140" TextWrapping="Wrap" Margin="5"
+            <TextBox x:Name="txtNote" Height="140" TextWrapping="Wrap" Margin="5"
                          AcceptsReturn="True" VerticalScrollBarVisibility="Visible"
                          TextChanged="Nota_TextChanged" IsReadOnly="False" ToolTip="Note sul computer">
             </TextBox>
@@ -148,14 +148,14 @@
                       VerticalScrollBarVisibility="Auto" Margin="5,5,0,0"
                       ToolTip="Elenco filtrato dei computer">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nome" Binding="{Binding NomeDispositivo}"/>
-                    <DataGridTextColumn Header="Marca" Binding="{Binding MarcaComputer}"/>
+                    <DataGridTextColumn Header="Nome" Binding="{Binding Nome}"/>
+                    <DataGridTextColumn Header="Marca" Binding="{Binding Marca}"/>
                     <DataGridTextColumn Header="Modello" Binding="{Binding Modello}"/>
                     <DataGridTextColumn Header="Processore" Binding="{Binding Processore}"/>
-                    <DataGridTextColumn Header="Tipo Sistema" Binding="{Binding TipoSistema}"/>
-                    <DataGridTextColumn Header="Indirizzo IP" Binding="{Binding IndirizzoIPComputer}"/>
+                    <DataGridTextColumn Header="Tipo Sistema" Binding="{Binding SistemaOperativo}"/>
+                    <DataGridTextColumn Header="Indirizzo IP" Binding="{Binding IndirizzoIP}"/>
                     <DataGridTextColumn Header="Stato" Binding="{Binding Stato}"/>
-                    <DataGridTextColumn Header="Note" Binding="{Binding NoteComputer}"/>
+                    <DataGridTextColumn Header="Note" Binding="{Binding Note}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Row="0" Grid.Column="1" Width="Auto">

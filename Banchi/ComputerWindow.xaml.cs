@@ -23,11 +23,11 @@ namespace Banchi
             {
                 computerCorrente = computer;
                 txtIndirizzoIp.IsReadOnly = false;
-                txtNomeDispositivo.IsReadOnly = false;
+                txtNome.IsReadOnly = false;
                 txtMarca.IsReadOnly = false;
-                txtNoteComputer.IsReadOnly = false;
+                txtNote.IsReadOnly = false;
                 txtProcessore.IsReadOnly = false;
-                txtSistema.IsReadOnly = false;
+                txtSistemaOperativo.IsReadOnly = false;
 
                 FromObjectToUi(computerCorrente);
             }
@@ -36,38 +36,41 @@ namespace Banchi
 
             listaCorrenteComputer = (List<Computer>)BusinessLayer.LeggiTuttiIComputer();
 
-            cmbStatoComputer.ItemsSource =
-                Enum.GetValues(typeof(Computer.cmbStatoComputer)).Cast<Computer.cmbStatoComputer>();
+            cmbStato.ItemsSource =
+                Enum.GetValues(typeof(Computer.StatoComputer)).Cast<Computer.StatoComputer>();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (computerCorrente != null && computerCorrente.NomeDispositivo != null)
+            if (computerCorrente != null && computerCorrente.Nome != null)
             {
-                txtFiltroComputer.Text = computerCorrente.NomeDispositivo.Substring(0, 4);
+                txtFiltroComputer.Text = computerCorrente.Nome.Substring(0, 4);
             }
         }
         private void FromObjectToUi(Computer computer)
         {
-            txtNomeDispositivo.Text = computer.NomeDispositivo;
-            txtMarca.Text = computer.MarcaComputer;
+            txtNome.Text = computer.Nome;
+            txtMarca.Text = computer.Marca;
             txtModello.Text = computer.Modello;
             txtProcessore.Text = computer.Processore;
-            txtSistema.Text = computer.TipoSistema;
-            txtIndirizzoIp.Text = computer.IndirizzoIPComputer;
-            txtNoteComputer.Text = computer.NoteComputer;
-            cmbStatoComputer.SelectedValue = computer.Stato;
+            txtSistemaOperativo.Text = computer.SistemaOperativo;
+            txtIndirizzoIp.Text = computer.IndirizzoIP;
+            txtNote.Text = computer.Note;
+            cmbStato.SelectedValue = computer.Stato;
         }
         private Computer FromUiToComputer()
         {
-            Computer computer = new(txtNomeDispositivo.Text);
-            computer.MarcaComputer = txtMarca.Text;
+            Computer computer = new(txtNome.Text);
+            computer.Marca = txtMarca.Text;
             computer.Modello = txtModello.Text;
             computer.Processore = txtProcessore.Text;
-            computer.TipoSistema = txtSistema.Text;
-            computer.IndirizzoIPComputer = txtIndirizzoIp.Text;
-            computer.NoteComputer = txtNoteComputer.Text;
-            computer.Stato = (cmbStatoComputer)cmbStatoComputer.SelectedItem;
+            computer.SistemaOperativo = txtSistemaOperativo.Text;
+            computer.IndirizzoIP = txtIndirizzoIp.Text;
+            computer.Note = txtNote.Text;
+            if (cmbStato.SelectedItem != null)
+            {
+                computer.Stato = (StatoComputer)cmbStato.SelectedItem;
+            }
             return computer;
         }
         private void SegnalazioneComputerWindow_Click(object sender, RoutedEventArgs e)
@@ -81,11 +84,11 @@ namespace Banchi
         private void ModificaComputer_Click(object sender, RoutedEventArgs e)
         {
             txtIndirizzoIp.IsReadOnly = false;
-            txtNomeDispositivo.IsReadOnly = false;
+            txtNome.IsReadOnly = false;
             txtMarca.IsReadOnly = false;
             txtProcessore.IsReadOnly = false;
             txtProcessore.IsReadOnly = false;
-            txtSistema.IsReadOnly = false;
+            txtSistemaOperativo.IsReadOnly = false;
         }
         private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
@@ -98,7 +101,7 @@ namespace Banchi
         private void SalvaButton_Click(object sender, RoutedEventArgs e)
         {
             Computer computerNuovo = FromUiToComputer();
-            BusinessLayer.SalvaUnComputer(computerNuovo, computerCorrente.NomeDispositivo);
+            BusinessLayer.SalvaUnComputer(computerNuovo, computerCorrente.Nome);
             ComputerGrid.ItemsSource = BusinessLayer.LeggiTuttiIComputer();
         }
         private void GestisciLab_Click(object sender, RoutedEventArgs e)
@@ -127,24 +130,24 @@ namespace Banchi
         }
         private void RimuoviComputer_Click(object sender, RoutedEventArgs e)
         {
-            if (txtNomeDispositivo.Text == null || txtNomeDispositivo.Text == "")
+            if (txtNome.Text == null || txtNome.Text == "")
             {
                 MessageBox.Show("Per eliminare un computer, scriverne il nome nella casella 'Nome'");
                 return;
             }
-            BusinessLayer.EliminaComputer(txtNomeDispositivo.Text);
+            BusinessLayer.EliminaComputer(txtNome.Text);
             ComputerGrid.ItemsSource = BusinessLayer.ComputerFiltrati(txtFiltroComputer.Text, listaCorrenteComputer);
         }
         private void AggiungiComputer_Click(object sender, RoutedEventArgs e)
         {
-            if (BusinessLayer.CercaComputer(txtNomeDispositivo.Text,
+            if (BusinessLayer.CercaComputer(txtNome.Text,
                 listaCorrenteComputer) != null)
             {
                 MessageBox.Show("Per aggiungere un computer, dare un nome diverso da quelli esistenti");
                 return;
             }
             Computer nuovo = FromUiToComputer();
-            BusinessLayer.SalvaUnComputer(nuovo, nuovo.NomeDispositivo);
+            BusinessLayer.SalvaUnComputer(nuovo, nuovo.Nome);
             ComputerGrid.ItemsSource = BusinessLayer.ComputerFiltrati(txtFiltroComputer.Text, listaCorrenteComputer);
         }
         private void lstComputer_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

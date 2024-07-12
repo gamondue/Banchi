@@ -157,7 +157,7 @@ namespace Banchi
             if (Computer == null)
                 testo = TroncaStringa(null); 
             else
-                testo = TroncaStringa(Computer.NomeDispositivo); 
+                testo = TroncaStringa(Computer.Nome); 
             // riga in mezzo
             // (commentare o meno la prossima istruzione se si vuole mettere la riga in mezzo)
             //testo += "\n-----";

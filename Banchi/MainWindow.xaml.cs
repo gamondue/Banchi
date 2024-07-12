@@ -435,7 +435,7 @@ namespace Banchi
                     if (b.Computer != null)
                     {
                         computerCorrente = b.Computer;
-                        txtComputer.Text = computerCorrente.NomeDispositivo;
+                        txtComputer.Text = computerCorrente.Nome;
                     }
                     else
                     {
@@ -601,7 +601,7 @@ namespace Banchi
             if (lb.SelectedItem != null)
             {
                 computerCorrente = (Computer)lb.SelectedItem;
-                txtComputer.Text = computerCorrente.NomeDispositivo;
+                txtComputer.Text = computerCorrente.Nome;
             }
         }
         private void cmbClasseUtente_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -648,9 +648,11 @@ namespace Banchi
         }
         private void MenuReport_Click(object sender, RoutedEventArgs e)
         {
+            string emailDestinazione = "gamon@ingmonti.it"; 
+            string oggettoMessaggio = "Programma 'Banchi', segnalazione di errore o richiesta di nuove funzioni";
             // spedisce la email aprendo il mailer 
-            Banchi.BusinessLayer.SpeditoreEmail.LancioDelMailerDiDefault("gamon@ingmonti.it", "Prova Oggetto",
-                "Corpo del messaggio solo testuale che sto provando a mandare.");
+            Banchi.EmailOut.LancioDelMailerDiDefault(emailDestinazione, oggettoMessaggio,
+                "Scrivere qui il testo del messaggio");
         }
     }
 }
