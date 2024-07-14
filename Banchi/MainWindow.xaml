@@ -12,7 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -40,22 +40,36 @@
                           Click="MenuReport_Click"/>
             </MenuItem>
         </Menu>
-        <StackPanel Grid.Row="1" x:Name="BarraBottoni" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" x:Name="BarraBottoni" Orientation="Horizontal" Background="WhiteSmoke">
             <!--barra delle icone e dei pulsanti -->
-            <Button x:Name="btn_Banchi" Content="Gestione banchi" Click="btn_Banchi_Click" Style="{StaticResource StileBottoni}"
-                    ToolTip="Apre la finestra che fa posizionare i banchi in un'aula"/>
-            <Button x:Name="btn_Aula" Content="Gestione aula" Click="btn_Aula_Click" Style="{StaticResource StileBottoni}"
+            <Image x:Name="btn_Aula" AutomationProperties.Name="Gestione aula" 
+                   MouseLeftButtonDown="btn_Aula_Click" Style="{StaticResource StileImmagini}"
+                   Source="\Immagini\IconaAulaVuota.png"
                     ToolTip="Apre la finestra che fa configurare le dimensioni ed i serramenti di un'aula"/>
-            <Button x:Name="btn_Computer" Content="Gestione computer" Click="btn_Computer_Click" Style="{StaticResource StileBottoni}"
-                    ToolTip="Apre la finestra che permette di gestire i computer della scuola"/>
-            <Button x:Name="btn_Classe" Content="Gestione classe" Click="btn_Classe_Click" Style="{StaticResource StileBottoni}"
-                    ToolTip="Apre la finestra che permette di gestire le classi della scuola"/>
-            <Button x:Name="btn_AssociaStudente" Content="Studente in banco" Click="btn_AssociaStudente_Click" Style="{StaticResource StileBottoni}"
-                    ToolTip="Associa lo studente selezionato al banco selezionato"/>
-            <Button x:Name="btn_AssociaComputer" Content="Computer in banco" Click="btn_AssociaComputer_Click" Style="{StaticResource StileBottoni}"
-                    ToolTip="Associa il computer selezionato al banco selezionato"/>
-            <Button x:Name="btn_DistribuisciStudenti" Content="Distribuz.stud." Click="btn_DistribuisciStudenti_Click" Style="{StaticResource StileBottoni}"
-                    ToolTip="Distribuisce automaticamente gli studenti nei banchi, secondo il criterio indicato sotto "/>
+            <Image x:Name="btn_Banchi" AutomationProperties.Name="Gestione banchi" 
+                   MouseLeftButtonDown="btn_Banchi_Click" Style="{StaticResource StileImmagini}"
+                   Source="\Immagini\IconaAulaEBanchi.png"
+                   ToolTip="Apre la finestra che fa posizionare i banchi in un'aula"/>
+            <Image x:Name="btn_Computer" AutomationProperties.Name="Gestione computer" 
+                   MouseLeftButtonDown="btn_Computer_Click" Style="{StaticResource StileImmagini}"
+                   Source="\Immagini\IconaComputer.png"
+                   ToolTip="Apre la finestra che permette di gestire i computer della scuola"/>
+            <Image x:Name="btn_Classe" AutomationProperties.Name="Gestione classe"
+                   MouseLeftButtonDown="btn_Classe_Click" Style="{StaticResource StileImmagini}"
+                   Source="\Immagini\IconaClasse.png" 
+                   ToolTip="Apre la finestra che permette di gestire le classi della scuola"/>
+            <Image x:Name="btn_AssociaStudente" AutomationProperties.Name="Studente in banco" 
+                   MouseLeftButtonDown="btn_AssociaStudente_Click" Style="{StaticResource StileImmagini}"
+                   Source="\Immagini\IconaOminoInBanco.png"
+                   ToolTip="Associa lo studente selezionato al banco selezionato"/>
+            <Image x:Name="btn_AssociaComputer" AutomationProperties.Name="Computer in banco" 
+                   MouseLeftButtonDown="btn_AssociaComputer_Click" Style="{StaticResource StileImmagini}"
+                   Source="\Immagini\IconaComputerInBanco.png"
+                   ToolTip="Associa il computer selezionato al banco selezionato"/>
+            <Image x:Name="btn_DistribuisciStudenti" AutomationProperties.Name="Distribuz.stud." 
+                   MouseLeftButtonDown="btn_DistribuisciStudenti_Click" Style="{StaticResource StileImmagini}"
+                   Source="\Immagini\IconaAulaBanchiOmini.png"
+                   ToolTip="Distribuisce automaticamente gli studenti nei banchi, secondo il criterio indicato sotto "/>
         </StackPanel>
         <StackPanel Grid.Row="2" x:Name="BarraComboBox" Orientation="Horizontal">
             <!-- barra dei combo box -->

@@ -82,7 +82,7 @@
                     Click="SegnalazioneComputerWindow_Click" Margin="5"
                     ToolTip="Segnalazione di un problema al computer (NON FUNZIONA la spedizione emai!)"/>
             <Button x:Name="SalvaButton" Height="40" Width="90" Content="Salva" 
-                    Click="SalvaButton_Click" Margin="5" ToolTip="Salva i dati del computer indiati nella parte alta"/>
+                    Click="SalvaButton_Click" Margin="5" ToolTip="Salva i dati del computer indicati nella parte alta"/>
             <Button Grid.Row="0" Grid.Column="4" Height="40" Width="90" Content="+" 
                     HorizontalAlignment="Right" Click="AggiungiComputer_Click" Margin="5"
                     ToolTip="Aggiunge un nuovo computer all'elenco dei computer"/>

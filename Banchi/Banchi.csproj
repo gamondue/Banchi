@@ -9,7 +9,7 @@
     <Copyright>CopyLeft GPL v.2</Copyright>
     <AssemblyVersion>0.0.0.1</AssemblyVersion>
     <FileVersion>0.0.0.1</FileVersion>
-    <ApplicationIcon>Immagini\IconaBanchi_Trasparente.ico</ApplicationIcon>
+    <ApplicationIcon>Immagini\IconaProgramma_Trasparente.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,8 +27,19 @@
     <None Remove="IconaBanchi_Trasparente.png" />
     <None Remove="Immagini\baldi104.jpg" />
     <None Remove="Immagini\computer.png" />
-    <None Remove="Immagini\IconaBanchi_Bianca.png" />
-    <None Remove="Immagini\IconaBanchi_Trasparente.png" />
+    <None Remove="Immagini\IconaAulaBanchiOmini.png" />
+    <None Remove="Immagini\IconaAulaEBanchi.png" />
+    <None Remove="Immagini\IconaAulaVuota.png" />
+    <None Remove="Immagini\IconaBanco.png" />
+    <None Remove="Immagini\IconaBancoComputerEOmino.png" />
+    <None Remove="Immagini\IconaClasse.png" />
+    <None Remove="Immagini\IconaComputer.png" />
+    <None Remove="Immagini\IconaComputerInBanco.png" />
+    <None Remove="Immagini\IconaOminoInBanco.png" />
+    <None Remove="Immagini\IconaOminoNero.png" />
+    <None Remove="Immagini\IconaProgramma_Bianca.ico" />
+    <None Remove="Immagini\IconaProgramma_Bianca.png" />
+    <None Remove="Immagini\IconaProgramma_Trasparente.png" />
     <None Remove="Immagini\logo.jpg" />
     <None Remove="Immagini\logoIstituto.jpg" />
     <None Remove="Immagini\logoProgramma.ico" />
@@ -38,7 +49,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Immagini\IconaBanchi_Trasparente.ico" />
+    <Resource Include="Immagini\IconaProgramma_Trasparente.ico" />
+    <Content Include="Immagini\IconaProgramma_Trasparente.ico" />
     <Content Include="Immagini\logoProgramma.ico" />
   </ItemGroup>
 
@@ -57,8 +69,19 @@
     <Resource Include="IconaBanchi_Trasparente.png" />
     <Resource Include="Immagini\baldi104.jpg" />
     <Resource Include="Immagini\computer.png" />
-    <Resource Include="Immagini\IconaBanchi_Bianca.png" />
-    <Resource Include="Immagini\IconaBanchi_Trasparente.png" />
+    <Resource Include="Immagini\IconaAulaVuota.png" />
+    <Resource Include="Immagini\IconaAulaBanchiOmini.png" />
+    <Resource Include="Immagini\IconaAulaEBanchi.png" />
+    <Resource Include="Immagini\IconaProgramma_Bianca.ico" />
+    <Resource Include="Immagini\IconaProgramma_Bianca.png" />
+    <Resource Include="Immagini\IconaProgramma_Trasparente.png" />
+    <Resource Include="Immagini\IconaBanco.png" />
+    <Resource Include="Immagini\IconaBancoComputerEOmino.png" />
+    <Resource Include="Immagini\IconaClasse.png" />
+    <Resource Include="Immagini\IconaComputer.png" />
+    <Resource Include="Immagini\IconaComputerInBanco.png" />
+    <Resource Include="Immagini\IconaOminoInBanco.png" />
+    <Resource Include="Immagini\IconaOminoNero.png" />
     <Resource Include="Immagini\logo.jpg" />
     <Resource Include="Immagini\logoIstituto.jpg" />
     <Resource Include="Immagini\logoProgramma.ico" />
